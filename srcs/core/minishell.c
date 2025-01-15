@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/15 07:31:27 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/15 07:45:36 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,22 @@ char *get_sub_command(char *input)
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	while (input[i])
 	{
+		printf("input[%d] = `%c`\n", i, input[i]);
 		if (input[i] == '\'' && !in_quotes[D_QUOTE])
 			in_quotes[S_QUOTE] = !in_quotes[S_QUOTE];
 		if (input[i] == '"' && !in_quotes[S_QUOTE])
 			in_quotes[D_QUOTE] = !in_quotes[D_QUOTE];
+		printf("fuck %d\n", input[i] == '(' && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE]);
+		printf("fuck %d\n", !in_quotes[S_QUOTE]);
+		printf("fuck %d\n", !in_quotes[D_QUOTE]);
 		if (input[i] == '(' && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
 		{
+			printf("paaaaaa %d\n", parenthese_start);
 			if (parenthese_start == 0)
+			{
 				parenthese_start = i;
+				printf("new value i: `%d`\n", parenthese_start);
+			}
 			parentheses_index++;
 		}
 		if (input[i] == ')' && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
@@ -73,7 +81,6 @@ char *get_sub_command(char *input)
 			if (parentheses_index == 0)
 				break;
 		}
-		printf("dawdaw\n");
 		i++;
 	}
 
