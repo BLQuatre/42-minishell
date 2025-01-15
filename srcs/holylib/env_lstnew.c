@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_lstnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:13:59 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 06:39:10 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/15 10:55:50 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_env	*env_lstnew(char *var)
 	t_env	*env;
 	long	equal_pos;
 
+	if (!ft_strchr(var, '='))
+		return (NULL);
 	env = malloc(sizeof(t_env));
 	if (!env)
 		return (NULL);
