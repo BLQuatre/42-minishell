@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:37:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/15 03:07:31 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/15 06:18:04 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ typedef struct s_minishell
 
 typedef struct s_env
 {
-	char			*var;
+	char			*key;
+	char			*val;
 	struct s_env	*next;
 }	t_env;
 

@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:20:05 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 03:07:26 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/15 06:25:19 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define HOLYLIB_H
 
 # include "minishell.h"
+# include "libft.h"
 
 # include <stdlib.h>
 
