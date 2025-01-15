@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/15 11:09:24 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/15 12:07:53 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ CORE_FILES		=
 PARSER_FILES	=
 EXEC_FILES		=
 HOLY_LIB_FILES	=	cmd_lstadd_back.c cmd_lstlast.c cmd_lstnew.c		\
+					cmd_lst_free.c										\
 \
 					env_lstadd_back.c env_lstlast.c env_lstnew.c		\
 					env_copy.c											\
@@ -31,6 +32,7 @@ HOLY_LIB_FILES	=	cmd_lstadd_back.c cmd_lstlast.c cmd_lstnew.c		\
 					env_lst_free.c										\
 \
 					redir_lstadd_back.c redir_lstlast.c redir_lstnew.c	\
+					redir_lst_free.c									\
 \
 
 SRCS_FILES		= $(CORE_FILES) $(HOLY_LIB_FILES) $(PARSE_FILES) $(EXEC_FILES)
