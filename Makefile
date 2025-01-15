@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+         #
+#    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/15 03:05:17 by cauvray          ###   ########.fr        #
+#    Updated: 2025/01/15 09:15:50 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ PARSER_FILES	=
 EXEC_FILES		=
 HOLY_LIB_FILES	=	cmd_lstadd_back.c cmd_lstlast.c cmd_lstnew.c \
 					env_lstadd_back.c env_lstlast.c env_lstnew.c \
-					redir_lstadd_back.c redir_lstlast.c redir_lstnew.c
+					env_lstget_by_key.c env_lstdel_by_key.c \
+					redir_lstadd_back.c redir_lstlast.c redir_lstnew.c \
+\
 
 SRCS_FILES		= $(CORE_FILES) $(HOLY_LIB_FILES) $(PARSE_FILES) $(EXEC_FILES)
 
