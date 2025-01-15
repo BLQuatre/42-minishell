@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/15 09:27:26 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/15 11:09:24 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,14 @@ LIBFT_LIB		= $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILE))
 CORE_FILES		=
 PARSER_FILES	=
 EXEC_FILES		=
-HOLY_LIB_FILES	=	cmd_lstadd_back.c cmd_lstlast.c cmd_lstnew.c				\
+HOLY_LIB_FILES	=	cmd_lstadd_back.c cmd_lstlast.c cmd_lstnew.c		\
 \
-					env_lstadd_back.c env_lstlast.c env_lstnew.c				\
-					env_lstget_by_key.c env_lstdel_by_key.c						\
-					env_lst_free.c												\
+					env_lstadd_back.c env_lstlast.c env_lstnew.c		\
+					env_copy.c											\
+					env_lstget_by_key.c env_lstdel_by_key.c				\
+					env_lst_free.c										\
 \
-					redir_lstadd_back.c redir_lstlast.c redir_lstnew.c			\
+					redir_lstadd_back.c redir_lstlast.c redir_lstnew.c	\
 \
 
 SRCS_FILES		= $(CORE_FILES) $(HOLY_LIB_FILES) $(PARSE_FILES) $(EXEC_FILES)
