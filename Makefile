@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/23 08:42:10 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/23 08:42:18 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT_DIR		= libft
 LIBFT_FILE		= libft.a
 LIBFT_LIB		= $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILE))
 
-CORE_FILES		=	minishell.c debug.c
+CORE_FILES		=	minishell.c debug.c check.c
 PARSER_FILES	=
 EXEC_FILES		=	exec.c												\
 					handle_fd.c handle_redir.c							\
