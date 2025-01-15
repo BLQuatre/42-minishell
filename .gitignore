@@ -1,0 +1,12 @@
+*.pdf
+
+.vscode/
+.tests/
+objs/
+libft/
+
+*.out
+*.o
+*.a
+
+minishell
