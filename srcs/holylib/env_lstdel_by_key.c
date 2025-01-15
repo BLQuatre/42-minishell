@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:00:40 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 09:26:29 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:11:07 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,4 @@ void	env_lstdel_by_key(t_env **lst, char *key)
 		cur = nxt ;
 		nxt = cur->next ;
 	}
-	
-	
 }
