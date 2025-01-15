@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/21 09:04:45 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/21 09:04:50 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ HOLY_LIB_FILES	=	minishell_struct.c									\
 \
 
 BUILT_IN_FILES	=	builtins_utils.c \
-					echo.c cd.c
+					echo.c cd.c pwd.c \
+\
 
 SRCS_FILES		= $(CORE_FILES) $(HOLY_LIB_FILES) $(PARSE_FILES) $(EXEC_FILES) $(BUILT_IN_FILES)
 

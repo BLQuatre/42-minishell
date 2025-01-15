@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 03:14:28 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 04:36:25 by anoteris         ###   ########.fr       */
+/*   Created: 2025/01/15 04:17:12 by anoteris          #+#    #+#             */
+/*   Updated: 2025/01/15 04:48:40 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "minishell.h"
-# include "libft.h"
+void	pwd(t_cmd *cmd)
+{
+	char	buf[BUFFER_SIZE] ;
 
-# include <stdbool.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <errno.h>
-# include <sys/wait.h>
-
-# define BUFFER_SIZE 5000
-
-// Utils
-
-int		get_argc(char *argv[]);
-
-// Builtins
-
-void	echo(t_cmd *cmd);
-void	cd(t_cmd *cmd);
-
-#endif
+	ft_bzero(buf, BUFFER_SIZE);
+	if (!getcwd(buf, BUFFER_SIZE))
+	{
+		perror("pwd");
+		cmd->exit_code = 1 ;
+		return ;
+	}
+	write(STDOUT_FILENO, buf, ft_strlen(buf));
+	write(STDOUT_FILENO, "\n", 1);
+}

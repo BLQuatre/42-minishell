@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 20:33:48 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 04:12:20 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/15 04:44:11 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	cd(t_cmd *cmd)
 		return ;
 	}
 	// modify pwd and oldpwd
-	return ;
 }
 
 // #include "holylib.h"
