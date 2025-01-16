@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:20:05 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 12:06:43 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:10:28 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include "libft.h"
 
 # include <stdlib.h>
+
+typedef struct s_minishell	t_minishell;
+typedef struct s_env		t_env;
+typedef struct s_cmd		t_cmd;
+typedef enum redir_type		t_redir_type;
+typedef struct s_redir		t_redir;
 
 // ENV
 
