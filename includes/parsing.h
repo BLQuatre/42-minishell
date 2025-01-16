@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/15 05:54:13 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/15 21:59:56 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include "libft.h"
 # include "minishell.h"
+# include "holylib.h"
 
 # define INVALID_TOKEN "😂 invalid token ! %s\n"
 
@@ -33,6 +34,7 @@ bool	is_valid_input(char *input);
 
 
 //*** DEBUG */
+void	debug(const char *tag, const char *format, ...);
 void	show_cmd(t_cmd *cmd);
 
 #endif
