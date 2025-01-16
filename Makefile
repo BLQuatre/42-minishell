@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/21 09:04:53 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/21 09:04:58 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ lib:
 		git clone $(LIBFT_URL) $(LIBFT_DIR); \
 	fi
 	@echo "$(INFO) Compiling $(LIBFT_DIR)...$(GRAY)"
-	@make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR) -j $$(nproc)
 	@echo "$(SUCCESS) $(LIBFT_DIR) compiled."
 
 $(NAME): lib $(OBJS)

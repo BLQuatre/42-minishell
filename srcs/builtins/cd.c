@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 20:33:48 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 04:44:11 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/17 00:35:13 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,44 @@ static char	*get_target(t_cmd *cmd, int argc)
 	return (target);
 }
 
-// TODO: Update the PWD env variable
-void	cd(t_cmd *cmd)
+static void	update_oldpwd_env(t_minishell *mini)
+{
+	t_env	*old_pwd ;
+	t_env	*pwd ;
+
+	pwd = env_lstget_by_key(mini->env, "PWD");
+	if (!pwd)
+		return ;
+	old_pwd = env_lstget_by_key(mini->env, "OLDPWD");
+	if (!old_pwd)
+	{
+		old_pwd = env_lstnew("OLDPWD=");
+		if (!old_pwd)
+			return ;
+		env_lstadd_back(&mini->env, old_pwd);
+	}
+	old_pwd->val = ft_strdup(pwd->val);
+}
+
+static void	update_pwd_env(t_minishell *mini)
+{
+	t_env	*pwd ;
+	char	cwd[BUFFER_SIZE];
+
+	if (!getcwd(cwd, BUFFER_SIZE))
+		return ;
+	pwd = env_lstget_by_key(mini->env, "PWD");
+	if (!pwd)
+	{
+		pwd = env_lstnew("PWD=");
+		if (!pwd)
+			return ;
+		env_lstadd_back(&mini->env, pwd);
+	}
+	pwd->val = ft_strdup(cwd);
+}
+
+void	cd(t_cmd *cmd, t_minishell *mini)
 {
 	char	*target ;
 	int		argc ;
@@ -53,60 +89,6 @@ void	cd(t_cmd *cmd)
 		cmd->exit_code = 1 ;
 		return ;
 	}
-	// modify pwd and oldpwd
+	update_oldpwd_env(mini);
+	update_pwd_env(mini);
 }
-
-// #include "holylib.h"
-// extern char **environ ;
-// int main()
-// {
-// 	t_cmd	*cmd = cmd_lstnew();
-
-// 	char *cmd_args[4];
-// 	cmd_args[0] = "cd" ;
-// 	cmd_args[1] = "prout" ;
-// 	cmd_args[2] = "pipi" ;
-// 	cmd_args[3] = NULL ;
-// 	cmd->cmd_args = cmd_args;
-
-// 	char *ls = "/bin/ls" ;
-// 	char *ls_args[2];
-// 	ls_args[0] = ls ;
-// 	ls_args[1] = NULL ;
-
-// 	int pid = fork();
-// 	if (pid == 0)
-// 		execve(ls, ls_args, environ);
-// 	wait(NULL);
-
-// 	cd(cmd);
-// 	printf("\n %d \n\n", cmd->exit_code);
-// 	pid = fork();
-// 	if (pid == 0)
-// 		execve(ls, ls_args, environ);
-// 	wait(NULL);
-
-// 	cmd->cmd_args[2] = NULL ;
-// 	cd(cmd);
-// 	printf("\n %d \n\n", cmd->exit_code);
-// 	pid = fork();
-// 	if (pid == 0)
-// 		execve(ls, ls_args, environ);
-// 	wait(NULL);
-
-// 	cmd->cmd_args[1] = "srcs" ;
-// 	cd(cmd);
-// 	printf("\n %d \n\n", cmd->exit_code);
-// 	pid = fork();
-// 	if (pid == 0)
-// 		execve(ls, ls_args, environ);
-// 	wait(NULL);
-
-// 	cmd->cmd_args[1] = NULL ;
-// 	cd(cmd);
-// 	printf("\n %d \n\n", cmd->exit_code);
-// 	pid = fork();
-// 	if (pid == 0)
-// 		execve(ls, ls_args, environ);
-// 	wait(NULL);
-// }

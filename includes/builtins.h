@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 03:14:28 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 04:36:25 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:17:17 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int		get_argc(char *argv[]);
 // Builtins
 
 void	echo(t_cmd *cmd);
-void	cd(t_cmd *cmd);
+void	cd(t_cmd *cmd, t_minishell *mini);
 
 #endif
