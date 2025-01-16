@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:39:17 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 01:02:00 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:53:19 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_cmd	*cmd_lstnew(void)
 		return (NULL);
 	cmd->redirs = NULL ;
 	cmd->cmd_args = NULL ;
+	cmd->is_subshell = false ;
 	cmd->exit_code = 0 ;
 	cmd->next_cmd = NULL ;
 	cmd->prev_cmd = NULL ;

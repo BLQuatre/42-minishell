@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:37:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/15 07:14:23 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:53:07 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "holylib.h"
+
+# include <stdbool.h>
 
 # define SHELL_PROMPT "\033[1;35mHolyShell > \033[0m"
 
@@ -34,6 +36,7 @@ typedef struct s_cmd
 {
 	struct s_redir	*redirs;
 	char			**cmd_args;
+	bool			is_subshell;
 	int				exit_code;
 	struct s_cmd	*next_cmd;
 	struct s_cmd	*prev_cmd;
