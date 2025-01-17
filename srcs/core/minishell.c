@@ -6,153 +6,131 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/16 04:27:29 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/17 03:46:07 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "assert.h"
 
-int get_open_chr_index(char *input, char open_chr, char close_chr, int depth)
+void	check_quotes(bool (*in_quotes)[2], char curr_chr)
 {
-	bool	in_quotes[2];
-	int		i;
-	int		i_depth;
-
-	i = -1;
-	i_depth = 0;
-	ft_bzero(in_quotes, sizeof(bool) * 2);
-	while (input[++i])
-	{
-		if (input[i] == '\'' && !in_quotes[D_QUOTE])
-			in_quotes[S_QUOTE] = !in_quotes[S_QUOTE];
-		if (input[i] == '"' && !in_quotes[S_QUOTE])
-			in_quotes[D_QUOTE] = !in_quotes[D_QUOTE];
-		if (input[i] == open_chr && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
-		{
-			if (i_depth == depth)
-				return (i);
-			i_depth++;
-		}
-		if (input[i] == close_chr && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
-			i_depth--;
-	}
-	return (-1);
+	if (curr_chr == '\'' && !(*in_quotes)[D_QUOTE])
+		(*in_quotes)[S_QUOTE] = !(*in_quotes)[S_QUOTE];
+	if (curr_chr == '"' && !(*in_quotes)[S_QUOTE])
+		(*in_quotes)[D_QUOTE] = !(*in_quotes)[D_QUOTE];
 }
 
-int get_close_chr_index(char *input, char open_chr, char close_chr, int depth)
+bool	is_in_quotes(bool in_quotes[2])
 {
-	bool	in_quotes[2];
+	return (in_quotes[S_QUOTE] || in_quotes[D_QUOTE]);
+}
+
+int get_close_par_index(char *input)
+{
 	int		i;
-	int		i_depth;
+	int		depth;
+	bool	in_quotes[2];
 
 	i = -1;
-	i_depth = 0;
-	ft_bzero(in_quotes, sizeof(bool) * 2);
+	depth = 0;
+	ft_bzero(in_quotes, QUOTES_BOOL_SIZE);
 	while (input[++i])
 	{
-		if (input[i] == '\'' && !in_quotes[D_QUOTE])
-			in_quotes[S_QUOTE] = !in_quotes[S_QUOTE];
-		if (input[i] == '"' && !in_quotes[S_QUOTE])
-			in_quotes[D_QUOTE] = !in_quotes[D_QUOTE];
-		if (input[i] == open_chr && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
-			i_depth++;
-		if (input[i] == close_chr && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
+		check_quotes(&in_quotes, input[i]);
+		if (is_in_quotes(in_quotes))
+			continue;
+		if (input[i] == '(')
+			depth++;
+		if (input[i] == ')')
 		{
-			i_depth--;
-			if (i_depth == depth)
+			depth--;
+			if (depth == 0)
 				return (i);
 		}
 	}
 	return (-1);
 }
 
-
-
-char *get_sub_command(char *input)
+t_cmd	parse_cmd(char *input)
 {
-	int		i;
 	bool	in_quotes[2];
-	int		p_index;
-	int		p_start;
 
-	i = -1;
-	p_index = 0;
-	p_start = 0;
-	ft_bzero(in_quotes, sizeof(bool) * 2);
-	while (input[++i])
-	{
-		if (input[i] == '\'' && !in_quotes[D_QUOTE])
-			in_quotes[S_QUOTE] = !in_quotes[S_QUOTE];
-		if (input[i] == '"' && !in_quotes[S_QUOTE])
-			in_quotes[D_QUOTE] = !in_quotes[D_QUOTE];
-		if (input[i] == '(' && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
-		{
-			if (p_start == 0)
-				p_start = i;
-			p_index++;
-		}
-		if (input[i] == ')' && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
-			break;
-	}
-	if (p_start == 0 && input[0] != '(')
-		return (NULL);
-	return (ft_substr(input, p_start + 1, i - p_start - 1));
+	if (!(*input))
+		return;
+		ft_bzero(in_quotes, QUOTES_BOOL_SIZE);
+	debug("PARSE", YELLOW, "Parsing: `%s`", input);
+	// while (*input)
 }
 
-
-
-void	handle_input(char *input, int depth)
+int	handle_cmd(char *input)
 {
-	debug("INPUT", "Received: `%s`", input);
+	bool	in_quotes[2];
+	int	i;
+
+	ft_bzero(in_quotes, QUOTES_BOOL_SIZE);
+	i = 0;
+	while (is_in_quotes(in_quotes) || (input[i] && input[i] != '(' && input[i] != ')' && ft_strncmp(input + i, "&&", 2) != 0 && ft_strncmp(input + i, "||", 2) != 0))
+	{
+		check_quotes(&in_quotes, input[i]);
+		i++;
+	}
+	parse_cmd(ft_substr(input, 0, i));
+	return (i);
+}
+
+/**
+ * @param input The input must start with open parenthese
+ * @return how many chars skipped before close parenthese
+ */
+int	handle_parentheses(char *input)
+{
+	int cl_par = get_close_par_index(input);
+
+	debug("SHELL", MAGENTA, "Creating subshell with: `%s`", ft_substr(input, 1, cl_par - 1));
+	handle_input(ft_substr(input, 1, cl_par - 1));
+	debug("SHELL", MAGENTA, "Ending subshell with: `%s`", ft_substr(input, 1, cl_par - 1));
+	return (cl_par);
+}
+
+void	handle_input(char *input)
+{
+	bool	in_quotes[2];
+
+	ft_bzero(in_quotes, QUOTES_BOOL_SIZE);
+	debug("INPUT", BLUE, "Received: `%s`", input);
 	if (!is_valid_input(input))
 		return;
-	debug("INPUT", "Valid: `%s`", input);
-
-	int i = get_open_chr_index(input, '(', ')', depth);
-	while (i >= 0)
+	debug("INPUT", GREEN, "Valid: `%s`", input);
+	while (*input)
 	{
-		handle_input(ft_substr(input, i, get_close_chr_index(input, '(', ')', depth) - i), depth + 1);
-	}
-
-	char *sub = get_sub_command(input);
-	if (sub)
-	{
-		debug("CMD", "Sub command find: `%s`", sub);
-		handle_input(sub, depth + 1);
+		check_quotes(&in_quotes, *input);
+		if (is_in_quotes(in_quotes))
+			continue;
+		if (*input == '(')
+			input += handle_parentheses(input);
+		check_quotes(&in_quotes, *input);
+		while (*input && !is_in_quotes(in_quotes) && (*input == ')' || *input == ' ' || ft_strncmp(input, "&&", 2) == 0 || ft_strncmp(input, "||", 2) == 0))
+		{
+			if (ft_strncmp(input, "&&", 2) == 0 || ft_strncmp(input, "||", 2) == 0)
+				input++;
+			input++;
+		}
+		input += handle_cmd(input);
 	}
 }
 
-
-
-
-
-void	handle_cmd()
+int	main(int argc, char *argv[])
 {
+	// FIXME: Remove when finished
+	if (argc > 1)
+	{
+		while (--argc > 0)
+			handle_input(argv[argc]);
+		return (0);
+	}
+	// END
 
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-int	main(void)
-{
 	char	*msg;
 
 	while (true)
@@ -166,76 +144,8 @@ int	main(void)
 		if (ft_strlen(msg) == 0)
 			continue;
 		add_history(msg);
-		printf("OPEN PARENTHESE DEPTH 1 index: %d\n", get_open_chr_index(msg, '(', ')', 1));
-		printf("CLOSE PARENTHESE DEPTH 1 index: %d\n", get_close_chr_index(msg, '(', ')', 1));
-		printf("OPEN PARENTHESE DEPTH 2 index: %d\n", get_open_chr_index(msg, '(', ')', 2));
-		printf("CLOSE PARENTHESE DEPTH 2 index: %d\n", get_close_chr_index(msg, '(', ')', 2));
-		// handle_input(msg, 0);
+		handle_input(msg);
 		free(msg);
 	}
 	return (0);
 }
-
-/**
-char *get_sub_command_old(char *input)
-{
-	int		i;
-	bool	in_quotes[2];
-	int		p_index;
-	int		p_start;
-
-	i = -1;
-	p_index = 0;
-	p_start = 0;
-	ft_bzero(in_quotes, sizeof(bool) * 2);
-	while (input[++i])
-	{
-		if (input[i] == '\'' && !in_quotes[D_QUOTE])
-			in_quotes[S_QUOTE] = !in_quotes[S_QUOTE];
-		if (input[i] == '"' && !in_quotes[S_QUOTE])
-			in_quotes[D_QUOTE] = !in_quotes[D_QUOTE];
-		if (input[i] == '(' && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
-		{
-			if (p_start == 0)
-				p_start = i;
-			p_index++;
-		}
-		if (input[i] == ')' && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
-			break;
-	}
-	if (p_start == 0 && input[0] != '(')
-		return (NULL);
-	return (ft_substr(input, p_start + 1, i - p_start - 1));
-}
- */
-
-/**
-char	*get_str_between(char *msg, char start_chr, char end_chr)
-{
-	int in_quotes = false;
-
-	int i;
-	int j;
-
-	i = 0;
-	while ((msg[i] && msg[i] != start_chr) || in_quotes)
-	{
-		if (isquote(msg[i]))
-			in_quotes = !in_quotes;
-		i++;
-	}
-
-	j = 0;
-	while ((msg[i + j] && msg[i + j] != end_chr) || in_quotes)
-	{
-		if (isquote(msg[i + j]))
-			in_quotes = !in_quotes;
-		j++;
-	}
-
-	// debug("DEBUG", "start: `%c` - end: `%c`\n", msg[start], msg[end]);
-	if (msg[i] == start_chr && msg[i + j] == end_chr)
-		return ft_substr(msg, i + 1, i + j - 1);
-	return (ft_strdup("sale merde"));
-}
-*/

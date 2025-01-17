@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/15 21:59:56 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/17 00:08:58 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@
 # include "minishell.h"
 # include "holylib.h"
 
+//*** MESSAGES */
 # define INVALID_TOKEN "😂 invalid token ! %s\n"
+
+# define QUOTES_BOOL_SIZE sizeof(bool) * 2
 
 typedef enum e_quote_type
 {
@@ -30,11 +33,35 @@ typedef enum e_quote_type
 	D_QUOTE
 }	t_quote_type;
 
+void	check_quotes(bool (*in_quotes)[2], char curr_chr);
+bool	is_in_quotes(bool in_quotes[2]);
+int get_close_par_index(char *input);
 bool	is_valid_input(char *input);
-
+int	handle_parentheses(char *input);
+void	handle_input(char *input);
 
 //*** DEBUG */
-void	debug(const char *tag, const char *format, ...);
+typedef enum e_color
+{
+	BLACK,
+	RED,
+	GREEN,
+	YELLOW,
+	BLUE,
+	MAGENTA,
+	CYAN,
+	WHITE,
+	BRIGHT_BLACK,
+	BRIGHT_RED,
+	BRIGHT_GREEN,
+	BRIGHT_YELLOW,
+	BRIGHT_BLUE,
+	BRIGHT_MAGENTA,
+	BRIGHT_CYAN,
+	BRIGHT_WHITE
+}	t_color;
+
+void	debug(const char *tag, t_color color, const char *format, ...);
 void	show_cmd(t_cmd *cmd);
 
 #endif

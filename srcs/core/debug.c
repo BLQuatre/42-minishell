@@ -6,19 +6,38 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:46:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/15 21:59:26 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/16 21:31:48 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	debug(const char *tag, const char *format, ...)
+const char *colors[] = {
+	"\033[30m",
+	"\033[31m",
+	"\033[32m",
+	"\033[33m",
+	"\033[34m",
+	"\033[35m",
+	"\033[36m",
+	"\033[37m",
+	"\033[90m",
+	"\033[91m",
+	"\033[92m",
+	"\033[93m",
+	"\033[94m",
+	"\033[95m",
+	"\033[96m",
+	"\033[97m"
+};
+
+void	debug(const char *tag, t_color color, const char *format, ...)
 {
 	char	buffer[1024];
 	va_list	args;
 	va_start(args, format);
 	vsnprintf(buffer, sizeof(buffer), format, args);
-	printf("\033[1;34m[DEBUG / %5.5s] \033[0m%s\n", tag, buffer);
+	printf("%s[DEBUG / %5.5s] \033[0m%s\n", colors[color], tag, buffer);
 	va_end(args);
 }
 
