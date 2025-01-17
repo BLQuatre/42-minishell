@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 03:14:28 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/17 03:45:56 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/17 07:10:48 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 // Utils
 
 int		get_argc(char *argv[]);
+void	display_environment(t_minishell *mini, char *prompt);
 
 // Builtins
 
@@ -36,5 +37,6 @@ void	cd(t_cmd *cmd, t_minishell *mini);
 void	pwd(t_cmd *cmd);
 void	export(t_cmd *cmd, t_minishell *mini);
 void	unset(t_cmd *cmd, t_minishell *mini);
+void	env(t_minishell *mini);
 
 #endif

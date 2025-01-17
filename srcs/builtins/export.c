@@ -6,23 +6,11 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 05:12:58 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/16 18:09:11 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/17 05:16:33 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-static void	display_environment(t_minishell *mini)
-{
-	t_env	*cur_env ;
-
-	cur_env = mini->env ;
-	while (cur_env)
-	{
-		printf("declare -x %s=%s\n", cur_env->key, cur_env->val);
-		cur_env = cur_env->next ;
-	}
-}
 
 static bool	is_valid_env_key(char *arg)
 {
@@ -65,7 +53,7 @@ void	export(t_cmd *cmd, t_minishell *mini)
 	argc = get_argc(cmd->cmd_args);
 	if (argc == 1)
 	{
-		display_environment(mini);
+		display_environment(mini, "declare -x ");
 		return ;
 	}
 	i = 0 ;
