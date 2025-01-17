@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:20:05 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/17 00:54:00 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/17 06:32:33 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_cmd	*cmd_lstlast(t_cmd *lst);
 void	cmd_lstadd_back(t_cmd **lst, t_cmd *new);
 void	cmd_free(t_cmd *to_free);
 void	cmd_free_lst(t_cmd *lst_to_free);
+void	cmd_free_lst_from_start(t_cmd *lst_to_free);
 
 // REDIR
 

@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:50 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 12:08:51 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/17 06:31:13 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,9 @@ void	cmd_free_lst(t_cmd *lst_to_free)
 		nxt = lst_to_free->next_cmd ;
 	}
 	cmd_free(lst_to_free);
+}
+
+void	cmd_free_lst_from_start(t_cmd *lst_to_free)
+{
+	cmd_free_lst(cmd_lstfirst(lst_to_free));
 }
