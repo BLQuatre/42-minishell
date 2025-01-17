@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:46:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/16 21:31:48 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/17 09:02:04 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,23 @@ void	show_cmd(t_cmd *cmd)
 {
 	int	i;
 	printf("t_cmd: (%p)\n{\n", cmd);
-	printf("\tredirs: SOON\n");
+	if (cmd->redirs)
+	{
+		printf("\tredirs: (%p) {\n", cmd->redirs);
+		while (cmd->redirs)
+		{
+			printf("\t\tredirs: `%d %s`\n", cmd->redirs->type, cmd->redirs->file);
+			cmd->redirs = cmd->redirs->next;
+
+		}
+		printf("\t}\n");
+	}
+	else
+		printf("\tredirs: (nil)\n");
+
 	if (cmd->cmd_args)
 	{
-		printf("\tcmd_args: (%p) {", cmd->cmd_args);
+		printf("\tcmd_args: (%p) {\n", cmd->cmd_args);
 		i = -1;
 		while (cmd->cmd_args[++i])
 			printf("\t\tcmd_args[%d]: `%s`\n", i, cmd->cmd_args[i]);

@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/17 03:46:07 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/17 11:17:58 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,112 @@ int get_close_par_index(char *input)
 	return (-1);
 }
 
-t_cmd	parse_cmd(char *input)
+char	*parse_arg(char *input, int *len)
 {
-	bool	in_quotes[2];
+	int		i;
+	char	last_quote;
 
-	if (!(*input))
-		return;
-		ft_bzero(in_quotes, QUOTES_BOOL_SIZE);
+	i = 0;
+	last_quote = 0;
+	while (input[i])
+	{
+		if (last_quote == 0 && (input[i] != ' '))
+		{
+			if (input[i] == '\'' || input[i] == '"')
+			{
+				last_quote = input[i];
+				i++;
+			}
+			else
+				last_quote = ' ';
+		}
+		while (input[i] && last_quote != 0 && input[i] != last_quote)
+			i++;
+		if (input[i] == last_quote && input[i] != ' ')
+			i++;
+		if (input[i] && (input[i] == ' ' || input[i] == '>' || input[i] == '<'))
+			break;
+	}
+	(*len) += i;
+	return (ft_substr(input, 0, i));
+}
+
+char	**cmd_add_args(char **cmd_args, char *arg)
+{
+	int		i;
+	char	**new_cmd_args;
+
+	i = 0;
+	while (cmd_args && cmd_args[i])
+		i++;
+	new_cmd_args = (char **) malloc(sizeof(char *) * (i + 2));
+	i = 0;
+	while (cmd_args && cmd_args[i])
+	{
+		new_cmd_args[i] = cmd_args[i];
+		i++;
+	}
+	new_cmd_args[i++] = arg;
+	new_cmd_args[i] = NULL;
+	free(cmd_args);
+	return (new_cmd_args);
+}
+
+t_redir_type get_redir_type(char *redir_type)
+{
+	if (ft_strncmp(redir_type, ">>", 2) == 0)
+		return (OUT_APP);
+	if (ft_strncmp(redir_type, ">", 1) == 0)
+		return (OUT_TRUNC);
+	if (ft_strncmp(redir_type, "<<", 2) == 0)
+		return (HERE_DOC);
+	if (ft_strncmp(redir_type, "<", 1) == 0)
+		return (IN);
+	return (-1);
+}
+
+t_redir	*parse_redir(char *input, int *len)
+{
+	int		redir_len;
+	char	*redir;
+
+	redir_len = 0;
+	debug("REDIR", RED, "Redirection: `%s`", input);
+	redir = parse_arg(input, &redir_len);
+	input += redir_len;
+	len += redir_len;
+	while (*input && *input == ' ')
+		input++;
+	return (redir_lstnew(get_redir_type(redir), parse_arg(input, len)));
+}
+
+t_cmd	*parse_cmd(char *input)
+{
+	int		i;
+	int		len;
+	t_cmd	*cmd;
+
+	i = 0;
+	len = 0;
+	if (!input[i])
+		return (NULL);
+	cmd = cmd_lstnew();
 	debug("PARSE", YELLOW, "Parsing: `%s`", input);
-	// while (*input)
+	while (input[i])
+	{
+		while (input[i] == ' ')
+			i++;
+		if (input[i] == 0)
+			break;
+		printf("input: %s\n", input + i);
+		if ((input + i)[0] == '>' || (input + i)[0] == '<' || (input + i)[0] == '|')
+			redir_lstadd_back(&(cmd->redirs), parse_redir(input + i, &len));
+		else
+			cmd->cmd_args = cmd_add_args(cmd->cmd_args, parse_arg(input + i, &len));
+		i += len;
+	}
+	show_cmd(cmd);
+	return (NULL);
 }
 
 int	handle_cmd(char *input)
@@ -98,10 +195,10 @@ void	handle_input(char *input)
 	bool	in_quotes[2];
 
 	ft_bzero(in_quotes, QUOTES_BOOL_SIZE);
-	debug("INPUT", BLUE, "Received: `%s`", input);
+	// debug("INPUT", BLUE, "Received: `%s`", input);
 	if (!is_valid_input(input))
 		return;
-	debug("INPUT", GREEN, "Valid: `%s`", input);
+	// debug("INPUT", GREEN, "Valid: `%s`", input);
 	while (*input)
 	{
 		check_quotes(&in_quotes, *input);
