@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/17 02:10:05 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/17 06:42:54 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ LIBFT_LIB		= $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILE))
 CORE_FILES		=
 PARSER_FILES	=
 EXEC_FILES		=
-HOLY_LIB_FILES	=	cmd_lstadd_back.c cmd_lstlast.c cmd_lstnew.c		\
+HOLY_LIB_FILES	=	minishell_struct.c									\
+\
+					cmd_lstadd_back.c cmd_lstlast.c cmd_lstnew.c		\
 					cmd_lst_free.c cmd_lstfirst.c						\
 \
 					env_lstadd_back.c env_lstlast.c env_lstnew.c		\
