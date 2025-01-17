@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 03:14:28 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/17 00:38:07 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/17 03:45:56 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	echo(t_cmd *cmd);
 void	cd(t_cmd *cmd, t_minishell *mini);
 void	pwd(t_cmd *cmd);
 void	export(t_cmd *cmd, t_minishell *mini);
+void	unset(t_cmd *cmd, t_minishell *mini);
 
 #endif
