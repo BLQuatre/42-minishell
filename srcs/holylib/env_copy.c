@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 10:59:49 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 12:10:15 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/17 06:46:52 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern char	**environ ;
 
-t_env	*copy_env(void)
+t_env	*env_copy(void)
 {
 	t_env	*head ;
 	int		i ;

@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 06:37:34 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/17 06:43:48 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/17 06:46:52 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_minishell	*minishell_new(void)
 	mini = malloc(sizeof(t_minishell));
 	if (!mini)
 		return (NULL);
-	mini->env = copy_env();
+	mini->env = env_copy();
 	mini->exit_code = 0 ;
 	return (mini);
 }
