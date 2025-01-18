@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/18 11:20:33 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/18 15:46:57 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ HOLY_LIB_FILES	=	minishell_struct.c									\
 \
 					redir_lstadd_back.c redir_lstlast.c redir_lstnew.c	\
 					redir_lst_free.c									\
+					free_and_exit.c										\
 \
 
 SRCS_FILES		= $(CORE_FILES) $(HOLY_LIB_FILES) $(PARSE_FILES) $(EXEC_FILES)

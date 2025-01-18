@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:20:05 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/18 11:19:55 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:46:41 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ typedef struct s_env		t_env;
 typedef struct s_cmd		t_cmd;
 typedef enum redir_type		t_redir_type;
 typedef struct s_redir		t_redir;
+
+// GENERAL
+
+void		free_and_exit(t_cmd *cmd, t_minishell *mini, int exit_code);
 
 // MINISHELL
 
