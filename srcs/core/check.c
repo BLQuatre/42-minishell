@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 05:17:23 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/15 06:15:44 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/17 12:39:00 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,9 @@ static int	is_valid_parentheses(char *input)
 static bool	is_valid_quote(char *input, t_quote_type quote_type)
 {
 	int	i;
-	int count;
 	bool in_quotes[2];
 
 	i = -1;
-	count = 0;
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	while (input[++i])
 	{
