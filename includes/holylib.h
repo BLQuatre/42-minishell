@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:20:05 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/18 15:46:41 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:13:23 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void		minishell_free(t_minishell *to_free);
 
 t_env		*env_lstnew(char *var);
 t_env		*env_lstlast(t_env *lst);
+int			env_lst_get_nb(t_env *env);
 void		env_lstadd_back(t_env **lst, t_env *new);
 t_env		*env_copy(void);
 t_env		*env_lstget_by_key(t_env *lst, char *key);
