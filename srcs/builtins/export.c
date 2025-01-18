@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 05:12:58 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/18 05:01:12 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/18 05:05:55 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ void	export(t_cmd *cmd, t_minishell *mini)
 		}
 		else if (ft_strchr(cmd->cmd_args[i], '='))
 			replace_or_add(cmd->cmd_args[i], mini);
-	} 
+	}
 }
