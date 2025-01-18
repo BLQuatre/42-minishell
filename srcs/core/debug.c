@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:46:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/17 09:02:04 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/18 12:11:42 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ const char *colors[] = {
 	"\033[97m"
 };
 
+const char *redirs_type[] = {
+	"<",
+	"<<",
+	">",
+	">>"
+};
+
 void	debug(const char *tag, t_color color, const char *format, ...)
 {
 	char	buffer[1024];
@@ -47,10 +54,10 @@ void	show_cmd(t_cmd *cmd)
 	printf("t_cmd: (%p)\n{\n", cmd);
 	if (cmd->redirs)
 	{
-		printf("\tredirs: (%p) {\n", cmd->redirs);
+		printf("\tredirs: (%p)\n\t{\n", cmd->redirs);
 		while (cmd->redirs)
 		{
-			printf("\t\tredirs: `%d %s`\n", cmd->redirs->type, cmd->redirs->file);
+			printf("\t\tredirs: `%s %s`\n", redirs_type[cmd->redirs->type], cmd->redirs->file);
 			cmd->redirs = cmd->redirs->next;
 
 		}
@@ -61,7 +68,7 @@ void	show_cmd(t_cmd *cmd)
 
 	if (cmd->cmd_args)
 	{
-		printf("\tcmd_args: (%p) {\n", cmd->cmd_args);
+		printf("\tcmd_args: (%p)\n\t{\n", cmd->cmd_args);
 		i = -1;
 		while (cmd->cmd_args[++i])
 			printf("\t\tcmd_args[%d]: `%s`\n", i, cmd->cmd_args[i]);

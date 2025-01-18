@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/17 11:17:58 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/18 12:30:09 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,20 @@ int get_close_par_index(char *input)
 	}
 	return (-1);
 }
+// TODO: add copy env to function parameter
+char	*parse_env(char *input, t_env *env)
+{
+	(void) env;
+	if (input[0] == '\'')
+		return (ft_substr(input, 1, ft_strlen(input) -2));
+	debug("PARSE", BRIGHT_RED,"Parsing env in: `%s`", input);
+
+	// TODO: Do env var
+	if (input[0] == '"')
+		return (ft_substr(input, 1, ft_strlen(input) -2));
+	else
+		return (input);
+}
 
 char	*parse_arg(char *input, int *len)
 {
@@ -59,6 +73,7 @@ char	*parse_arg(char *input, int *len)
 
 	i = 0;
 	last_quote = 0;
+	debug("PARSE", RED, "Parsing arg: `%s`", input);
 	while (input[i])
 	{
 		if (last_quote == 0 && (input[i] != ' '))
@@ -76,10 +91,14 @@ char	*parse_arg(char *input, int *len)
 		if (input[i] == last_quote && input[i] != ' ')
 			i++;
 		if (input[i] && (input[i] == ' ' || input[i] == '>' || input[i] == '<'))
+		{
+			if (ft_strncmp(input + i, "&&", 2) == 0 || ft_strncmp(input + i, "||", 2) == 0)
+				i++;
 			break;
+		}
 	}
 	(*len) += i;
-	return (ft_substr(input, 0, i));
+	return (parse_env(ft_substr(input, 0, i), env_copy()));
 }
 
 char	**cmd_add_args(char **cmd_args, char *arg)
@@ -103,16 +122,16 @@ char	**cmd_add_args(char **cmd_args, char *arg)
 	return (new_cmd_args);
 }
 
-t_redir_type get_redir_type(char *redir_type)
+t_redir_type get_redir_type(char *input)
 {
-	if (ft_strncmp(redir_type, ">>", 2) == 0)
-		return (OUT_APP);
-	if (ft_strncmp(redir_type, ">", 1) == 0)
-		return (OUT_TRUNC);
-	if (ft_strncmp(redir_type, "<<", 2) == 0)
+	if (ft_strncmp(input, "<<", 2) == 0)
 		return (HERE_DOC);
-	if (ft_strncmp(redir_type, "<", 1) == 0)
+	if (ft_strncmp(input, "<", 1) == 0)
 		return (IN);
+	if (ft_strncmp(input, ">>", 2) == 0)
+		return (OUT_APP);
+	if (ft_strncmp(input, ">", 1) == 0)
+		return (OUT_TRUNC);
 	return (-1);
 }
 
@@ -122,23 +141,25 @@ t_redir	*parse_redir(char *input, int *len)
 	char	*redir;
 
 	redir_len = 0;
-	debug("REDIR", RED, "Redirection: `%s`", input);
+	debug("REDIR", BRIGHT_CYAN, "Redirection: `%s`", input);
 	redir = parse_arg(input, &redir_len);
 	input += redir_len;
-	len += redir_len;
+	(*len) += redir_len;
 	while (*input && *input == ' ')
+	{
+		(*len)++;
 		input++;
+	}
+	// TODO: protect function from < 0 redir type
 	return (redir_lstnew(get_redir_type(redir), parse_arg(input, len)));
 }
 
 t_cmd	*parse_cmd(char *input)
 {
 	int		i;
-	int		len;
 	t_cmd	*cmd;
 
 	i = 0;
-	len = 0;
 	if (!input[i])
 		return (NULL);
 	cmd = cmd_lstnew();
@@ -149,12 +170,12 @@ t_cmd	*parse_cmd(char *input)
 			i++;
 		if (input[i] == 0)
 			break;
-		printf("input: %s\n", input + i);
+		// printf("input: ²%s²\n", input + i);
 		if ((input + i)[0] == '>' || (input + i)[0] == '<' || (input + i)[0] == '|')
-			redir_lstadd_back(&(cmd->redirs), parse_redir(input + i, &len));
+			redir_lstadd_back(&(cmd->redirs), parse_redir(input + i, &i));
 		else
-			cmd->cmd_args = cmd_add_args(cmd->cmd_args, parse_arg(input + i, &len));
-		i += len;
+			cmd->cmd_args = cmd_add_args(cmd->cmd_args, parse_arg(input + i, &i));
+		// debug("PARSE", RED, "i: %d", i);
 	}
 	show_cmd(cmd);
 	return (NULL);
@@ -165,6 +186,7 @@ int	handle_cmd(char *input)
 	bool	in_quotes[2];
 	int	i;
 
+	debug("HNDLG", BLUE, "Handling cmd: `%s`", input);
 	ft_bzero(in_quotes, QUOTES_BOOL_SIZE);
 	i = 0;
 	while (is_in_quotes(in_quotes) || (input[i] && input[i] != '(' && input[i] != ')' && ft_strncmp(input + i, "&&", 2) != 0 && ft_strncmp(input + i, "||", 2) != 0))
