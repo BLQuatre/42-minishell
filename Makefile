@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/17 06:42:54 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/18 11:20:33 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ EXEC_FILES		=
 HOLY_LIB_FILES	=	minishell_struct.c									\
 \
 					cmd_lstadd_back.c cmd_lstlast.c cmd_lstnew.c		\
-					cmd_lst_free.c cmd_lstfirst.c						\
+					cmd_lst_free.c cmd_lstfirst.c cmd_lst_get_nb.c		\
 \
 					env_lstadd_back.c env_lstlast.c env_lstnew.c		\
 					env_copy.c											\

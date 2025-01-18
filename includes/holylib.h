@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:20:05 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/18 09:17:46 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:19:55 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void		env_free_lst(t_env *lst_to_free);
 t_cmd		*cmd_lstnew(void);
 t_cmd		*cmd_lstfirst(t_cmd *lst);
 t_cmd		*cmd_lstlast(t_cmd *lst);
+int			cmd_lst_get_nb(t_cmd *cmd);
 void		cmd_lstadd_back(t_cmd **lst, t_cmd *new);
 void		cmd_free(t_cmd *to_free);
 void		cmd_free_lst(t_cmd *lst_to_free);
