@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 05:12:58 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/17 05:16:33 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/18 05:01:12 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ static void	replace_or_add(char *cmd_args, t_minishell *mini)
 	env = env_lstget_by_key(mini->env, key);
 	free(key);
 	if (env)
+	{
+		free(env->val);
 		env->val = ft_substr(cmd_args, equal_pos + 1,
-			ft_strlen(cmd_args + equal_pos + 1));
+				ft_strlen(cmd_args + equal_pos + 1));
+	}
 	else
 		env_lstadd_back(&mini->env, env_lstnew(cmd_args));
 }

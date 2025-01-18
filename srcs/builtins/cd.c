@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 20:33:48 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/17 00:35:13 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/18 03:00:01 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	update_oldpwd_env(t_minishell *mini)
 			return ;
 		env_lstadd_back(&mini->env, old_pwd);
 	}
+	free(old_pwd->val);
 	old_pwd->val = ft_strdup(pwd->val);
 }
 
@@ -65,6 +66,7 @@ static void	update_pwd_env(t_minishell *mini)
 			return ;
 		env_lstadd_back(&mini->env, pwd);
 	}
+	free(pwd->val);
 	pwd->val = ft_strdup(cwd);
 }
 
