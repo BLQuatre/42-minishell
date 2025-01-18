@@ -6,25 +6,27 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 20:33:48 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/18 03:00:01 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/18 06:59:25 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static char	*get_target(t_cmd *cmd, int argc)
+static char	*get_target(t_cmd *cmd, t_minishell *mini, int argc)
 {
 	char	*target ;
+	t_env	*home ;
 
 	if (argc == 1)
 	{
-		target = getenv("HOME");
-		if (!target)
+		home = env_lstget_by_key(mini->env, "HOME");
+		if (!home)
 		{
 			write(STDERR_FILENO, "cd: HOME not set\n", 18);
 			cmd->exit_code = 1 ;
 			return (NULL);
 		}
+		target = home->val ;
 	}
 	if (argc == 2)
 		target = cmd->cmd_args[1];
@@ -82,7 +84,7 @@ void	cd(t_cmd *cmd, t_minishell *mini)
 		cmd->exit_code = 1 ;
 		return ;
 	}
-	target = get_target(cmd, argc);
+	target = get_target(cmd, mini, argc);
 	if (!target)
 		return ;
 	if (chdir(target) != 0)
