@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:20:05 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/18 21:13:23 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/19 18:27:55 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void		env_lstadd_back(t_env **lst, t_env *new);
 t_env		*env_copy(void);
 t_env		*env_lstget_by_key(t_env *lst, char *key);
 void		env_lstdel_by_key(t_env **lst, char *key);
+char		**env_lst_to_str_array(t_env *env);
 void		env_free(t_env *to_free);
 void		env_free_lst(t_env *lst_to_free);
 

@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/18 21:12:09 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/19 18:28:10 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ HOLY_LIB_FILES	=	minishell_struct.c									\
 					env_copy.c											\
 					env_lstget_by_key.c env_lstdel_by_key.c				\
 					env_lst_free.c										\
-					env_lst_get_nb.c									\
+					env_lst_get_nb.c env_lst_to_str_array.c				\
 \
 					redir_lstadd_back.c redir_lstlast.c redir_lstnew.c	\
 					redir_lst_free.c									\
