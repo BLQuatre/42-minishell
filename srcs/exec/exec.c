@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 15:40:55 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:42:11 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini)
 	fd_save[1] = dup(STDOUT_FILENO);
 	if (fd_save[1] == -1)
 		return (close(fd_save[0]), dup_error(cmd, mini));
-	child_fd(cmd, mini, NULL, -1);
+	handle_fd(cmd, mini, NULL, -1);
 	if (cmd->exit_code == 0)
 		builtin_exec(cmd, mini);
 	if (dup2(fd_save[0], STDIN_FILENO) == -1)
@@ -93,7 +93,7 @@ static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
 	{
 		/* CHILD */
 		free(pid);
-		child_fd(cmd, mini, fd, fd_in);
+		handle_fd(cmd, mini, fd, fd_in);
 		child_exec(cmd, mini);
 	}
 	if (fd_in != -1)
@@ -129,7 +129,7 @@ int	exec(t_minishell *mini, t_cmd *cmd)
 				cur->exit_code = 1 ;
 		}
 		else if (!IS_ALONE_BUILTIN)
-				cmd->cmd_argsexit_code = 1 ;
+				cmd->exit_code = 1 ;
 		cur = cur->next_cmd ;
 	}
 	free(pid);

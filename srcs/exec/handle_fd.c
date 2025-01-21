@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 04:31:13 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 10:13:37 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:41:22 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,16 @@ static int	dup2_fd_in(int fd_cpy[2], int fd_in)
 	return (0);
 }
 
-void	child_fd(t_cmd *cmd, t_minishell *mini, int fd[2], int fd_in)
+void	handle_fd(t_cmd *cmd, t_minishell *mini, int fd[2], int fd_in)
 {
 	int	fd_cpy[2];
 
-	// TODO: Protect dup failure
 	fd_cpy[0] = dup(STDIN_FILENO);
+	if (fd_cpy[0] == -1)
+		return (dup_error(cmd, mini));
 	fd_cpy[1] = dup(STDOUT_FILENO);
+	if (fd_cpy[1] == -1)
+		return (close(fd_cpy[0]), dup_error(cmd, mini));
 	if (cmd->next_cmd)
 		if (dup2_pipe(fd, fd_cpy, fd_in) == -1)
 			return (dup2_error(cmd, mini));
@@ -55,14 +58,4 @@ void	child_fd(t_cmd *cmd, t_minishell *mini, int fd[2], int fd_in)
 	if (handle_redir(cmd, mini, fd_cpy) == -1)
 		return ;
 	restore_std_fd(fd_cpy, cmd, mini);
-}
-
-int	get_empty_pipe_out(void)
-{
-	int	fd[2];
-
-	if (pipe(fd) == -1)
-		return (-1);
-	close(fd[1]);
-	return (fd[0]);
 }

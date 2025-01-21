@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:25:10 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 10:18:46 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:41:34 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ bool	check_perm(char *cmd, bool *found_cmd)
 		perm = !access(cmd, X_OK);
 	}
 	return (perm);
+}
+
+int	get_empty_pipe_out(void)
+{
+	int	fd[2];
+
+	if (pipe(fd) == -1)
+		return (-1);
+	close(fd[1]);
+	return (fd[0]);
 }
