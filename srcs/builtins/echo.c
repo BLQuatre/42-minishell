@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:08:55 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/15 03:57:14 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 21:41:40 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	is_flag_n(char *flag)
 {
 	int	i ;
 
-	if (!flag || flag[0] != '-')
+	if (!flag || flag[0] != '-' || flag[1] != 'n')
 		return (false);
 	i = 0 ;
 	while (flag[++i])
