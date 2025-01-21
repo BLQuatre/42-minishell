@@ -6,12 +6,12 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/20 12:46:27 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/22 00:22:15 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef PARSING_H
+# define PARSING_H
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -26,27 +26,48 @@
 //*** MESSAGES */
 # define INVALID_TOKEN "😂 invalid token ! %s\n"
 
-# define QUOTES_BOOL_SIZE sizeof(bool) * 2
-
 typedef enum e_quote_type
 {
 	S_QUOTE,
 	D_QUOTE
 }	t_quote_type;
 
+/*** INPUT */
+void	handle_input(char *input, t_minishell *mini);
+
+// TODO: Rename
+/*** CHECK */
+bool	is_valid_input(char *input);
+
+/*** ARG */
 char	*parse_arg(char *input, int *len);
 
+/*** CMD */
+int		handle_cmd(char *input, t_minishell *mini);
+t_cmd	*parse_cmd(char *input, t_minishell *mini);
 
+/*** PIPE */
+t_cmd	*handle_pipe(char *input, t_minishell *mini);
 
+/*** SUBSHELL */
+/**
+ * @param input The input must start with open parenthese
+ * @return how many chars skipped before close parenthese
+ */
+int		handle_parentheses(char *input, t_minishell *mini);
 
+/*** QUOTES */
 void	check_quotes(bool (*in_quotes)[2], char curr_chr);
 bool	is_in_quotes(bool in_quotes[2]);
-int get_close_par_index(char *input);
-bool	is_valid_input(char *input);
-int	handle_parentheses(char *input);
-void	handle_input(char *input);
 
-//*** DEBUG */
+/*** REDIR */
+t_redir	*parse_redir(char *input, int *len);
+
+/*** ENV */
+char	*parse_env(char *input, t_minishell *mini);
+void	handle_env(t_cmd *cmd, t_minishell *mini);
+
+/*** DEBUG */
 typedef enum e_color
 {
 	BLACK,
