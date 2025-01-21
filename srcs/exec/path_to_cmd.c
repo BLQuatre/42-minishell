@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:03:35 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/20 00:49:14 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:23:22 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ static char	*local_cmd(char *cmd)
 	found_cmd = false ;
 	if (check_perm(cmd, &found_cmd))
 		return (ft_strdup(cmd));
-	else
-		return (NULL);
+	if (found_cmd)
+		errno = EACCES ;
+	return (NULL);
 }
 
 static char	*get_path_cmd(char *path, char *cmd)
@@ -34,7 +35,7 @@ static char	*get_path_cmd(char *path, char *cmd)
 	return (res);
 }
 
-static char	*non_local_cmd(char *cmd)
+static char	*non_local_cmd(char *cmd, t_minishell *mini)
 {
 	char	**paths ;
 	int		i ;
@@ -42,7 +43,7 @@ static char	*non_local_cmd(char *cmd)
 	bool	found_cmd ;
 
 	found_cmd = false ;
-	paths = get_all_paths();
+	paths = get_all_paths(mini);
 	i = -1 ;
 	while (paths && paths[++i])
 	{
@@ -58,19 +59,19 @@ static char	*non_local_cmd(char *cmd)
 	return (NULL);
 }
 
-static char	*get_valid_path_cmd(char *cmd)
+static char	*get_valid_path_cmd(char *cmd, t_minishell *mini)
 {
 	if (ft_strchr(cmd, '/'))
 		return (local_cmd(cmd));
 	else
-		return (non_local_cmd(cmd));
+		return (non_local_cmd(cmd, mini));
 }
 
-void	add_path_to_cmd(t_cmd *cmd)
+void	add_path_to_cmd(t_cmd *cmd, t_minishell *mini)
 {
 	char	*tmp ;
 
-	tmp = get_valid_path_cmd(cmd->cmd_args[0]);
+	tmp = get_valid_path_cmd(cmd->cmd_args[0], mini);
 	if (!tmp)
 	{
 		if (!errno)

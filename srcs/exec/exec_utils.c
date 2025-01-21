@@ -6,13 +6,11 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:25:10 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 16:41:34 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:13:17 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-extern char	**environ ;
 
 void	restore_std_fd(int fd_cpy[2], t_cmd *cmd, t_minishell *mini)
 {
@@ -30,23 +28,20 @@ void	restore_std_fd(int fd_cpy[2], t_cmd *cmd, t_minishell *mini)
 	close(fd_cpy[1]);
 }
 
-char	**get_all_paths(void)
+char	**get_all_paths(t_minishell *mini)
 {
+	t_env	*env ;
 	char	**paths ;
-	int		i ;
 
-	paths = NULL ;
-	i = 0;
-	while (environ[i] && ft_strncmp(environ[i], "PATH=", 5))
-		i++;
-	if (environ[i])
-		paths = ft_split(&environ[i][5], ':');
-	if (!paths)
+	env = env_lstget_by_key(mini->env, "PATH");
+	if (!env)
 	{
 		paths = malloc(2 * sizeof(char *));
 		paths[0] = ft_strdup(".");
 		paths[1] = NULL;
 	}
+	else
+		paths = ft_split(env->val, ':');
 	return (paths);
 }
 

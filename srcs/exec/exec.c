@@ -6,13 +6,11 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 16:42:11 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:21:37 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-extern char	**environ ;
 
 static void	builtin_exec(t_cmd *cmd, t_minishell *mini)
 {
@@ -58,14 +56,14 @@ static void	child_exec(t_cmd *cmd, t_minishell *mini)
 		builtin_exec(cmd, mini);
 		exit(cmd->exit_code);
 	}
-	add_path_to_cmd(cmd);
+	add_path_to_cmd(cmd, mini);
 	if (!cmd->cmd_args)
 	{
 		if (errno == EACCES)
 			free_and_exit(cmd, mini, EXIT_NO_PERM);
 		free_and_exit(cmd, mini, EXIT_CMD_NOT_FOUND);
 	}
-	execve(cmd->cmd_args[0], cmd->cmd_args, environ);
+	execve(cmd->cmd_args[0], cmd->cmd_args, env_lst_to_str_array(mini->env));
 	if (errno == ENOEXEC)
 		free_and_exit(cmd, mini, EXIT_NO_PERM);
 	free_and_exit(cmd, mini, EXIT_FAILURE);
