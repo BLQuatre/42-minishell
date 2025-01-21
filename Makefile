@@ -6,13 +6,13 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/21 09:05:10 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/21 09:06:57 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 LFLAGS			= -lreadline
 
 LIBFT_URL		= https://github.com/ft-NotArt/0_Libft
@@ -22,7 +22,12 @@ LIBFT_LIB		= $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILE))
 
 CORE_FILES		=
 PARSER_FILES	=
-EXEC_FILES		=
+EXEC_FILES		=	exec.c												\
+					handle_fd.c handle_redir.c							\
+					exec_error.c exec_utils.c							\
+					path_to_cmd.c										\
+\
+
 HOLY_LIB_FILES	=	minishell_struct.c									\
 \
 					cmd_lstadd_back.c cmd_lstlast.c cmd_lstnew.c		\
@@ -52,7 +57,7 @@ OBJS_FILES		= $(SRCS_FILES:.c=.o)
 OBJS			= $(addprefix $(OBJS_DIR)/, $(OBJS_FILES))
 
 INC_DIR			= includes
-INC_FLAGS		= -I $(INC_DIR) -I $(LIBFT_DIR)
+INC_FLAGS		= -I $(INC_DIR) -I $(LIBFT_DIR) -I $(LIBFT_DIR)/gnl
 
 GREEN			= \033[0;32m
 CYAN			= \033[0;36m
