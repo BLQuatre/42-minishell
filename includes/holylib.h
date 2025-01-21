@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:20:05 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 08:06:47 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 08:53:49 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft.h"
 
 # include <stdlib.h>
+# include <stdbool.h>
 
 typedef struct s_minishell	t_minishell;
 typedef struct s_env		t_env;
@@ -26,6 +27,7 @@ typedef struct s_redir		t_redir;
 
 // GENERAL
 
+bool		is_builtin(char *cmd);
 void		free_and_exit(t_cmd *cmd, t_minishell *mini, int exit_code);
 void		exit_from_child(t_cmd *cmd, t_minishell *mini, int exit_code);
 
