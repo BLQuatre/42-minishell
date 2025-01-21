@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 10:29:14 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:40:55 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini)
 	if (fd_save[1] == -1)
 		return (close(fd_save[0]), dup_error(cmd, mini));
 	child_fd(cmd, mini, NULL, -1);
-	if (!cmd->exit_code)
+	if (cmd->exit_code == 0)
 		builtin_exec(cmd, mini);
 	if (dup2(fd_save[0], STDIN_FILENO) == -1)
 		return (close(fd_save[0]), close(fd_save[1]), dup2_error(cmd, mini));
@@ -66,8 +66,9 @@ static void	child_exec(t_cmd *cmd, t_minishell *mini)
 		free_and_exit(cmd, mini, EXIT_CMD_NOT_FOUND);
 	}
 	execve(cmd->cmd_args[0], cmd->cmd_args, environ);
-	// TODO: check that
-	// exec_error(arg, cmd_args, pid);
+	if (errno == ENOEXEC)
+		free_and_exit(cmd, mini, EXIT_NO_PERM);
+	free_and_exit(cmd, mini, EXIT_FAILURE);
 }
 
 static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
@@ -114,18 +115,21 @@ int	exec(t_minishell *mini, t_cmd *cmd)
 	ft_memset(pid, -1, (cmd_nb) * sizeof(pid_t));
 
 	recursive_pipex(cmd_lstlast(cmd), mini, pid);
-	
+
 	i = -1 ;
 	cur = cmd ;
 	while (++i < cmd_nb)
 	{
-		// TODO: ?? if (pid[i] != -1)
-		waitpid(pid[i], &cur->exit_code, 0);
-		if (WIFEXITED(cur->exit_code))
-			cur->exit_code = (WEXITSTATUS(cur->exit_code));
-		else
-			cur->exit_code = 0 ; // Which exit_code in this case ? -1 ?
-		// ?? ?? ?? then maybe : else exit_code = (?)
+		if (pid[i] != -1)
+		{
+			waitpid(pid[i], &cur->exit_code, 0);
+			if (WIFEXITED(cur->exit_code))
+				cur->exit_code = (WEXITSTATUS(cur->exit_code));
+			else
+				cur->exit_code = 1 ;
+		}
+		else if (!IS_ALONE_BUILTIN)
+				cmd->cmd_argsexit_code = 1 ;
 		cur = cur->next_cmd ;
 	}
 	free(pid);

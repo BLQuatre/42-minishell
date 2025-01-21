@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:16:50 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 10:32:14 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:41:12 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ bool	check_perm(char *cmd, bool *found_cmd);
 
 // ERROR
 
-// void	exec_error(t_args *arg, char **cmd_args, int *pid);
 int		pipe_error(int fd_in);
 void	dup_error(t_cmd *cmd, t_minishell *mini);
 void	dup2_error(t_cmd *cmd, t_minishell *mini);

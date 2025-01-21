@@ -6,23 +6,11 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 20:23:22 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 10:23:55 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:40:30 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-// Only handling errno 'ENOEXEC 8 Exec format error'
-// as idk what else could make execve fail
-// void	exec_error(t_args *arg, char **cmd_args, int *pid)
-// {
-// 	free_str_array(cmd_args);
-// 	free(arg);
-// 	free(pid);
-// 	if (errno == ENOEXEC)
-// 		exit(EXIT_NO_PERM);
-// 	exit(EXIT_FAILURE);
-// }
 
 void	dup_error(t_cmd *cmd, t_minishell *mini)
 {
