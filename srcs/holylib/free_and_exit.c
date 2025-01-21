@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:44:55 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 08:06:15 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 09:51:46 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	free_and_exit(t_cmd *cmd, t_minishell *mini, int exit_code)
 // and alone builtins in a general way
 void	exit_from_child(t_cmd *cmd, t_minishell *mini, int exit_code)
 {
-	if (!IS_ALONE_BUILTIN)
+	if (IS_ALONE_BUILTIN)
+		cmd->exit_code = 1 ;
+	else
 		free_and_exit(cmd, mini, exit_code);
 }
