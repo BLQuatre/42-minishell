@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:37:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/16 18:53:07 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 07:48:33 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdbool.h>
 
 # define SHELL_PROMPT "\033[1;35mHolyShell > \033[0m"
+
+# define IS_ALONE_BUILTIN is_builtin(cmd->cmd_args[0]) && !cmd->prev_cmd && !cmd->next_cmd
 
 typedef struct s_minishell
 {
