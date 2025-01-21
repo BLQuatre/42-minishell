@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 20:23:22 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/20 07:57:14 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:23:55 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,16 @@
 // 	exit(EXIT_FAILURE);
 // }
 
+void	dup_error(t_cmd *cmd, t_minishell *mini)
+{
+	perror("cannot duplicate fd:");
+	exit_from_child(cmd, mini, EXIT_FAILURE);
+}
+
 void	dup2_error(t_cmd *cmd, t_minishell *mini)
 {
 	perror("redirection error: cannot duplicate fd:");
-	free_and_exit(cmd, mini, EXIT_FAILURE);
+	exit_from_child(cmd, mini, EXIT_FAILURE);
 }
 
 int	pipe_error(int fd_in)

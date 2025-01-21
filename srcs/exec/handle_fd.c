@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 04:31:13 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/20 07:54:27 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:13:37 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,17 @@ void	child_fd(t_cmd *cmd, t_minishell *mini, int fd[2], int fd_in)
 {
 	int	fd_cpy[2];
 
+	// TODO: Protect dup failure
 	fd_cpy[0] = dup(STDIN_FILENO);
 	fd_cpy[1] = dup(STDOUT_FILENO);
 	if (cmd->next_cmd)
 		if (dup2_pipe(fd, fd_cpy, fd_in) == -1)
-			dup2_error(cmd, mini);
+			return (dup2_error(cmd, mini));
 	if (fd_in != -1)
 		if (dup2_fd_in(fd_cpy, fd_in) == -1)
-			dup2_error(cmd, mini);
-	handle_redir(cmd, mini, fd_cpy);
+			return (dup2_error(cmd, mini));
+	if (handle_redir(cmd, mini, fd_cpy) == -1)
+		return ;
 	restore_std_fd(fd_cpy, cmd, mini);
 }
 

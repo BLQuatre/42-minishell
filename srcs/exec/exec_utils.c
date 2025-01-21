@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:25:10 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/20 07:31:55 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:18:46 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,14 @@ void	restore_std_fd(int fd_cpy[2], t_cmd *cmd, t_minishell *mini)
 {
 	if (dup2(fd_cpy[0], STDIN_FILENO) == -1)
 	{
-		perror("redirection error: cannot duplicate fd:");
 		(close(fd_cpy[0]), close(fd_cpy[1]));
-		free_and_exit(cmd, mini, EXIT_FAILURE);
+		return (dup2_error(cmd, mini));
 	}
 	close(fd_cpy[0]);
 	if (dup2(fd_cpy[1], STDOUT_FILENO) == -1)
 	{
-		perror("redirection error: cannot duplicate fd:");
 		close(fd_cpy[1]);
-		free_and_exit(cmd, mini, EXIT_FAILURE);
+		return (dup2_error(cmd, mini));
 	}
 	close(fd_cpy[1]);
 }

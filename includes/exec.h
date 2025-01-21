@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:16:50 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/20 07:57:22 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:32:14 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		exec(t_minishell *mini, t_cmd *cmd);
 // FD
 
 void	child_fd(t_cmd *cmd, t_minishell *mini, int fd[2], int fd_in);
-void	handle_redir(t_cmd *cmd, t_minishell *mini, int fd_cpy[2]);
+int		handle_redir(t_cmd *cmd, t_minishell *mini, int fd_cpy[2]);
 int		read_here_doc(t_redir *redir);
 void	restore_std_fd(int fd_cpy[2], t_cmd *cmd, t_minishell *mini);
 int		get_empty_pipe_out(void);
@@ -57,6 +57,7 @@ bool	check_perm(char *cmd, bool *found_cmd);
 
 // void	exec_error(t_args *arg, char **cmd_args, int *pid);
 int		pipe_error(int fd_in);
+void	dup_error(t_cmd *cmd, t_minishell *mini);
 void	dup2_error(t_cmd *cmd, t_minishell *mini);
 int		fork_error(t_cmd *cmd, int fd[2], int fd_in);
 

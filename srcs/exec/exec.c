@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 04:01:16 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:29:14 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,50 @@
 
 extern char	**environ ;
 
+static void	builtin_exec(t_cmd *cmd, t_minishell *mini)
+{
+	if (ft_strcmp(cmd->cmd_args[0], "echo") == 0)
+		echo(cmd);
+	if (ft_strcmp(cmd->cmd_args[0], "cd") == 0)
+		cd(cmd, mini);
+	if (ft_strcmp(cmd->cmd_args[0], "pwd") == 0)
+		pwd(cmd);
+	if (ft_strcmp(cmd->cmd_args[0], "export") == 0)
+		export(cmd, mini);
+	if (ft_strcmp(cmd->cmd_args[0], "unset") == 0)
+		unset(cmd, mini);
+	if (ft_strcmp(cmd->cmd_args[0], "env") == 0)
+		env(mini);
+	if (ft_strcmp(cmd->cmd_args[0], "exit") == 0)
+		my_exit(cmd, mini);
+}
+
+static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini)
+{
+	int	fd_save[2];
+
+	fd_save[0] = dup(STDIN_FILENO);
+	if (fd_save[0] == -1)
+		return (dup_error(cmd, mini));
+	fd_save[1] = dup(STDOUT_FILENO);
+	if (fd_save[1] == -1)
+		return (close(fd_save[0]), dup_error(cmd, mini));
+	child_fd(cmd, mini, NULL, -1);
+	if (!cmd->exit_code)
+		builtin_exec(cmd, mini);
+	if (dup2(fd_save[0], STDIN_FILENO) == -1)
+		return (close(fd_save[0]), close(fd_save[1]), dup2_error(cmd, mini));
+	dup2(fd_save[1], STDOUT_FILENO);
+		return (close(fd_save[1]), dup2_error(cmd, mini));
+}
+
 static void	child_exec(t_cmd *cmd, t_minishell *mini)
 {
+	if (is_builtin(cmd->cmd_args[0]))
+	{
+		builtin_exec(cmd, mini);
+		exit(cmd->exit_code);
+	}
 	add_path_to_cmd(cmd);
 	if (!cmd->cmd_args)
 	{
@@ -34,13 +76,15 @@ static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
 	int			fd_in;
 	int			cmd_index;
 
-	cmd_index = cmd_lst_get_nb(cmd) - 1 ;
 	fd_in = -1 ;
 	if (cmd->prev_cmd)
 		fd_in = recursive_pipex(cmd->prev_cmd, mini, pid);
 
 	if (cmd->next_cmd && pipe(fd) == -1)
 		return (pipe_error(fd_in));
+	cmd_index = cmd_lst_get_nb(cmd) - 1 ;
+	if (IS_ALONE_BUILTIN)
+		return (alone_builtin_exec(cmd, mini), 0);
 	pid[cmd_index] = fork();
 	if (pid[cmd_index] < 0)
 		return (fork_error(cmd, fd, fd_in));
@@ -75,11 +119,13 @@ int	exec(t_minishell *mini, t_cmd *cmd)
 	cur = cmd ;
 	while (++i < cmd_nb)
 	{
+		// TODO: ?? if (pid[i] != -1)
 		waitpid(pid[i], &cur->exit_code, 0);
 		if (WIFEXITED(cur->exit_code))
 			cur->exit_code = (WEXITSTATUS(cur->exit_code));
 		else
-			cur->exit_code = 0 ;
+			cur->exit_code = 0 ; // Which exit_code in this case ? -1 ?
+		// ?? ?? ?? then maybe : else exit_code = (?)
 		cur = cur->next_cmd ;
 	}
 	free(pid);
