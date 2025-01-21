@@ -6,12 +6,19 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/18 12:30:09 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/21 12:32:43 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "assert.h"
+
+int	ft_max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
 
 void	check_quotes(bool (*in_quotes)[2], char curr_chr)
 {
@@ -54,16 +61,37 @@ int get_close_par_index(char *input)
 // TODO: add copy env to function parameter
 char	*parse_env(char *input, t_env *env)
 {
+	int	i;
+	int	len;
+
 	(void) env;
 	if (input[0] == '\'')
 		return (ft_substr(input, 1, ft_strlen(input) -2));
 	debug("PARSE", BRIGHT_RED,"Parsing env in: `%s`", input);
+	i = 0;
+	while(input[i])
+	{
+		if (input[i] == '"')
+			i++;
+		else if (input[i] == '$')
+		{
+			len = 0;
+			while (input[i + len] && ft_isalnum(input[i + len]))
+				len++;
+			t_env *env_value = env_lstget_by_key(env, ft_substr(input + i + 1, 0, len));
+			if (env_value)
+		}
+		else
+			i++;
+
+	}
+	return (ft_strdup(""));
 
 	// TODO: Do env var
-	if (input[0] == '"')
-		return (ft_substr(input, 1, ft_strlen(input) -2));
-	else
-		return (input);
+	// if (input[0] == '"')
+	// 	return (ft_substr(input, 1, ft_strlen(input) -2));
+	// else
+	// 	return (input);
 }
 
 char	*parse_arg(char *input, int *len)

@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/17 12:38:37 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/20 12:46:27 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ typedef enum e_quote_type
 	S_QUOTE,
 	D_QUOTE
 }	t_quote_type;
+
+char	*parse_arg(char *input, int *len);
+
+
+
 
 void	check_quotes(bool (*in_quotes)[2], char curr_chr);
 bool	is_in_quotes(bool in_quotes[2]);
