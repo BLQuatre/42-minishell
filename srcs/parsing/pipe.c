@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:07:43 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/22 00:43:06 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/22 09:32:57 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ t_cmd	*handle_pipe(char *input, t_minishell *mini)
 	while (input[i])
 	{
 		check_quotes(&in_quotes, input[i]);
-		printf("LETTER[%d] = %c (%s)\n", i, input[i], input);
-		if ((input[i] == '|' || !input[i + 1]) && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
+		if ((input[i] == '|' || !input[i + 1])
+			&& !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
 		{
 			if (!input[i + 1])
 				i++;
-			printf("HERE %s\n", ft_substr(input, 0, i));
 			cmd_lstadd_back(&cmd, parse_cmd(ft_substr(input, 0, i), mini));
 			if (input[i] == '|')
 				i++;
