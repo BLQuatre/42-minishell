@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:17:07 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 23:39:44 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 00:07:19 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,4 @@ void	handle_env(t_cmd *cmd, t_minishell *mini)
 		}
 		cmd = cmd->next_cmd;
 	}
-	debug_show_cmd(cmd);
 }
