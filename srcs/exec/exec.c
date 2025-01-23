@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/23 20:23:34 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:35:51 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "parsing.h"
 
 static void	builtin_exec(t_cmd *cmd, t_minishell *mini)
 {
@@ -63,22 +64,27 @@ static void	child_exec(t_cmd *cmd, t_minishell *mini)
 	if (cmd->exit_code != 0)
 		free_and_exit(cmd, mini, EXIT_FAILURE);
 	globstar_redirs(cmd, mini);
-	if (is_builtin(cmd->cmd_args[0]))
+	if (cmd->is_subshell)
 	{
-		builtin_exec(cmd, mini);
-		exit(cmd->exit_code);
+		handle_input(cmd->cmd_args[0], mini);
+		free_and_exit(cmd, mini, mini->exit_code);
 	}
-	add_path_to_cmd(cmd, mini);
-	if (!cmd->cmd_args)
+	else
 	{
-		if (errno == EACCES)
+		if (is_builtin(cmd->cmd_args[0]))
+			(builtin_exec(cmd, mini), exit(cmd->exit_code));
+		add_path_to_cmd(cmd, mini);
+		if (!cmd->cmd_args)
+		{
+			if (errno == EACCES)
+				free_and_exit(cmd, mini, EXIT_NO_PERM);
+			free_and_exit(cmd, mini, EXIT_CMD_NOT_FOUND);
+		}
+		execve(cmd->cmd_args[0], cmd->cmd_args, env_lst_to_str_array(mini->env));
+		if (errno == ENOEXEC)
 			free_and_exit(cmd, mini, EXIT_NO_PERM);
-		free_and_exit(cmd, mini, EXIT_CMD_NOT_FOUND);
+		free_and_exit(cmd, mini, EXIT_FAILURE);
 	}
-	execve(cmd->cmd_args[0], cmd->cmd_args, env_lst_to_str_array(mini->env));
-	if (errno == ENOEXEC)
-		free_and_exit(cmd, mini, EXIT_NO_PERM);
-	free_and_exit(cmd, mini, EXIT_FAILURE);
 }
 
 static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
@@ -94,7 +100,7 @@ static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
 	if (cmd->next_cmd && pipe(fd) == -1)
 		return (pipe_error(fd_in));
 	cmd_index = cmd_lst_get_nb(cmd) - 1 ;
-	if (IS_ALONE_BUILTIN)
+	if (IS_ALONE_BUILTIN && !cmd->is_subshell)
 		return (alone_builtin_exec(cmd, mini), 0);
 	pid[cmd_index] = fork();
 	if (pid[cmd_index] < 0)
