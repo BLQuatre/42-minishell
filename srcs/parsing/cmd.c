@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 21:31:19 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:50:46 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	handle_cmd(char *input, t_minishell *mini)
 	if (DEBUG) debug("HNDLG", BRIGHT_BLUE, "Handling cmd: `%s`", cmd_str);
 	cmd = handle_pipe(cmd_str, mini);
 	if (DEBUG) debug_show_cmd(cmd);
-	exec(mini, cmd);
+	if (cmd)
+		exec(mini, cmd);
 	return (i);
 }
