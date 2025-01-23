@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 01:37:07 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 01:55:01 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "holylib.h"
 
 //*** MESSAGES */
-# define INVALID_TOKEN "😂 invalid token ! %s\n"
+# define INVALID_TOKEN "😂 invalid token ! unexpected token%s\n"
 
 typedef enum e_quote_type
 {

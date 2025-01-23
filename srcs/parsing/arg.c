@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:33 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/21 21:32:07 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 02:36:40 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*parse_arg(char *input, int *len)
 
 	i = 0;
 	last_quote = 0;
-	debug("PARSE", RED, "Parsing arg: `%s`", input);
+	debug("ARG", RED, "Parsing arg: `%s`", input);
 	while (input[i])
 	{
 		if (last_quote == 0 && (input[i] != ' '))

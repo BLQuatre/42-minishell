@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:17:07 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 01:35:28 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 02:36:23 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	*parse_env(char *input, t_minishell *mini)
 	bool in_quotes[2];
 
 	ft_bzero(&in_quotes, sizeof(bool) * 2);
-	debug("PARSE", BRIGHT_RED,"Parsing env in: `%s`", input);
+	debug("ENV", BRIGHT_RED,"Parsing env in: `%s`", input);
 	str = ft_calloc((get_buffer_size_env(input, mini) + 1), sizeof(char));
 	input_i = 0;
 	str_i = 0;
