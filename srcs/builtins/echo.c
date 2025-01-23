@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:08:55 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 21:41:40 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/23 22:44:38 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	echo(t_cmd *cmd)
 		i = flag_n ;
 		while (cmd->cmd_args[++i])
 		{
-			write(STDOUT_FILENO, cmd->cmd_args[i], ft_strlen(cmd->cmd_args[i]));
+			ft_putstr_fd(cmd->cmd_args[i], STDOUT_FILENO);
 			if (cmd->cmd_args[i + 1])
-				write(STDOUT_FILENO, " ", 1);
+				ft_putstr_fd(" ", STDOUT_FILENO);
 		}
 	}
 	if (!flag_n)
-		write(STDOUT_FILENO, "\n", 1);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	cmd->exit_code = 0 ;
 }

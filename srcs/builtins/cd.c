@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 20:33:48 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 01:29:57 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/23 22:29:10 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static char	*get_target_by_env(t_cmd *cmd, t_minishell *mini, char *key)
 	env = env_lstget_by_key(mini->env, key);
 	if (!env)
 	{
-		write(STDERR_FILENO, "cd: ", 4);
-		write(STDERR_FILENO, key, ft_strlen(key));
-		write(STDERR_FILENO, " not set\n", 9);
+		ft_putstr_fd("cd :", STDERR_FILENO);
+		ft_putstr_fd(key, STDERR_FILENO);
+		ft_putstr_fd(" not set\n", STDERR_FILENO);
 		cmd->exit_code = 1 ;
 		return (NULL);
 	}
@@ -89,7 +89,7 @@ void	cd(t_cmd *cmd, t_minishell *mini)
 	argc = get_argc(cmd->cmd_args);
 	if (argc > 2)
 	{
-		write(STDERR_FILENO, "cd: too many arguments\n", 23);
+		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
 		cmd->exit_code = 1 ;
 		return ;
 	}
@@ -101,7 +101,7 @@ void	cd(t_cmd *cmd, t_minishell *mini)
 		oldpwd_buf[0] = '\0' ;
 	if (chdir(target) != 0)
 	{
-		(write(STDERR_FILENO, "cd: ", 4), perror(target));
+		(ft_putstr_fd("cd: ", STDERR_FILENO), perror(target));
 		cmd->exit_code = 1 ;
 		return ;
 	}

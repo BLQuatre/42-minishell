@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 04:17:12 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/18 05:06:05 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/23 22:45:03 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	pwd(t_cmd *cmd)
 		cmd->exit_code = 1 ;
 		return ;
 	}
-	write(STDOUT_FILENO, buf, ft_strlen(buf));
-	write(STDOUT_FILENO, "\n", 1);
+	ft_putstr_fd(buf, STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
 }

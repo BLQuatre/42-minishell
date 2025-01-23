@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 05:12:58 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/18 05:05:55 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/23 22:30:27 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	export(t_cmd *cmd, t_minishell *mini)
 	{
 		if (!is_valid_env_key(cmd->cmd_args[i]))
 		{
-			write(STDERR_FILENO, "export: `", 9);
-			write(STDERR_FILENO, cmd->cmd_args[i], ft_strlen(cmd->cmd_args[i]));
-			write(STDERR_FILENO, "': not a valid identifier\n", 26);
+			ft_putstr_fd("export: `", STDERR_FILENO);
+			ft_putstr_fd(cmd->cmd_args[i], STDERR_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 			cmd->exit_code = 1 ;
 		}
 		else if (ft_strchr(cmd->cmd_args[i], '='))
