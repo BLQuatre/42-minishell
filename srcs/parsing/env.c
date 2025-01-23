@@ -6,13 +6,13 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:17:07 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/22 09:43:50 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 01:35:28 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	get_buffer_size_env(char *input, t_minishell *mini)
+static int	get_buffer_size_env(char *input, t_minishell *mini)
 {
 	int		size;
 	int		env_len;
@@ -63,7 +63,7 @@ int	get_buffer_size_env(char *input, t_minishell *mini)
 }
 
 
-char	*parse_env(char *input, t_minishell *mini)
+static char	*parse_env(char *input, t_minishell *mini)
 {
 	int input_i;
 	int	str_i;

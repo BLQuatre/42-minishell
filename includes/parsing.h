@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/22 00:22:15 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 01:37:07 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ bool	is_in_quotes(bool in_quotes[2]);
 t_redir	*parse_redir(char *input, int *len);
 
 /*** ENV */
-char	*parse_env(char *input, t_minishell *mini);
 void	handle_env(t_cmd *cmd, t_minishell *mini);
+
+/*** WILDCARD */
+void	handle_wildcard(t_cmd *cmd);
 
 /*** DEBUG */
 typedef enum e_color
