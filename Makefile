@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/23 08:42:18 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/23 08:43:33 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,9 @@ LIBFT_DIR		= libft
 LIBFT_FILE		= libft.a
 LIBFT_LIB		= $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILE))
 
-CORE_FILES		=	minishell.c debug.c check.c
-PARSER_FILES	=
+CORE_FILES		=	minishell.c debug.c
+PARSING_FILES	=	arg.c check.c cmd.c env.c input.c pipe.c quotes.c \
+					redir.c subshell.c wildcard.c
 EXEC_FILES		=	exec.c												\
 					handle_fd.c handle_redir.c							\
 					exec_error.c exec_utils.c							\
@@ -50,7 +51,7 @@ BUILT_IN_FILES	=	builtins_utils.c \
 					echo.c cd.c pwd.c export.c unset.c env.c exit.c		\
 \
 
-SRCS_FILES		= $(CORE_FILES) $(HOLY_LIB_FILES) $(PARSE_FILES) $(EXEC_FILES) $(BUILT_IN_FILES)
+SRCS_FILES		= $(CORE_FILES) $(HOLY_LIB_FILES) $(PARSING_FILES) $(EXEC_FILES) $(BUILT_IN_FILES)
 
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
@@ -97,7 +98,7 @@ lib:
 
 $(NAME): lib $(OBJS)
 	@echo "$(INFO) Compiling $(NAME)... $(GRAY)"
-	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
 	@echo "$(SUCCESS) $(NAME) compiled."
 
 clean:

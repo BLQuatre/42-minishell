@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:17:07 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 02:36:23 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 05:38:42 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,21 @@ static int	get_buffer_size_env(char *input, t_minishell *mini)
 			if (*input && *input == '?')
 			{
 				size += ft_intlen(mini->exit_code);
-				continue;
+				continue ;
 			}
 			if (!(*input) || (*input && !ft_isalnum(*input) && *input != '_'))
 			{
 				size++;
-				continue;
+				continue ;
 			}
 			while (input[env_len] && ft_isalnum(input[env_len]))
-			{
 				env_len++;
-			}
 			env_key = ft_substr(input, 0, env_len);
 			// debug("ENV", BRIGHT_MAGENTA, "Find key : %s", env_key);
 			finded_env = env_lstget_by_key(mini->env, env_key);
 			free(env_key);
 			if (finded_env)
-			{
-				// debug("ENV", BRIGHT_MAGENTA, "Find key value : %s (Size: %d)", finded_env->val, ft_strlen(finded_env->val));
-				size += ft_strlen(finded_env->val);
-			}
+				size += ft_strlen(finded_env->val); // debug("ENV", BRIGHT_MAGENTA, "Find key value : %s (Size: %d)", finded_env->val, ft_strlen(finded_env->val));
 			input += env_len;
 		}
 		else
@@ -62,28 +57,27 @@ static int	get_buffer_size_env(char *input, t_minishell *mini)
 	return (size);
 }
 
-
 static char	*parse_env(char *input, t_minishell *mini)
 {
-	int input_i;
-	int	str_i;
-	int	len;
-	char *str;
-	char *env_key;
-	t_env *finded_env;
-	bool in_quotes[2];
+	int		input_i;
+	int		str_i;
+	int		len;
+	char	*str;
+	char	*env_key;
+	t_env	*finded_env;
+	bool	in_quotes[2];
 
+	debug("ENV", BRIGHT_RED, "Parsing env in: `%s`", input);
 	ft_bzero(&in_quotes, sizeof(bool) * 2);
-	debug("ENV", BRIGHT_RED,"Parsing env in: `%s`", input);
 	str = ft_calloc((get_buffer_size_env(input, mini) + 1), sizeof(char));
 	input_i = 0;
 	str_i = 0;
 	while (input[input_i])
 	{
 		check_quotes(&in_quotes, input[input_i]);
-		if (input[input_i] && ((input[input_i] == '"' && !in_quotes[S_QUOTE])
-			|| (input[input_i] == '\'' && !in_quotes[D_QUOTE])))
-			input_i++;
+		// if (input[input_i] && ((input[input_i] == '"' && !in_quotes[S_QUOTE])
+		// 	|| (input[input_i] == '\'' && !in_quotes[D_QUOTE])))
+		// 	input_i++;
 		if (input[input_i] && input[input_i] == '$' && !in_quotes[S_QUOTE])
 		{
 			len = 1;
@@ -93,12 +87,12 @@ static char	*parse_env(char *input, t_minishell *mini)
 				ft_memcpy(str + str_i, env_key, ft_strlen(env_key));
 				str_i += ft_strlen(env_key);
 				input_i += len + 1;
-				continue;
+				continue ;
 			}
 			if (!input[input_i + len] || (input[input_i + len] && !ft_isalnum(input[input_i + len]) && input[input_i + len] != '_'))
 			{
 				str[str_i++] = input[input_i++];
-				continue;
+				continue ;
 			}
 			while (input[input_i + len] && (ft_isalnum(input[input_i + len]) || input[input_i + len] == '_'))
 				len++;

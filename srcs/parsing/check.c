@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_rename.c                                     :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 05:17:23 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/21 16:24:07 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 05:35:54 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,33 @@ static int	is_valid_parentheses(char *input)
 	return (count);
 }
 
-static bool	is_valid_quote(char *input, t_quote_type quote_type)
+static bool	is_arg_after_redir(char *input)
+{
+	int		i;
+	bool	in_quotes[2];
+
+	i = -1;
+	if (ft_strncmp(input, ">>", 2) == 0 || ft_strncmp(input, "<<", 2) == 0)
+		i += 2;
+	else
+		i++;
+	ft_bzero(in_quotes, sizeof(bool) * 2);
+	while (input[++i])
+	{
+		check_quotes(&in_quotes, input[i]);
+		if (input[i] && (in_quotes[S_QUOTE] || in_quotes[D_QUOTE]))
+			continue ;
+		while (input[i] && input[i] == ' ')
+			i++;
+		if (input[i] != '|' && input[i] != '&'
+			&& input[i] != '<' && input[i] != '>')
+			return (true);
+		return (false);
+	}
+	return (true);
+}
+
+static bool	is_valid_redir(char *input)
 {
 	int		i;
 	bool	in_quotes[2];
@@ -46,11 +72,31 @@ static bool	is_valid_quote(char *input, t_quote_type quote_type)
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	while (input[++i])
 	{
-		if (input[i] == '\'' && !in_quotes[D_QUOTE])
-			in_quotes[S_QUOTE] = !in_quotes[S_QUOTE];
-		if (input[i] == '"' && !in_quotes[S_QUOTE])
-			in_quotes[D_QUOTE] = !in_quotes[D_QUOTE];
+		check_quotes(&in_quotes, input[i]);
+		if (input[i] && (in_quotes[S_QUOTE] || in_quotes[D_QUOTE]))
+			continue ;
+		if (input[i] == '>' || input[i] == '<'
+			|| ft_strncmp(input + i, ">>", 2) == 0
+			|| ft_strncmp(input + i, "<<", 2) == 0)
+		{
+			if (!is_arg_after_redir(input + i))
+			{
+				return (printf(INVALID_TOKEN, ""), false);
+			}
+		}
 	}
+	return (true);
+}
+
+static bool	is_valid_quote(char *input, t_quote_type quote_type)
+{
+	int		i;
+	bool	in_quotes[2];
+
+	i = -1;
+	ft_bzero(in_quotes, sizeof(bool) * 2);
+	while (input[++i])
+		check_quotes(&in_quotes, input[i]);
 	return (!in_quotes[quote_type]);
 }
 
@@ -60,12 +106,14 @@ bool	is_valid_input(char *input)
 
 	parentheses_result = is_valid_parentheses(input);
 	if (parentheses_result > 0)
-		return (printf(INVALID_TOKEN, "unexpected token \"(\""), false);
+		return (printf(INVALID_TOKEN, " \"(\""), false);
 	else if (parentheses_result < 0)
-		return (printf(INVALID_TOKEN, "unexpected token \")\""), false);
+		return (printf(INVALID_TOKEN, " \")\""), false);
 	if (!is_valid_quote(input, S_QUOTE))
-		return (printf(INVALID_TOKEN, "unexpected token \"'\""), false);
+		return (printf(INVALID_TOKEN, " \"'\""), false);
 	if (!is_valid_quote(input, D_QUOTE))
-		return (printf(INVALID_TOKEN, "unexpected token '\"'"), false);
+		return (printf(INVALID_TOKEN, " '\"'"), false);
+	if (!is_valid_redir(input))
+		return (false);
 	return (true);
 }

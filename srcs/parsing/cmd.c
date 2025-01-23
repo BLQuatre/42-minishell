@@ -6,12 +6,15 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 01:37:10 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 05:46:23 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
+/**
+ * @note arg param must be malloc
+ */
 static char	**cmd_add_args(char **cmd_args, char *arg)
 {
 	int		i;
@@ -70,6 +73,7 @@ static char	**cmd_add_args(char **cmd_args, char *arg)
 // 	show_cmd(cmd);
 // 	return (cmd);
 // }
+
 t_cmd	*parse_cmd(char *input, t_minishell *mini)
 {
 	int		i;
@@ -85,7 +89,7 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 		while (input[i] == ' ')
 			i++;
 		if (input[i] == 0)
-			break;
+			break ;
 		// printf("input: ²%s²\n", input + i);
 		if ((input + i)[0] == '>' || (input + i)[0] == '<')
 			redir_lstadd_back(&(cmd->redirs), parse_redir(input + i, &i));
@@ -95,6 +99,7 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 	}
 	handle_env(cmd, mini);
 	handle_wildcard(cmd);
+	handle_quotes(cmd);
 	// show_cmd(cmd);
 	return (cmd);
 }
@@ -104,6 +109,7 @@ int	handle_cmd(char *input, t_minishell *mini)
 	bool	in_quotes[2];
 	int		i;
 	t_cmd	*cmd;
+	char	*cmd_str;
 
 	debug("HNDLG", BLUE, "Handling input: `%s`", input);
 	ft_bzero(in_quotes, sizeof(bool) * 2);
@@ -113,8 +119,7 @@ int	handle_cmd(char *input, t_minishell *mini)
 		check_quotes(&in_quotes, input[i]);
 		i++;
 	}
-
-	char *cmd_str = ft_substr(input, 0, i);
+	cmd_str = ft_substr(input, 0, i);
 	debug("HNDLG", BRIGHT_BLUE, "Handling cmd: `%s`", cmd_str);
 	cmd = handle_pipe(cmd_str, mini);
 	show_cmd(cmd);

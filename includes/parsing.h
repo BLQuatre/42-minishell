@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 01:55:01 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 05:18:21 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		handle_parentheses(char *input, t_minishell *mini);
 /*** QUOTES */
 void	check_quotes(bool (*in_quotes)[2], char curr_chr);
 bool	is_in_quotes(bool in_quotes[2]);
+void	handle_quotes(t_cmd *cmd);
 
 /*** REDIR */
 t_redir	*parse_redir(char *input, int *len);

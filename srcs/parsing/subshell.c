@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:16:46 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/21 19:33:40 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 05:44:33 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ int	handle_parentheses(char *input, t_minishell *mini)
 	int	cl_par;
 
 	cl_par = get_close_par_index(input);
-	debug("SHELL", MAGENTA, "Creating subshell with: `%s`", ft_substr(input, 1, cl_par - 1));
+	debug("SHELL", MAGENTA, "Creating subshell with: `%s`",
+		ft_substr(input, 1, cl_par - 1));
 	handle_input(ft_substr(input, 1, cl_par - 1), mini);
-	debug("SHELL", MAGENTA, "Ending subshell with: `%s`", ft_substr(input, 1, cl_par - 1));
+	debug("SHELL", MAGENTA, "Ending subshell with: `%s`",
+		ft_substr(input, 1, cl_par - 1));
 	return (cl_par);
 }
