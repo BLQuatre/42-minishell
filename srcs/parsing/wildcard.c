@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 00:51:46 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 04:37:23 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 08:32:03 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static char	*parse_wildcard(char *input)
 void	handle_wildcard(t_cmd *cmd)
 {
 	int		i;
+	t_redir	*tmp_redir;
 
 	cmd = cmd_lstfirst(cmd);
 	while (cmd)
@@ -41,5 +42,11 @@ void	handle_wildcard(t_cmd *cmd)
 		while (cmd->cmd_args[++i])
 			cmd->cmd_args[i] = parse_wildcard(cmd->cmd_args[i]);
 		cmd = cmd->next_cmd;
+	}
+	tmp_redir = cmd->redirs;
+	while (tmp_redir)
+	{
+		tmp_redir->file = parse_wildcard(tmp_redir->file);
+		tmp_redir = tmp_redir->next;
 	}
 }
