@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:46:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 19:48:04 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:31:09 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	debug(const char *tag, t_color color, const char *format, ...)
 	va_end(args);
 }
 
-void	show_cmd(t_cmd *cmd)
+void	debug_show_cmd(t_cmd *cmd)
 {
 	int	i;
 
@@ -88,5 +88,5 @@ void	show_cmd(t_cmd *cmd)
 	debug("CMD", GREEN, "}");
 
 	if (cmd->next_cmd)
-		show_cmd(cmd->next_cmd);
+		debug_show_cmd(cmd->next_cmd);
 }

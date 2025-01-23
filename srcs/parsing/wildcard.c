@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 00:51:46 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 20:31:39 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:30:24 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*parse_wildcard(char *input)
 
 	i = 0;
 	ft_bzero(&in_quotes, sizeof(bool) * 2);
-	debug("WILDC", BRIGHT_YELLOW, "Parsing wildcard in: `%s`", input);
+	if (DEBUG) debug("WILDC", BRIGHT_YELLOW, "Parsing wildcard in: `%s`", input);
 	while (input[i])
 	{
 		check_quotes(&in_quotes, input[i]);

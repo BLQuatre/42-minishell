@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:33 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 19:50:49 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:29:31 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*parse_arg(char *input, int *len)
 	bool	in_quotes[2];
 	int		i;
 
-	debug("ARG", RED, "Parsing arg: `%s`", input);
+	if (DEBUG) debug("ARG", RED, "Parsing arg: `%s`", input);
 	ft_bzero(&in_quotes, sizeof(bool) * 2);
 	i = 0;
 	while (input[i])

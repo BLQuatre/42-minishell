@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:58 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 05:39:17 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:30:04 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	handle_input(char *input, t_minishell *mini)
 	bool	in_quotes[2];
 
 	ft_bzero(in_quotes, sizeof(bool) * 2);
-	// debug("INPUT", BLUE, "Received: `%s`", input);
+	// if (DEBUG) debug("INPUT", BLUE, "Received: `%s`", input);
 	if (!is_valid_input(input))
 		return ;
-	// debug("INPUT", GREEN, "Valid: `%s`", input);
+	// if (DEBUG) debug("INPUT", GREEN, "Valid: `%s`", input);
 	while (*input)
 	{
 		check_quotes(&in_quotes, *input);

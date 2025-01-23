@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 07:59:20 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:30:38 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ typedef enum e_color
 }	t_color;
 
 void	debug(const char *tag, t_color color, const char *format, ...);
-void	show_cmd(t_cmd *cmd);
+void	debug_show_cmd(t_cmd *cmd);
 
 #endif

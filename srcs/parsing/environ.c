@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:17:07 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 20:45:11 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:31:26 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static int	get_buffer_size_env(char *input, t_minishell *mini)
 			while (input[env_len] && ft_isalnum(input[env_len]))
 				env_len++;
 			env_key = ft_substr(input, 0, env_len);
-			// debug("ENV", BRIGHT_MAGENTA, "Find key : %s", env_key);
+			// if (DEBUG) debug("ENV", BRIGHT_MAGENTA, "Find key : %s", env_key);
 			finded_env = env_lstget_by_key(mini->env, env_key);
 			free(env_key);
 			if (finded_env)
-				size += ft_strlen(finded_env->val); // debug("ENV", BRIGHT_MAGENTA, "Find key value : %s (Size: %d)", finded_env->val, ft_strlen(finded_env->val));
+				size += ft_strlen(finded_env->val); // if (DEBUG) debug("ENV", BRIGHT_MAGENTA, "Find key value : %s (Size: %d)", finded_env->val, ft_strlen(finded_env->val));
 			input += env_len;
 		}
 		else
@@ -67,7 +67,7 @@ static char	*parse_env(char *input, t_minishell *mini)
 	t_env	*finded_env;
 	bool	in_quotes[2];
 
-	debug("ENV", BRIGHT_RED, "Parsing env in: `%s`", input);
+	if (DEBUG) debug("ENV", BRIGHT_RED, "Parsing env in: `%s`", input);
 	ft_bzero(&in_quotes, sizeof(bool) * 2);
 	str = ft_calloc((get_buffer_size_env(input, mini) + 1), sizeof(char));
 	input_i = 0;
@@ -94,12 +94,12 @@ static char	*parse_env(char *input, t_minishell *mini)
 			while (input[input_i + len] && (ft_isalnum(input[input_i + len]) || input[input_i + len] == '_'))
 				len++;
 			env_key = ft_substr(input + input_i + 1, 0, len - 1);
-			debug("ENV", BRIGHT_MAGENTA, "Find key : `%s`", env_key);
+			if (DEBUG) debug("ENV", BRIGHT_MAGENTA, "Find key : `%s`", env_key);
 			finded_env = env_lstget_by_key(mini->env, env_key);
 			free(env_key);
 			if (finded_env)
 			{
-				debug("ENV", BRIGHT_MAGENTA, "Find key value : `%s` (Size: %d)", finded_env->val, ft_strlen(finded_env->val));
+				if (DEBUG) debug("ENV", BRIGHT_MAGENTA, "Find key value : `%s` (Size: %d)", finded_env->val, ft_strlen(finded_env->val));
 				ft_memcpy(str + str_i, finded_env->val, ft_strlen(finded_env->val));
 				str_i += ft_strlen(finded_env->val);
 			}

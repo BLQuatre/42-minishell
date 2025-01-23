@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:10:56 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 05:44:14 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:30:08 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_redir	*parse_redir(char *input, int *len)
 
 	redir_len = 0;
 	redir_type = get_redir_type(input, &redir_len);
-	debug("REDIR", BRIGHT_CYAN, "Redirection: `%s`", input);
+	if (DEBUG) debug("REDIR", BRIGHT_CYAN, "Redirection: `%s`", input);
 	input += redir_len;
 	(*len) += redir_len;
 	while (*input && *input == ' ')

@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:37:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 07:35:55 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:31:46 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 # define IS_ALONE_BUILTIN is_builtin(cmd->cmd_args[0]) \
 	&& !cmd->prev_cmd && !cmd->next_cmd
+
+# define DEBUG 0
 
 typedef struct s_minishell
 {

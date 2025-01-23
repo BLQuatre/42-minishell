@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 20:40:01 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 21:31:19 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 	if (!input[i])
 		return (NULL);
 	cmd = cmd_lstnew();
-	debug("PARSE", YELLOW, "Parsing: `%s`", input);
+	if (DEBUG) debug("PARSE", YELLOW, "Parsing: `%s`", input);
 	while (input[i])
 	{
 		while (input[i] == ' ')
@@ -71,7 +71,7 @@ int	handle_cmd(char *input, t_minishell *mini)
 	t_cmd	*cmd;
 	char	*cmd_str;
 
-	debug("HNDLG", BLUE, "Handling input: `%s`", input);
+	if (DEBUG) debug("HNDLG", BLUE, "Handling input: `%s`", input);
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	i = 0;
 	while (is_in_quotes(in_quotes) || (input[i] && input[i] != '(' && input[i] != ')' && ft_strncmp(input + i, "&&", 2) != 0 && ft_strncmp(input + i, "||", 2) != 0))
@@ -80,9 +80,9 @@ int	handle_cmd(char *input, t_minishell *mini)
 		i++;
 	}
 	cmd_str = ft_substr(input, 0, i);
-	debug("HNDLG", BRIGHT_BLUE, "Handling cmd: `%s`", cmd_str);
+	if (DEBUG) debug("HNDLG", BRIGHT_BLUE, "Handling cmd: `%s`", cmd_str);
 	cmd = handle_pipe(cmd_str, mini);
-	show_cmd(cmd);
+	if (DEBUG) debug_show_cmd(cmd);
 	exec(mini, cmd);
 	return (i);
 }
