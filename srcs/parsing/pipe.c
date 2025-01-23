@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:07:43 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 00:03:16 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 00:22:20 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_cmd	*handle_pipe(char *input, t_minishell *mini)
 		else
 			i++;
 	}
-	if (cmd->cmd_args == NULL)
+	if (cmd && cmd->cmd_args == NULL)
 	{
 		cmd->cmd_args = malloc(sizeof(char *));
 		cmd->cmd_args[0] = NULL;
