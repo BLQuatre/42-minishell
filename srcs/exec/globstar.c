@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 02:08:46 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/23 08:31:41 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/23 22:12:11 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	globstar_args(t_cmd *cmd)
 {
 	int		i ;
 
+	if (!cmd->cmd_args[0])
+		return ;
 	i = 0 ;
 	while (cmd->cmd_args[++i])
 	{

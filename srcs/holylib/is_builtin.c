@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:50:36 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 08:50:50 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/23 22:18:35 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool	is_builtin(char *cmd)
 {
+	if (!cmd)
+		return (false);
 	return (ft_strcmp(cmd, "echo") == 0
 		|| ft_strcmp(cmd, "cd") == 0
 		|| ft_strcmp(cmd, "pwd") == 0
