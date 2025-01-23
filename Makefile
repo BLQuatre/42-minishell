@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
+#    By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/23 08:43:33 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/23 08:49:00 by cauvray          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBFT_FILE		= libft.a
 LIBFT_LIB		= $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILE))
 
 CORE_FILES		=	minishell.c debug.c
-PARSING_FILES	=	arg.c check.c cmd.c env.c input.c pipe.c quotes.c \
+PARSING_FILES	=	arg.c check.c cmd.c environ.c input.c pipe.c quotes.c \
 					redir.c subshell.c wildcard.c
 EXEC_FILES		=	exec.c												\
 					handle_fd.c handle_redir.c							\
