@@ -6,11 +6,21 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 20:23:22 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 15:40:30 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:32:15 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+void	ambiguous_redirect_error(t_cmd *cmd, t_minishell *mini, char *redir)
+{
+	while (ft_strchr(redir, - '*'))
+		*ft_strchr(redir, - '*') = '*' ;
+	ft_putstr_fd(redir, STDERR_FILENO);
+	ft_putstr_fd(": ambiguous redirect\n", STDERR_FILENO);
+	free(redir);
+	return (exit_from_child(cmd, mini, 1));
+}
 
 void	dup_error(t_cmd *cmd, t_minishell *mini)
 {

@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 17:21:37 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:36:08 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini)
 {
 	int	fd_save[2];
 
+	globstar_args(cmd);
+	if (cmd->exit_code != 0)
+		return (exit_from_child(cmd, mini, EXIT_FAILURE));
+	globstar_redirs(cmd, mini);
+	if (cmd->exit_code != 0)
+		return ;
 	fd_save[0] = dup(STDIN_FILENO);
 	if (fd_save[0] == -1)
 		return (dup_error(cmd, mini));
@@ -51,6 +57,10 @@ static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini)
 
 static void	child_exec(t_cmd *cmd, t_minishell *mini)
 {
+	globstar_args(cmd);
+	if (cmd->exit_code != 0)
+		free_and_exit(cmd, mini, EXIT_FAILURE);
+	globstar_redirs(cmd, mini);
 	if (is_builtin(cmd->cmd_args[0]))
 	{
 		builtin_exec(cmd, mini);

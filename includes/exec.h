@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:16:50 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 17:21:15 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:31:31 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <dirent.h>
+
+# define BUFFER_SIZE 5000
 
 // Defines explicit exit codes
 
@@ -47,6 +50,11 @@ int		read_here_doc(t_redir *redir);
 void	restore_std_fd(int fd_cpy[2], t_cmd *cmd, t_minishell *mini);
 int		get_empty_pipe_out(void);
 
+// GLOBSTAR
+
+void	globstar_args(t_cmd *cmd);
+void	globstar_redirs(t_cmd *cmd, t_minishell *mini);
+
 // CMD
 
 void	add_path_to_cmd(t_cmd *cmd, t_minishell *mini);
@@ -59,5 +67,6 @@ int		pipe_error(int fd_in);
 void	dup_error(t_cmd *cmd, t_minishell *mini);
 void	dup2_error(t_cmd *cmd, t_minishell *mini);
 int		fork_error(t_cmd *cmd, int fd[2], int fd_in);
+void	ambiguous_redirect_error(t_cmd *cmd, t_minishell *mini, char *redir);
 
 #endif

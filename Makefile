@@ -6,7 +6,7 @@
 #    By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/21 10:32:47 by anoteris         ###   ########.fr        #
+#    Updated: 2025/01/23 03:49:18 by anoteris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ EXEC_FILES		=	exec.c												\
 					handle_fd.c handle_redir.c							\
 					exec_error.c exec_utils.c							\
 					path_to_cmd.c										\
+					globstar.c											\
 \
 
 HOLY_LIB_FILES	=	minishell_struct.c									\
