@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:12:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 05:39:39 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 23:41:09 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,12 @@ void	handle_quotes(t_cmd *cmd)
 	cmd = cmd_lstfirst(cmd);
 	while (cmd)
 	{
-		i = -1;
-		while (cmd->cmd_args[++i])
-			cmd->cmd_args[i] = remove_quotes(cmd->cmd_args[i]);
+		if (cmd->cmd_args)
+		{
+			i = -1;
+			while (cmd->cmd_args[++i])
+				cmd->cmd_args[i] = remove_quotes(cmd->cmd_args[i]);
+		}
 		cmd = cmd->next_cmd;
 	}
 }
