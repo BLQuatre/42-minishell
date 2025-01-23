@@ -6,12 +6,16 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 05:18:21 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 07:59:20 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
+
+# include "libft.h"
+# include "minishell.h"
+# include "holylib.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -19,12 +23,6 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <stdbool.h>
-# include "libft.h"
-# include "minishell.h"
-# include "holylib.h"
-
-//*** MESSAGES */
-# define INVALID_TOKEN "😂 invalid token ! unexpected token%s\n"
 
 typedef enum e_quote_type
 {
