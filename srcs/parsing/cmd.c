@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 20:31:32 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 20:40:01 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 			redir_lstadd_back(&(cmd->redirs), parse_redir(input + i, &i));
 		else
 			cmd->cmd_args = cmd_add_args(cmd->cmd_args, parse_arg(input + i, &i));
-		// debug("PARSE", RED, "i: %d", i);
 	}
 	handle_env(cmd, mini);
 	handle_wildcard(cmd);

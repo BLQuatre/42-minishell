@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   environ.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:17:07 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 05:38:42 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 20:45:11 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,6 @@ static char	*parse_env(char *input, t_minishell *mini)
 	while (input[input_i])
 	{
 		check_quotes(&in_quotes, input[input_i]);
-		// if (input[input_i] && ((input[input_i] == '"' && !in_quotes[S_QUOTE])
-		// 	|| (input[input_i] == '\'' && !in_quotes[D_QUOTE])))
-		// 	input_i++;
 		if (input[input_i] && input[input_i] == '$' && !in_quotes[S_QUOTE])
 		{
 			len = 1;
