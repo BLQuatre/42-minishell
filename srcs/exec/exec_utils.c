@@ -6,11 +6,34 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:25:10 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 17:13:17 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/24 02:37:23 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+void	waitpid_loop(t_cmd *cmd, pid_t *pid, int cmd_nb)
+{
+	t_cmd	*cur ;
+	int		i;
+
+	i = -1 ;
+	cur = cmd ;
+	while (++i < cmd_nb)
+	{
+		if (pid[i] != -1)
+		{
+			waitpid(pid[i], &cur->exit_code, 0);
+			if (WIFEXITED(cur->exit_code))
+				cur->exit_code = (WEXITSTATUS(cur->exit_code));
+			else
+				cur->exit_code = 1 ;
+		}
+		else if (!IS_ALONE_BUILTIN)
+			cmd->exit_code = 1 ;
+		cur = cur->next_cmd ;
+	}
+}
 
 void	restore_std_fd(int fd_cpy[2], t_cmd *cmd, t_minishell *mini)
 {
