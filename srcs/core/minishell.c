@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/21 19:32:54 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 19:49:35 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char *argv[])
 		msg = readline(SHELL_PROMPT);
 		if (msg == NULL)
 		{
+			// TODO: Change this to better
 			printf("exit\n");
 			break;
 		}

@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 05:17:23 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 05:35:54 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 19:50:26 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static bool	is_arg_after_redir(char *input)
 	return (true);
 }
 
+// TODO: Put error on stderr
 static bool	is_valid_redir(char *input)
 {
 	int		i;
@@ -100,6 +101,7 @@ static bool	is_valid_quote(char *input, t_quote_type quote_type)
 	return (!in_quotes[quote_type]);
 }
 
+// TODO: Put error on stderr
 bool	is_valid_input(char *input)
 {
 	int	parentheses_result;

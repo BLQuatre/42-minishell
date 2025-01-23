@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:46:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/22 00:34:39 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 19:48:04 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	debug(const char *tag, t_color color, const char *format, ...)
 	va_list	args;
 	va_start(args, format);
 	vsnprintf(buffer, sizeof(buffer), format, args);
-	printf("%s[DEBUG / %5.5s] \033[0m%s\n", colors[color], tag, buffer);
+	dprintf(2, "%s[DEBUG / %5.5s] \033[0m%s\n", colors[color], tag, buffer);
 	va_end(args);
 }
 
@@ -52,38 +52,40 @@ void	show_cmd(t_cmd *cmd)
 {
 	int	i;
 
-	printf("t_cmd: (%p)\n", cmd);
+	debug("CMD", GREEN, "t_cmd: (%p)", cmd);
 	if (!cmd)
 		return ;
-	printf("{\n");
+	debug("CMD", GREEN, "{");
 	if (cmd->redirs)
 	{
-		printf("\tredirs: (%p)\n\t{\n", cmd->redirs);
+		debug("CMD", GREEN, "\tredirs: (%p)\n\t{", cmd->redirs);
 		while (cmd->redirs)
 		{
-			printf("\t\tredirs: `%s %s`\n", redirs_type[cmd->redirs->type], cmd->redirs->file);
+			debug("CMD", GREEN, "\t\tredirs: `%s %s`", redirs_type[cmd->redirs->type], cmd->redirs->file);
 			cmd->redirs = cmd->redirs->next;
 
 		}
-		printf("\t}\n");
+		debug("CMD", GREEN, "\t}");
 	}
 	else
-		printf("\tredirs: (nil)\n");
+		debug("CMD", GREEN, "\tredirs: (nil)");
 
 	if (cmd->cmd_args)
 	{
-		printf("\tcmd_args: (%p)\n\t{\n", cmd->cmd_args);
+		debug("CMD", GREEN, "\tcmd_args: (%p)", cmd->cmd_args);
+		debug("CMD", GREEN, "\t{");
 		i = -1;
 		while (cmd->cmd_args[++i])
-			printf("\t\tcmd_args[%d]: `%s`\n", i, cmd->cmd_args[i]);
-		printf("\t}\n");
+			debug("CMD", GREEN, "\t\tcmd_args[%d]: `%s`", i, cmd->cmd_args[i]);
+		debug("CMD", GREEN, "\t}");
 	}
 	else
-		printf("\tcmd_args: (nil)\n");
+		debug("CMD", GREEN, "\tcmd_args: (nil)");
 
-	printf("\texit_code: `%d`\n", cmd->exit_code);
-	printf("\tnext_cmd: `%p`\n", cmd->next_cmd);
-	printf("\tprev_cmd: `%p`\n}\n", cmd->prev_cmd);
+	debug("CMD", GREEN, "\texit_code: `%d`", cmd->exit_code);
+	debug("CMD", GREEN, "\tnext_cmd: `%p`", cmd->next_cmd);
+	debug("CMD", GREEN, "\tprev_cmd: `%p`", cmd->prev_cmd);
+	debug("CMD", GREEN, "}");
 
 	if (cmd->next_cmd)
 		show_cmd(cmd->next_cmd);

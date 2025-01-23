@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/23 08:36:08 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:23:34 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini)
 		builtin_exec(cmd, mini);
 	if (dup2(fd_save[0], STDIN_FILENO) == -1)
 		return (close(fd_save[0]), close(fd_save[1]), dup2_error(cmd, mini));
-	dup2(fd_save[1], STDOUT_FILENO);
+	close(fd_save[0]);
+	if (dup2(fd_save[1], STDOUT_FILENO) == -1)
 		return (close(fd_save[1]), dup2_error(cmd, mini));
+	close(fd_save[1]);
 }
 
 static void	child_exec(t_cmd *cmd, t_minishell *mini)

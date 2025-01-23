@@ -6,11 +6,12 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 05:46:23 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/23 19:54:43 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "exec.h"
 
 /**
  * @note arg param must be malloc
@@ -36,44 +37,6 @@ static char	**cmd_add_args(char **cmd_args, char *arg)
 	return (new_cmd_args);
 }
 
-// t_cmd	*parse_cmd(char *input, t_minishell *mini)
-// {
-// 	int		i;
-// 	t_cmd	*cmd;
-
-// 	i = 0;
-// 	if (!input[i])
-// 		return (NULL);
-// 	cmd = cmd_lstnew();
-// 	debug("PARSE", YELLOW, "Parsing: `%s`", input);
-// 	while (input[i])
-// 	{
-// 		while (input[i] == ' ')
-// 			i++;
-// 		if (input[i] == 0)
-// 			break ;
-// 		// printf("input: ²%s²\n", input + (i));
-// 		if ((input + i)[0] == '>' || (input + i)[0] == '<')
-// 			redir_lstadd_back(&(cmd->redirs), parse_redir(input + i, &i));
-// 		else if (*(input + i) == '|')
-// 			break ;
-// 		else
-// 			cmd->cmd_args = cmd_add_args(cmd->cmd_args, parse_arg(input + i, &i));
-// 			// int test = 0;
-
-// 		// debug("PARSE", RED, "i: %d", i);
-// 	}
-// 	if (*(input + i) == '|')
-// 	{
-// 		debug("PARSE", YELLOW, "Sending pipe: `%s`", input + (++i));
-// 		cmd->next_cmd = parse_cmd(input + i, mini);
-// 		// printf("ptr: %p\n", cmd->next_cmd);
-// 	}
-// 	handle_env(cmd, mini);
-// 	show_cmd(cmd);
-// 	return (cmd);
-// }
-
 t_cmd	*parse_cmd(char *input, t_minishell *mini)
 {
 	int		i;
@@ -90,7 +53,6 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 			i++;
 		if (input[i] == 0)
 			break ;
-		// printf("input: ²%s²\n", input + i);
 		if ((input + i)[0] == '>' || (input + i)[0] == '<')
 			redir_lstadd_back(&(cmd->redirs), parse_redir(input + i, &i));
 		else
@@ -98,9 +60,9 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 		// debug("PARSE", RED, "i: %d", i);
 	}
 	handle_env(cmd, mini);
-	handle_wildcard(cmd);
+	// TODO: Fix wildcard segfault
+	// handle_wildcard(cmd);
 	handle_quotes(cmd);
-	// show_cmd(cmd);
 	return (cmd);
 }
 
@@ -123,5 +85,6 @@ int	handle_cmd(char *input, t_minishell *mini)
 	debug("HNDLG", BRIGHT_BLUE, "Handling cmd: `%s`", cmd_str);
 	cmd = handle_pipe(cmd_str, mini);
 	show_cmd(cmd);
+	exec(mini, cmd);
 	return (i);
 }
