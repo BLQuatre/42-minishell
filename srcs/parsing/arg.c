@@ -6,15 +6,16 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:33 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 21:29:31 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 02:06:43 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*parse_arg(char *input, int *len)
+char	*parse_arg(char *input, int *len, bool *subshell)
 {
 	bool	in_quotes[2];
+	char	*arg;
 	int		i;
 
 	if (DEBUG) debug("ARG", RED, "Parsing arg: `%s`", input);
@@ -28,6 +29,14 @@ char	*parse_arg(char *input, int *len)
 			i++;
 			continue ;
 		}
+		if (input[i] == '(')
+		{
+			arg = parse_subshell(input, &i);
+			(*len) += i;
+			if (subshell)
+				(*subshell) = true;
+			return (arg);
+		}
 		if (input[i] == '>' || input[i] == '<' || input[i] == '|' || input[i] == ' ' || input[i] == '&')
 		{
 			if (i == 0)
@@ -37,5 +46,6 @@ char	*parse_arg(char *input, int *len)
 		i++;
 	}
 	(*len) += i;
-	return (ft_substr(input, 0, i));
+	arg = ft_substr(input, 0, i);
+	return (arg);
 }

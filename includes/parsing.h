@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 21:30:38 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 01:01:23 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	handle_input(char *input, t_minishell *mini);
 bool	is_valid_input(char *input);
 
 /*** ARG */
-char	*parse_arg(char *input, int *len);
+char	*parse_arg(char *input, int *len, bool *subshell);
 
 /*** CMD */
 int		handle_cmd(char *input, t_minishell *mini);
@@ -48,11 +48,12 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini);
 t_cmd	*handle_pipe(char *input, t_minishell *mini);
 
 /*** SUBSHELL */
+char	*parse_subshell(char *input, int *len);
 /**
  * @param input The input must start with open parenthese
  * @return how many chars skipped before close parenthese
  */
-int		handle_parentheses(char *input, t_minishell *mini);
+int		handle_subshell(char *input, t_minishell *mini);
 
 /*** QUOTES */
 void	check_quotes(bool (*in_quotes)[2], char curr_chr);

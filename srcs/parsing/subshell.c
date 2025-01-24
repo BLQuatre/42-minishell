@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:16:46 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 21:37:40 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 00:55:23 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,30 @@ static int	get_close_par_index(char *input)
 	return (-1);
 }
 
-int	handle_parentheses(char *input, t_minishell *mini)
+char	*parse_subshell(char *input, int *len)
 {
-	int		cl_par;
-	t_cmd	*cmd;
+	int	cl_par;
 
 	cl_par = get_close_par_index(input);
-	if (DEBUG) debug("SHELL", MAGENTA, "Creating subshell with: `%s`",
-		ft_substr(input, 1, cl_par - 1));
+	(*len) += cl_par + 1;
+	return (ft_substr(input, 1, cl_par - 1));
+}
+
+int	handle_subshell(char *input, t_minishell *mini)
+{
+	(void) mini;
+	char	*sub_cmd;
+	int		sub_cmd_len;
+	t_cmd	*cmd;
+
+	sub_cmd = parse_subshell(input, &sub_cmd_len);
+	if (DEBUG) debug("SHELL", MAGENTA, "Creating subshell with: `%s`", sub_cmd);
 	cmd = cmd_lstnew();
 	cmd->cmd_args = malloc(2 * sizeof(char *));
-	cmd->cmd_args[0] = ft_substr(input, 1, cl_par - 1);
+	cmd->cmd_args[0] = sub_cmd;
 	cmd->cmd_args[1] = NULL;
 	cmd->is_subshell = true;
-	exec(mini, cmd);
-	if (DEBUG) debug("SHELL", MAGENTA, "Ending subshell with: `%s`",
-		ft_substr(input, 1, cl_par - 1));
-	return (cl_par);
+	// exec(mini, cmd);
+	if (DEBUG) debug("SHELL", MAGENTA, "Ending subshell with: `%s`", sub_cmd);
+	return (sub_cmd_len);
 }

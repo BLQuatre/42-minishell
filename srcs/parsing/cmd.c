@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 21:50:46 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 01:03:18 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 		if ((input + i)[0] == '>' || (input + i)[0] == '<')
 			redir_lstadd_back(&(cmd->redirs), parse_redir(input + i, &i));
 		else
-			cmd->cmd_args = cmd_add_args(cmd->cmd_args, parse_arg(input + i, &i));
+			cmd->cmd_args = cmd_add_args(cmd->cmd_args, parse_arg(input + i, &i, &cmd->is_subshell));
 	}
 	handle_env(cmd, mini);
 	handle_wildcard(cmd);
@@ -74,7 +74,7 @@ int	handle_cmd(char *input, t_minishell *mini)
 	if (DEBUG) debug("HNDLG", BLUE, "Handling input: `%s`", input);
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	i = 0;
-	while (is_in_quotes(in_quotes) || (input[i] && input[i] != '(' && input[i] != ')' && ft_strncmp(input + i, "&&", 2) != 0 && ft_strncmp(input + i, "||", 2) != 0))
+	while (is_in_quotes(in_quotes) || (input[i] && ft_strncmp(input + i, "&&", 2) != 0 && ft_strncmp(input + i, "||", 2) != 0))
 	{
 		check_quotes(&in_quotes, input[i]);
 		i++;
@@ -82,6 +82,7 @@ int	handle_cmd(char *input, t_minishell *mini)
 	cmd_str = ft_substr(input, 0, i);
 	if (DEBUG) debug("HNDLG", BRIGHT_BLUE, "Handling cmd: `%s`", cmd_str);
 	cmd = handle_pipe(cmd_str, mini);
+	if (DEBUG) debug("EXEC", BRIGHT_BLUE, "Executing cmd: `%s`", cmd_str);
 	if (DEBUG) debug_show_cmd(cmd);
 	if (cmd)
 		exec(mini, cmd);

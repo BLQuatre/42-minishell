@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:10:56 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 21:30:08 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 01:01:42 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ t_redir	*parse_redir(char *input, int *len)
 		(*len)++;
 		input++;
 	}
-	return (redir_lstnew(redir_type, parse_arg(input, len)));
+	return (redir_lstnew(redir_type, parse_arg(input, len, NULL)));
 }

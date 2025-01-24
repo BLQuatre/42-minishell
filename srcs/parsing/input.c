@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:58 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 21:30:04 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 00:43:59 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	handle_input(char *input, t_minishell *mini)
 		check_quotes(&in_quotes, *input);
 		if (is_in_quotes(in_quotes))
 			continue ;
-		if (*input == '(')
-			input += handle_parentheses(input, mini);
+		// if (*input == '(')
+		// 	input += handle_subshell(input, mini);
 		check_quotes(&in_quotes, *input);
 		while (*input && !is_in_quotes(in_quotes) && (*input == ')'
 				|| *input == ' ' || ft_strncmp(input, "&&", 2) == 0
