@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 19:49:35 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 07:27:26 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	main(int argc, char *argv[])
 {
 	char		*msg;
 	t_minishell	*mini;
+
+	handle_sigaction();
 
 	mini = minishell_new();
 
@@ -30,6 +32,7 @@ int	main(int argc, char *argv[])
 
 	while (true)
 	{
+		g_signal = 0;
 		msg = readline(SHELL_PROMPT);
 		if (msg == NULL)
 		{

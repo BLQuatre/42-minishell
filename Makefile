@@ -6,7 +6,7 @@
 #    By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/23 08:49:00 by cauvray          ###   ########.fr        #
+#    Updated: 2025/01/24 07:27:01 by cauvray          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT_DIR		= libft
 LIBFT_FILE		= libft.a
 LIBFT_LIB		= $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILE))
 
-CORE_FILES		=	minishell.c debug.c
+CORE_FILES		=	minishell.c debug.c signals.c
 PARSING_FILES	=	arg.c check.c cmd.c environ.c input.c pipe.c quotes.c \
 					redir.c subshell.c wildcard.c
 EXEC_FILES		=	exec.c												\
