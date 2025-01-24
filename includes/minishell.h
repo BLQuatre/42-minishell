@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:37:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 07:26:18 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 23:35:38 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,8 @@
 # define MINISHELL_H
 
 # include "holylib.h"
+# include "holysignal.h"
 # include "messages.h"
-
-# include <stdbool.h>
-# include <signal.h>
-
-/*** SIG */
-extern volatile sig_atomic_t	g_signal;
-
-void	handle_sigaction();
-
-# define IS_ALONE_BUILTIN is_builtin(cmd->cmd_args[0]) \
-	&& !cmd->prev_cmd && !cmd->next_cmd
 
 # define DEBUG 0
 

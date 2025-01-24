@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/24 21:26:45 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/24 23:23:41 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,9 @@ int	exec(t_minishell *mini, t_cmd *cmd)
 	pid = malloc((cmd_nb) * sizeof(pid_t));
 	ft_memset(pid, -1, (cmd_nb) * sizeof(pid_t));
 	recursive_pipex(cmd_lstlast(cmd), mini, pid);
+	active_command(true);
 	waitpid_loop(cmd, pid, cmd_nb);
+	active_command(false);
 	free(pid);
 	mini->exit_code = cmd_lstlast(cmd)->exit_code ;
 	cmd_free_lst_from_start(cmd);

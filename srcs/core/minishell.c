@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 22:09:49 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/24 23:21:42 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(int argc, char *argv[])
 	t_minishell	*mini;
 
 	handle_sigaction();
+
+	rl_outstream = stderr ;
 
 	mini = minishell_new();
 
@@ -32,7 +34,6 @@ int	main(int argc, char *argv[])
 
 	while (true)
 	{
-		g_signal = 0;
 		msg = readline(SHELL_PROMPT);
 		if (msg == NULL)
 		{
