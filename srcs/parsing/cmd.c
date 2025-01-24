@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 04:48:57 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 05:14:28 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 		else
 			cmd->cmd_args = cmd_add_args(cmd->cmd_args, parse_arg(input + i, &i, &cmd->is_subshell));
 	}
+	cmd = cmd_lstfirst(cmd);
 	handle_env(cmd, mini);
 	handle_wildcard(cmd);
 	handle_quotes(cmd);
@@ -83,10 +84,10 @@ int	handle_cmd(char *input, t_minishell *mini, char andor[3])
 	cmd_str = ft_substr(input, 0, i);
 	if (DEBUG) debug("HNDLG", BRIGHT_BLUE, "Handling cmd: `%s`", cmd_str);
 	cmd = handle_pipe(cmd_str, mini);
-	if (DEBUG) debug("EXEC", BRIGHT_BLUE, "Executing cmd: `%s`", cmd_str);
+	// if (DEBUG) debug("EXEC", BRIGHT_BLUE, "Executing cmd: `%s`", cmd_str);
+	free(cmd_str);
 	if (DEBUG) debug_show_cmd(cmd);
 	if (cmd && !((ft_strncmp(andor, "&&", 2) == 0 && mini->exit_code != 0) || (ft_strncmp(andor, "||", 2) == 0 && mini->exit_code == 0)))
 		exec(mini, cmd);
-	if (DEBUG) debug("HNDLG", BRIGHT_BLUE, "Finishing executing command: `%s`", cmd_str);
 	return (i);
 }

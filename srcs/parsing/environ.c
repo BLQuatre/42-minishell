@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:17:07 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 00:07:19 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 05:14:07 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ static char	*parse_env(char *input, t_minishell *mini)
 void	handle_env(t_cmd *cmd, t_minishell *mini)
 {
 	int		i;
+	char	*tmp;
 
-	cmd = cmd_lstfirst(cmd);
 	if (!cmd)
 		return ;
 	while (cmd)
@@ -124,7 +124,11 @@ void	handle_env(t_cmd *cmd, t_minishell *mini)
 		{
 			i = -1;
 			while (cmd->cmd_args[++i])
-			cmd->cmd_args[i] = parse_env(cmd->cmd_args[i], mini);
+			{
+				tmp = cmd->cmd_args[i];
+				cmd->cmd_args[i] = parse_env(cmd->cmd_args[i], mini);
+				free(tmp);
+			}
 		}
 		cmd = cmd->next_cmd;
 	}

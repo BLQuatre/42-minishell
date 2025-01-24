@@ -6,13 +6,13 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 00:51:46 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 00:15:51 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 05:14:11 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static char	*parse_wildcard(char *input)
+static void	parse_wildcard(char *input)
 {
 	int		i;
 	bool	in_quotes[2];
@@ -27,7 +27,6 @@ static char	*parse_wildcard(char *input)
 			input[i] *= -1;
 		i++;
 	}
-	return (input);
 }
 
 void	handle_wildcard(t_cmd *cmd)
@@ -35,19 +34,18 @@ void	handle_wildcard(t_cmd *cmd)
 	int		i;
 	t_redir	*tmp_redir;
 
-	cmd = cmd_lstfirst(cmd);
 	while (cmd)
 	{
 		if (cmd->cmd_args)
 		{
 			i = -1;
 			while (cmd->cmd_args[++i])
-				cmd->cmd_args[i] = parse_wildcard(cmd->cmd_args[i]);
+				parse_wildcard(cmd->cmd_args[i]);
 		}
 		tmp_redir = cmd->redirs;
 		while (tmp_redir)
 		{
-			tmp_redir->file = parse_wildcard(tmp_redir->file);
+			parse_wildcard(tmp_redir->file);
 			tmp_redir = tmp_redir->next;
 		}
 		cmd = cmd->next_cmd;

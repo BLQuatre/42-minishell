@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:07:43 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 02:05:05 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 04:56:07 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_cmd	*handle_pipe(char *input, t_minishell *mini)
 	bool	in_quotes[2];
 	int		parentheses;
 	t_cmd	*cmd;
+	char	*tmp;
 
 	ft_bzero(&in_quotes, sizeof(bool) * 2);
 	cmd = NULL;
@@ -35,7 +36,9 @@ t_cmd	*handle_pipe(char *input, t_minishell *mini)
 		{
 			if (!input[i + 1])
 				i++;
-			cmd_lstadd_back(&cmd, parse_cmd(ft_substr(input, 0, i), mini));
+			tmp = ft_substr(input, 0, i);
+			cmd_lstadd_back(&cmd, parse_cmd(tmp, mini));
+			free(tmp);
 			if (input[i] == '|')
 				i++;
 			input += i;

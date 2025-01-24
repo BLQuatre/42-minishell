@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:12:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 02:26:49 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 05:14:02 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,26 @@ void	handle_quotes(t_cmd *cmd)
 {
 	int		i;
 	t_redir	*tmp_redir;
+	char	*tmp;
 
-	cmd = cmd_lstfirst(cmd);
 	while (cmd)
 	{
 		if (cmd->cmd_args)
 		{
 			i = -1;
 			while (cmd->cmd_args[++i])
+			{
+				tmp = cmd->cmd_args[i];
 				cmd->cmd_args[i] = parse_quotes(cmd->cmd_args[i]);
+				free(tmp);
+			}
 		}
 		tmp_redir = cmd->redirs;
 		while (tmp_redir)
 		{
-			tmp_redir->file = parse_quotes(tmp_redir->file);
-			tmp_redir = tmp_redir->next;
+			tmp = tmp_redir->file;
+			tmp_redir->file = parse_quotes(tmp);
+			free(tmp);
 		}
 		cmd = cmd->next_cmd;
 	}
