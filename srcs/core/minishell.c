@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 07:27:26 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 22:09:49 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ int	main(int argc, char *argv[])
 		msg = readline(SHELL_PROMPT);
 		if (msg == NULL)
 		{
-			// TODO: Change this to better
 			printf("exit\n");
-			break;
+			free_and_exit(NULL, mini, mini->exit_code);
 		}
 		if (ft_strlen(msg) == 0)
 			continue;
