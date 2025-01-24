@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:46:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/23 21:31:09 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 00:58:33 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	debug_show_cmd(t_cmd *cmd)
 		debug("CMD", GREEN, "\tcmd_args: (nil)");
 
 	debug("CMD", GREEN, "\texit_code: `%d`", cmd->exit_code);
+	debug("CMD", GREEN, "\tis_subshell: `%s`", cmd->is_subshell ? "Yes" : "No");
 	debug("CMD", GREEN, "\tnext_cmd: `%p`", cmd->next_cmd);
 	debug("CMD", GREEN, "\tprev_cmd: `%p`", cmd->prev_cmd);
 	debug("CMD", GREEN, "}");
