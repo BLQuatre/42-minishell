@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 01:01:23 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 04:41:11 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	is_valid_input(char *input);
 char	*parse_arg(char *input, int *len, bool *subshell);
 
 /*** CMD */
-int		handle_cmd(char *input, t_minishell *mini);
+int		handle_cmd(char *input, t_minishell *mini, char andor[3]);
 t_cmd	*parse_cmd(char *input, t_minishell *mini);
 
 /*** PIPE */
