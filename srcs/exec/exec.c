@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/24 03:52:15 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/24 05:01:40 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	builtin_exec(t_cmd *cmd, t_minishell *mini)
 		my_exit(cmd, mini);
 }
 
-static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini)
+static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini, pid_t *pid)
 {
 	int	fd_save[2];
 
@@ -50,6 +50,8 @@ static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini)
 	if (fd_save[1] == -1)
 		return (close(fd_save[0]), dup_error(cmd, mini));
 	handle_fd(cmd, mini, NULL, -1);
+	if (cmd->exit_code == 0 && ft_strcmp(cmd->cmd_args[0], "exit") == 0)
+		(close(fd_save[0]), close(fd_save[1]), free(pid));
 	if (cmd->exit_code == 0)
 		builtin_exec(cmd, mini);
 	if (dup2(fd_save[0], STDIN_FILENO) == -1)
@@ -101,7 +103,7 @@ static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
 		return (pipe_error(fd_in));
 	cmd_index = cmd_lst_get_nb(cmd) - 1 ;
 	if (IS_ALONE_BUILTIN && !cmd->is_subshell)
-		return (alone_builtin_exec(cmd, mini), 0);
+		return (alone_builtin_exec(cmd, mini, pid), 0);
 	pid[cmd_index] = fork();
 	if (pid[cmd_index] < 0)
 		return (fork_error(cmd, fd, fd_in));
