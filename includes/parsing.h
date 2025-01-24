@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 04:41:11 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 22:31:58 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ typedef enum e_quote_type
 /*** INPUT */
 void	handle_input(char *input, t_minishell *mini);
 
-// TODO: Rename
-/*** CHECK */
-bool	is_valid_input(char *input);
-
-/*** ARG */
-char	*parse_arg(char *input, int *len, bool *subshell);
-
 /*** CMD */
 int		handle_cmd(char *input, t_minishell *mini, char andor[3]);
 t_cmd	*parse_cmd(char *input, t_minishell *mini);
@@ -49,25 +42,35 @@ t_cmd	*handle_pipe(char *input, t_minishell *mini);
 
 /*** SUBSHELL */
 char	*parse_subshell(char *input, int *len);
-/**
- * @param input The input must start with open parenthese
- * @return how many chars skipped before close parenthese
- */
-int		handle_subshell(char *input, t_minishell *mini);
+
+/*** ARG */
+char	*parse_arg(char *input, int *len, bool *subshell);
+
+/*** REDIR */
+t_redir	*parse_redir(char *input, int *len);
+
+/*** ENV */
+// UTILS
+bool	is_valid_env_char(char c);
+int		get_env_len(char *input);
+int		get_buffer_size_env(char *input, t_minishell *mini);
+// PROCESS
+int	proccess_env_var(char *dest, char *input, t_env *env);
+int	process_env_exit_code(char *dest, int exit_code);
+// HANDLER
+void	handle_env(t_cmd *cmd, t_minishell *mini);
+
+/*** WILDCARD */
+void	handle_wildcard(t_cmd *cmd);
 
 /*** QUOTES */
 void	check_quotes(bool (*in_quotes)[2], char curr_chr);
 bool	is_in_quotes(bool in_quotes[2]);
 void	handle_quotes(t_cmd *cmd);
 
-/*** REDIR */
-t_redir	*parse_redir(char *input, int *len);
-
-/*** ENV */
-void	handle_env(t_cmd *cmd, t_minishell *mini);
-
-/*** WILDCARD */
-void	handle_wildcard(t_cmd *cmd);
+// TODO: Rename and replace
+/*** CHECK */
+bool	is_valid_input(char *input);
 
 /*** DEBUG */
 typedef enum e_color

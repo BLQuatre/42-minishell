@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:46:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 00:58:33 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 23:54:05 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	debug_show_cmd(t_cmd *cmd)
 	debug("CMD", GREEN, "{");
 	if (cmd->redirs)
 	{
-		debug("CMD", GREEN, "\tredirs: (%p)\n\t{", cmd->redirs);
+		debug("CMD", GREEN, "\tredirs: (%p)", cmd->redirs);
+		debug("CMD", GREEN, "\t{");
 		while (cmd->redirs)
 		{
 			debug("CMD", GREEN, "\t\tredirs: `%s %s`", redirs_type[cmd->redirs->type], cmd->redirs->file);

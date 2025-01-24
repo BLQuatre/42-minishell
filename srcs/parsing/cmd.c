@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 05:14:28 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 00:00:31 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ static char	**cmd_add_args(char **cmd_args, char *arg)
 	return (new_cmd_args);
 }
 
+static void	handle_sub(t_cmd *cmd, t_minishell *mini)
+{
+	if (!cmd)
+		return ;
+	cmd = cmd_lstfirst(cmd);
+	while (cmd)
+	{
+		handle_env(cmd, mini);
+		handle_wildcard(cmd);
+		handle_quotes(cmd);
+		cmd = cmd->next_cmd;
+	}
+}
+
 t_cmd	*parse_cmd(char *input, t_minishell *mini)
 {
 	int		i;
@@ -56,12 +70,10 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 		if ((input + i)[0] == '>' || (input + i)[0] == '<')
 			redir_lstadd_back(&(cmd->redirs), parse_redir(input + i, &i));
 		else
-			cmd->cmd_args = cmd_add_args(cmd->cmd_args, parse_arg(input + i, &i, &cmd->is_subshell));
+			cmd->cmd_args = cmd_add_args(cmd->cmd_args,
+					parse_arg(input + i, &i, &cmd->is_subshell));
 	}
-	cmd = cmd_lstfirst(cmd);
-	handle_env(cmd, mini);
-	handle_wildcard(cmd);
-	handle_quotes(cmd);
+	handle_sub(cmd, mini);
 	return (cmd);
 }
 
@@ -75,7 +87,9 @@ int	handle_cmd(char *input, t_minishell *mini, char andor[3])
 	if (DEBUG) debug("HNDLG", BLUE, "Handling input: `%s`", input);
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	i = 0;
-	while (is_in_quotes(in_quotes) || (input[i] && ft_strncmp(input + i, "&&", 2) != 0 && ft_strncmp(input + i, "||", 2) != 0))
+	while (is_in_quotes(in_quotes) || (input[i]
+			&& ft_strncmp(input + i, "&&", 2) != 0
+			&& ft_strncmp(input + i, "||", 2) != 0))
 	{
 		check_quotes(&in_quotes, input[i]);
 		i++;
@@ -84,10 +98,10 @@ int	handle_cmd(char *input, t_minishell *mini, char andor[3])
 	cmd_str = ft_substr(input, 0, i);
 	if (DEBUG) debug("HNDLG", BRIGHT_BLUE, "Handling cmd: `%s`", cmd_str);
 	cmd = handle_pipe(cmd_str, mini);
-	// if (DEBUG) debug("EXEC", BRIGHT_BLUE, "Executing cmd: `%s`", cmd_str);
 	free(cmd_str);
 	if (DEBUG) debug_show_cmd(cmd);
-	if (cmd && !((ft_strncmp(andor, "&&", 2) == 0 && mini->exit_code != 0) || (ft_strncmp(andor, "||", 2) == 0 && mini->exit_code == 0)))
+	if (cmd && !((ft_strncmp(andor, "&&", 2) == 0 && mini->exit_code != 0)
+			|| (ft_strncmp(andor, "||", 2) == 0 && mini->exit_code == 0)))
 		exec(mini, cmd);
 	return (i);
 }
