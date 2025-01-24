@@ -6,13 +6,13 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 05:17:23 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 17:57:11 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/24 18:10:47 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-// TODO: Put error on stderr
+// TODO: Put error on stderr and redo message
 
 static int	is_valid_parentheses(char *input)
 {
@@ -124,6 +124,41 @@ static bool	is_valid_pipe(char *input)
 	return (true);
 }
 
+static bool	is_valid_andor(char	*input)
+{
+		int		i;
+	bool	in_quotes[2];
+	bool	andor_flag;
+
+	i = -1;
+	andor_flag = false;
+	ft_bzero(in_quotes, sizeof(bool) * 2);
+	while (input[++i])
+	{
+		check_quotes(&in_quotes, input[i]);
+		if (in_quotes[S_QUOTE] || in_quotes[D_QUOTE])
+			continue ;
+		if ((ft_strncmp(input + i, "&&", 2) == 0 || ft_strncmp(input + i, "||", 2) == 0) && !andor_flag)
+		{
+			if (input[i + 1] && !input[i + 2])
+				return (printf(INVALID_TOKEN, ": andor"), false);
+			andor_flag = true;
+			i++;
+			continue;
+		}
+		if (input[i] == ' ' && andor_flag)
+		{
+			if (!input[i + 1])
+				return (printf(INVALID_TOKEN, ": andor"), false);
+			continue;
+		}
+		if (andor_flag && (input[i] == '&' || input[i] == '|'))
+			return (printf(INVALID_TOKEN, ": andor"), false);
+		andor_flag = false;
+	}
+	return (true);
+}
+
 static bool	is_valid_quote(char *input, t_quote_type quote_type)
 {
 	int		i;
@@ -153,6 +188,8 @@ bool	is_valid_input(char *input)
 	if (!is_valid_redir(input))
 		return (false);
 	if (!is_valid_pipe(input))
+		return (false);
+	if (!is_valid_andor(input))
 		return (false);
 	return (true);
 }
