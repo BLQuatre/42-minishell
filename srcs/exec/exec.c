@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/24 05:01:40 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/24 21:26:45 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	child_exec(t_cmd *cmd, t_minishell *mini)
 	if (!cmd->cmd_args[0])
 		free_and_exit(cmd, mini, EXIT_SUCCESS);
 	if (is_builtin(cmd->cmd_args[0]))
-		(builtin_exec(cmd, mini), exit(cmd->exit_code));
+		(builtin_exec(cmd, mini), free_and_exit(cmd, mini, cmd->exit_code));
 	add_path_to_cmd(cmd, mini);
 	if (!cmd->cmd_args)
 	{
