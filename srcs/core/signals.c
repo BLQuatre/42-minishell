@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 06:11:36 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 01:13:57 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 04:22:40 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	active_command(int whether)
 	return (active_cmd);
 }
 
-static void sigint_handler(int signal)
+static void	sigint_handler(int signal)
 {
 	g_signal = signal ;
 	write(STDERR_FILENO, "\n", 1);
@@ -45,14 +45,16 @@ void	handle_sigaction(void)
 	sigquit_sa.sa_handler = SIG_IGN ;
 	sigemptyset(&sigquit_sa.sa_mask);
 	sigquit_sa.sa_flags = 0;
-	if (sigaction(SIGQUIT, &sigquit_sa, NULL) == -1) {
+	if (sigaction(SIGQUIT, &sigquit_sa, NULL) == -1)
+	{
 		perror("Error setting up SIGQUIT handler");
 		exit(EXIT_FAILURE);
 	}
 	sigint_sa.sa_handler = sigint_handler;
 	sigemptyset(&sigint_sa.sa_mask);
 	sigint_sa.sa_flags = 0;
-	if (sigaction(SIGINT, &sigint_sa, NULL) == -1) {
+	if (sigaction(SIGINT, &sigint_sa, NULL) == -1)
+	{
 		perror("Error setting up SIGINT handler");
 		exit(EXIT_FAILURE);
 	}

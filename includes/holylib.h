@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   holylib.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:20:05 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/24 23:38:55 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 04:24:45 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ typedef struct s_env		t_env;
 typedef struct s_cmd		t_cmd;
 typedef enum redir_type		t_redir_type;
 typedef struct s_redir		t_redir;
-
-# define IS_ALONE_BUILTIN is_builtin(cmd->cmd_args[0]) && !cmd->prev_cmd && !cmd->next_cmd
 
 // GENERAL
 

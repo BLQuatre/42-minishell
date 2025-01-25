@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_and_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:44:55 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/23 08:38:30 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 04:24:23 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_and_exit(t_cmd *cmd, t_minishell *mini, int exit_code)
 // and alone builtins in a general way
 void	exit_from_child(t_cmd *cmd, t_minishell *mini, int exit_code)
 {
-	if (IS_ALONE_BUILTIN)
+	if (is_builtin(cmd->cmd_args[0]) && !cmd->prev_cmd && !cmd->next_cmd)
 		cmd->exit_code = exit_code ;
 	else
 		free_and_exit(cmd, mini, exit_code);

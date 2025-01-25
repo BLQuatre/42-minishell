@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:25:10 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/24 02:37:23 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 04:24:52 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	waitpid_loop(t_cmd *cmd, pid_t *pid, int cmd_nb)
 			else
 				cur->exit_code = 1 ;
 		}
-		else if (!IS_ALONE_BUILTIN)
+		else if (!is_builtin(cmd->cmd_args[0])
+			&& !cmd->prev_cmd && !cmd->next_cmd)
 			cmd->exit_code = 1 ;
 		cur = cur->next_cmd ;
 	}

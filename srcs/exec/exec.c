@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/25 00:44:08 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 04:24:18 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
 	if (cmd->next_cmd && pipe(fd) == -1)
 		return (pipe_error(fd_in));
 	cmd_index = cmd_lst_get_nb(cmd) - 1 ;
-	if (IS_ALONE_BUILTIN && !cmd->is_subshell)
+	if (!cmd->is_subshell && is_builtin(cmd->cmd_args[0])
+		&& !cmd->prev_cmd && !cmd->next_cmd)
 		return (alone_builtin_exec(cmd, mini, pid), 0);
 	pid[cmd_index] = fork();
 	if (pid[cmd_index] < 0)
