@@ -6,7 +6,7 @@
 #    By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/24 22:32:43 by cauvray          ###   ########.fr        #
+#    Updated: 2025/01/25 01:36:10 by cauvray          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,11 @@ LIBFT_LIB		= $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILE))
 CORE_FILES		=	minishell.c debug.c signals.c						\
 \
 
-PARSING_FILES	=	arg.c check.c cmd.c env_process.c env_utils.c		\
-					environ.c input.c pipe.c quotes.c redir.c			\
-					subshell.c wildcard.c								\
+PARSING_FILES	=	arg.c check_andor.c check_parentheses.c 			\
+					check_pipe.c check_quotes.c check_redir.c check.c	\
+					cmd.c env_process.c env_utils.c envp.c input.c		\
+					pipe.c quotes_utils.c quotes.c redir.c subshell.c	\
+					wildcard.c											\
 \
 
 EXEC_FILES		=	exec.c												\

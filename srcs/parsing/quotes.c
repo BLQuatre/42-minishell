@@ -6,24 +6,11 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:12:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 00:05:11 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 01:33:18 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-void	check_quotes(bool (*in_quotes)[2], char curr_chr)
-{
-	if (curr_chr == '\'' && !(*in_quotes)[D_QUOTE])
-		(*in_quotes)[S_QUOTE] = !(*in_quotes)[S_QUOTE];
-	if (curr_chr == '"' && !(*in_quotes)[S_QUOTE])
-		(*in_quotes)[D_QUOTE] = !(*in_quotes)[D_QUOTE];
-}
-
-bool	is_in_quotes(bool in_quotes[2])
-{
-	return (in_quotes[S_QUOTE] || in_quotes[D_QUOTE]);
-}
 
 static int	count_useless_quotes(char *input)
 {
@@ -52,7 +39,6 @@ static char	*parse_quotes(char *input)
 	ft_bzero(&in_quotes, sizeof(bool) * 2);
 	str = malloc((ft_strlen(input) - count_useless_quotes(input) + 1)
 			* sizeof(char));
-	// printf("USELESS QUOTES %d\n", count_useless_quotes(input));
 	str_i = 0;
 	while (*input)
 	{

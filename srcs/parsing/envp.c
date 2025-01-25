@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environ.c                                          :+:      :+:    :+:   */
+/*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:17:07 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 00:04:58 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 01:39:30 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ static void	handle_dollar(char *dest, int *dest_i, char *input, int *input_i, t_
 	return ;
 }
 
+// if (DEBUG) debug("ENV", BRIGHT_RED, "Parsing env in: `%s`", input);
 char	*parse_env(char *input, t_minishell *mini)
 {
 	char	*dest;
@@ -140,11 +141,9 @@ char	*parse_env(char *input, t_minishell *mini)
 	int		dest_i;
 	bool	in_quotes[2];
 
-	if (DEBUG) debug("ENV", BRIGHT_RED, "Parsing env in: `%s`", input);
 	input_i = 0;
 	dest_i = 0;
 	ft_bzero(&in_quotes, sizeof(bool) * 2);
-	// printf("aaa: %d\n", get_buffer_size_env(input, mini));
 	dest = ft_calloc((get_buffer_size_env(input, mini) + 1), sizeof(char));
 	while (input[input_i])
 	{

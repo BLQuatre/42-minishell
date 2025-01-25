@@ -6,13 +6,13 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:46:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 23:54:05 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 01:50:58 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-const char *colors[] = {
+const char	*g_colors[] = {
 	"\033[30m",
 	"\033[31m",
 	"\033[32m",
@@ -31,7 +31,7 @@ const char *colors[] = {
 	"\033[97m"
 };
 
-const char *redirs_type[] = {
+const char	*g_redirs_type[] = {
 	"<",
 	"<<",
 	">",
@@ -42,34 +42,16 @@ void	debug(const char *tag, t_color color, const char *format, ...)
 {
 	char	buffer[1024];
 	va_list	args;
+
 	va_start(args, format);
 	vsnprintf(buffer, sizeof(buffer), format, args);
-	dprintf(2, "%s[DEBUG / %5.5s] \033[0m%s\n", colors[color], tag, buffer);
+	dprintf(2, "%s[DEBUG / %5.5s] \033[0m%s\n", g_colors[color], tag, buffer);
 	va_end(args);
 }
 
-void	debug_show_cmd(t_cmd *cmd)
+static void	debug_show_cmd2(t_cmd *cmd)
 {
 	int	i;
-
-	debug("CMD", GREEN, "t_cmd: (%p)", cmd);
-	if (!cmd)
-		return ;
-	debug("CMD", GREEN, "{");
-	if (cmd->redirs)
-	{
-		debug("CMD", GREEN, "\tredirs: (%p)", cmd->redirs);
-		debug("CMD", GREEN, "\t{");
-		while (cmd->redirs)
-		{
-			debug("CMD", GREEN, "\t\tredirs: `%s %s`", redirs_type[cmd->redirs->type], cmd->redirs->file);
-			cmd->redirs = cmd->redirs->next;
-
-		}
-		debug("CMD", GREEN, "\t}");
-	}
-	else
-		debug("CMD", GREEN, "\tredirs: (nil)");
 
 	if (cmd->cmd_args)
 	{
@@ -82,13 +64,34 @@ void	debug_show_cmd(t_cmd *cmd)
 	}
 	else
 		debug("CMD", GREEN, "\tcmd_args: (nil)");
-
 	debug("CMD", GREEN, "\texit_code: `%d`", cmd->exit_code);
-	debug("CMD", GREEN, "\tis_subshell: `%s`", cmd->is_subshell ? "Yes" : "No");
+	debug("CMD", GREEN, "\tis_subshell: `%d`", cmd->is_subshell);
 	debug("CMD", GREEN, "\tnext_cmd: `%p`", cmd->next_cmd);
 	debug("CMD", GREEN, "\tprev_cmd: `%p`", cmd->prev_cmd);
 	debug("CMD", GREEN, "}");
-
 	if (cmd->next_cmd)
 		debug_show_cmd(cmd->next_cmd);
+}
+
+void	debug_show_cmd(t_cmd *cmd)
+{
+	debug("CMD", GREEN, "t_cmd: (%p)", cmd);
+	if (!cmd)
+		return ;
+	debug("CMD", GREEN, "{");
+	if (cmd->redirs)
+	{
+		debug("CMD", GREEN, "\tredirs: (%p)", cmd->redirs);
+		debug("CMD", GREEN, "\t{");
+		while (cmd->redirs)
+		{
+			debug("CMD", GREEN, "\t\tredirs: `%s %s`",
+				g_redirs_type[cmd->redirs->type], cmd->redirs->file);
+			cmd->redirs = cmd->redirs->next;
+		}
+		debug("CMD", GREEN, "\t}");
+	}
+	else
+		debug("CMD", GREEN, "\tredirs: (nil)");
+	debug_show_cmd2(cmd);
 }

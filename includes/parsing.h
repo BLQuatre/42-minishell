@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 22:31:58 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 01:33:08 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ bool	is_valid_env_char(char c);
 int		get_env_len(char *input);
 int		get_buffer_size_env(char *input, t_minishell *mini);
 // PROCESS
-int	proccess_env_var(char *dest, char *input, t_env *env);
-int	process_env_exit_code(char *dest, int exit_code);
+int		proccess_env_var(char *dest, char *input, t_env *env);
+int		process_env_exit_code(char *dest, int exit_code);
 // HANDLER
 void	handle_env(t_cmd *cmd, t_minishell *mini);
 
@@ -64,13 +64,21 @@ void	handle_env(t_cmd *cmd, t_minishell *mini);
 void	handle_wildcard(t_cmd *cmd);
 
 /*** QUOTES */
+// UTILS
 void	check_quotes(bool (*in_quotes)[2], char curr_chr);
 bool	is_in_quotes(bool in_quotes[2]);
+// HANDLER
 void	handle_quotes(t_cmd *cmd);
 
 // TODO: Rename and replace
 /*** CHECK */
 bool	is_valid_input(char *input);
+bool	is_valid_andor(char	*input);
+// TODO switch to bool: see file for todo
+int		is_valid_parentheses(char *input);
+bool	is_valid_pipe(char *input);
+bool	is_valid_redir(char *input);
+bool	is_valid_quote(char *input, t_quote_type quote_type);
 
 /*** DEBUG */
 typedef enum e_color
