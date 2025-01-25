@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:15:44 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/21 10:16:27 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 03:47:16 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	read_here_doc(t_redir *redir)
 	free(line);
 	free(limiter);
 	close(fd[1]);
+	if (g_signal)
+		return (close(fd[0]), -2);
 	return (fd[0]);
 }
 
@@ -47,7 +49,8 @@ static int	handle_redir_in(t_redir *redir, t_cmd *cmd, t_minishell *mini,
 	if (fd < 0)
 	{
 		(close(fd_cpy[0]), close(fd_cpy[1]));
-		perror(redir->file);
+		if (fd == -1)
+			perror(redir->file);
 		return (exit_from_child(cmd, mini, EXIT_FAILURE), -1);
 	}
 	if (dup2(fd, fd_cpy[0]) == -1)
