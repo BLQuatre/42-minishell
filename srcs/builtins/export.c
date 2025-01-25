@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 05:12:58 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/25 04:51:49 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 00:22:48 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static bool	is_valid_env_key(char *arg)
 
 	if (arg[0] == '=')
 		return (false);
-	i = 0 ;
+	if (!(ft_isalpha(arg[0]) || arg[0] == '_'))
+		return (false);
+	i = 1 ;
 	while (arg[i] && arg[i] != '=')
 	{
 		if (!(ft_isalnum(arg[i]) || arg[i] == '_'))
