@@ -1,143 +1,114 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/25 10:30:46 by cauvray           #+#    #+#              #
-#    Updated: 2025/01/25 01:36:10 by cauvray          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# COLORS
 
-NAME			= minishell
-CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -g
-LFLAGS			= -lreadline
+BEIGE			=	\x1b[0m\x1b[38;2;213;186;152m
+LIGHT_BEIGE		=	\x1b[0m\x1b[38;2;230;214;193m
+DARK_BEIGE		=	\x1b[1m\x1b[38;2;149;130;106m
 
-LIBFT_URL		= https://github.com/ft-NotArt/0_Libft
-LIBFT_DIR		= libft
-LIBFT_FILE		= libft.a
-LIBFT_LIB		= $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILE))
+# TARGET
 
-CORE_FILES		=	minishell.c debug.c signals.c						\
+NAME			=	minishell
+
+LIBFT			=	libft.a
+LIBFT_DIR		=	libft
+LIBFT_PATH		=	$(LIBFT_DIR)/$(LIBFT)
+
+# FLAGS
+
+MAKEFLAGS		+=	-s
+CFLAGS			=	-Wall -Werror -Wextra -g									\
+					-Iincludes -I$(LIBFT_DIR) -I$(LIBFT_DIR)/gnl
+LFLAGS			=	-lreadline
+
+ARFLAGS			=	rcs
+
+# FILES
+
+CORE_FILES		=	minishell													\
+					signals														\
+					debug														\
 \
 
-PARSING_FILES	=	arg.c check_andor.c check_parentheses.c 			\
-					check_pipe.c check_quotes.c check_redir.c check.c	\
-					cmd.c env_process.c env_utils.c envp.c input.c		\
-					pipe.c quotes_utils.c quotes.c redir.c subshell.c	\
-					wildcard.c											\
+CORE_SRC		=	$(addprefix core/, $(CORE_FILES))
+CORE_OBJ		=	$(addprefix core/, $(CORE_FILES))
+
+HOLY_LIB_FILES	=	minishell_struct											\
+\
+					cmd_lstnew cmd_lstadd_back									\
+					cmd_lstfirst cmd_lstlast cmd_lst_get_nb						\
+					cmd_lst_free												\
+\
+					env_lstnew env_lstadd_back									\
+					env_copy env_lst_to_str_array								\
+					env_lstlast env_lst_get_nb									\
+					env_lstget_by_key env_lstdel_by_key							\
+					env_lst_free												\
+\
+					redir_lstadd_back redir_lstlast redir_lstnew				\
+					redir_lst_free												\
+					free_and_exit												\
+					is_builtin													\
 \
 
-EXEC_FILES		=	exec.c												\
-					handle_fd.c handle_redir.c							\
-					exec_error.c exec_utils.c							\
-					path_to_cmd.c										\
-					globstar.c											\
+HOLY_LIB_SRC	=	$(addprefix holylib/, $(HOLY_LIB_FILES))
+HOLY_LIB_OBJ	=	$(addprefix holylib/, $(HOLY_LIB_FILES))
+
+PARSING_FILES	=		input arg cmd											\
+						check check_andor check_parentheses						\
+						check_pipe check_quotes check_redir						\
+						envp env_process env_utils								\
+						pipe redir subshell										\
+						quotes quotes_utils										\
+						wildcard												\
 \
 
-HOLY_LIB_FILES	=	minishell_struct.c									\
-\
-					cmd_lstadd_back.c cmd_lstlast.c cmd_lstnew.c		\
-					cmd_lst_free.c cmd_lstfirst.c cmd_lst_get_nb.c		\
-\
-					env_lstadd_back.c env_lstlast.c env_lstnew.c		\
-					env_copy.c											\
-					env_lstget_by_key.c env_lstdel_by_key.c				\
-					env_lst_free.c										\
-					env_lst_get_nb.c env_lst_to_str_array.c				\
-\
-					redir_lstadd_back.c redir_lstlast.c redir_lstnew.c	\
-					redir_lst_free.c									\
-					free_and_exit.c										\
-					is_builtin.c										\
+PARSING_SRC		=	$(addprefix parsing/, $(PARSING_FILES))
+PARSING_OBJ		=	$(addprefix parsing/, $(PARSING_FILES))
+
+EXEC_FILES		=	exec														\
+					globstar													\
+					handle_fd handle_redir										\
+					path_to_cmd													\
+					exec_error exec_utils										\
 \
 
-BUILT_IN_FILES	=	builtins_utils.c \
-					echo.c cd.c pwd.c export.c unset.c env.c exit.c		\
+EXEC_SRC		=	$(addprefix exec/, $(EXEC_FILES))
+EXEC_OBJ		=	$(addprefix exec/, $(EXEC_FILES))
+
+BUILT_IN_FILES	=	echo														\
+					cd pwd														\
+					export unset env											\
+					exit														\
+					builtins_utils												\
 \
 
-SRCS_FILES		= $(CORE_FILES) $(HOLY_LIB_FILES) $(PARSING_FILES) $(EXEC_FILES) $(BUILT_IN_FILES)
+BUILT_IN_SRC	=	$(addprefix builtins/, $(BUILT_IN_FILES))
+BUILT_IN_OBJ	=	$(addprefix builtins/, $(BUILT_IN_FILES))
 
-SRCS_DIR		= srcs
-OBJS_DIR		= objs
-OBJS_FILES		= $(SRCS_FILES:.c=.o)
-OBJS			= $(addprefix $(OBJS_DIR)/, $(OBJS_FILES))
+FILES			=	$(CORE_SRC) $(HOLY_LIB_SRC) $(PARSING_SRC) $(EXEC_SRC) $(BUILT_IN_SRC)
 
-INC_DIR			= includes
-INC_FLAGS		= -I $(INC_DIR) -I $(LIBFT_DIR) -I $(LIBFT_DIR)/gnl
+SRC				=	$(addprefix srcs/, $(addsuffix .c, $(FILES)))
+OBJ				=	$(addprefix srcs/, $(addsuffix .o, $(FILES)))
 
-GREEN			= \033[0;32m
-CYAN			= \033[0;36m
-RESET			= \033[0m
-GRAY			= \033[90m
+# RULES
 
-SUCCESS			= $(GREEN)[SUCCESS]$(RESET)
-INFO			= $(CYAN)[INFO]$(RESET)
+all				:	$(NAME)
 
-all: $(NAME)
+$(LIBFT_PATH)	:
+					$(MAKE) -C $(LIBFT_DIR) $(LIBFT) -j $$(nproc)
 
-$(OBJS_DIR):
-	@if [ ! -d ./$(OBJS_DIR) ]; then \
-		echo "$(INFO) Creating $(OBJS_DIR) directory..."; \
-		echo "$(GRAY)mkdir -p $(OBJS_DIR)"; \
-		mkdir -p $(OBJS_DIR); \
-	fi
+$(NAME)			:	$(OBJ) | $(LIBFT_PATH)
+					$(CC) $(CFLAGS) $^ $(LIBFT_PATH) $(LFLAGS) -o $@
+					echo -e '$(LIGHT_BEIGE) \tCompiled$(DARK_BEIGE) $@'
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/**/%.c | $(OBJS_DIR)
-	@echo "$(INFO) Compiling $<...$(GRAY)"
-	$(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
+clean			:
+					$(RM) $(OBJ)
+					$(MAKE) -C $(LIBFT_DIR) f$@
+					echo -e '$(LIGHT_BEIGE) \tCleaned$(BEIGE) $(OBJ)'
 
-lib:
-	@if [ -d "./$(LIBFT_DIR)" ]; then \
-		echo "$(INFO) Updating $(LIBFT_DIR) with git pull...$(GRAY)"; \
-		echo "$(GRAY)cd $(LIBFT_DIR) && git pull"; \
-		cd $(LIBFT_DIR) && git pull; \
-	else \
-		echo "$(INFO) Cloning $(LIBFT_DIR)...$(GRAY)"; \
-		echo "$(GRAY)git clone $(LIBFT_URL) $(LIBFT_DIR)"; \
-		git clone $(LIBFT_URL) $(LIBFT_DIR); \
-	fi
-	@echo "$(INFO) Compiling $(LIBFT_DIR)...$(GRAY)"
-	@make -C $(LIBFT_DIR) -j $$(nproc)
-	@echo "$(SUCCESS) $(LIBFT_DIR) compiled."
+fclean			:	clean
+					$(RM) $(NAME)
+					echo -e '$(LIGHT_BEIGE) \tCleaned$(DARK_BEIGE) $(NAME)'
 
-$(NAME): lib $(OBJS)
-	@echo "$(INFO) Compiling $(NAME)... $(GRAY)"
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
-	@echo "$(SUCCESS) $(NAME) compiled."
+re				:	fclean all
 
-clean:
-	@echo "$(INFO) Removing $(LIBFT_DIR)...$(GRAY)";
-	rm -rf $(LIBFT_DIR);
-	@echo "$(INFO) Removing $(OBJS_DIR)...$(GRAY)";
-	rm -rf $(OBJS_DIR);
-	@echo "$(SUCCESS) Objects and libs removed."
-
-fclean: clean
-	@echo "$(INFO) Removing $(NAME)...$(GRAY)"
-	rm -f $(NAME)
-	@echo "$(SUCCESS) $(NAME) removed."
-
-re: fclean all
-
-.PHONY: all lib clean fclean re
-
-# DEBUG
-norm:
-	@echo "Norminette de $(NAME)..."
-	@if norminette --use-gitignore | grep -v "OK!" | grep -q "Error!"; then \
-		norminette --use-gitignore | grep -v "OK!" | \
-		while read line; do \
-			if echo $$line | grep -q "Error!"; then \
-				echo "\033[0;31m$$line\033[0m"; \
-			else \
-				echo "$$line"; \
-			fi; \
-		done; \
-	else \
-		echo "\033[0;32mAll files are norminette friendly !\033[0m"; \
-	fi
-
-.PHONY: norm
+.PHONY			=	all clean fclean re

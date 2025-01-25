@@ -2,8 +2,6 @@
 
 .vscode/
 .tests/
-objs/
-libft/
 
 *.out
 *.o
