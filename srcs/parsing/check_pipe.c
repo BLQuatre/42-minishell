@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 01:26:33 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 03:54:46 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 04:57:42 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ bool	check_pipe_conditions(char *input, int *i, bool *pipe_flag)
 	if (input[*i] == '|' && input[*i + 1] != '|' && !*pipe_flag)
 	{
 		if (!input[*i + 1])
-			return (printf(INVALID_TOKEN, ": pipe"), false);
+			return (print_token_error(input[*i]), false);
 		*pipe_flag = true;
 		return (true);
 	}
 	if (input[*i] == ' ' && *pipe_flag)
 	{
 		if (!input[*i + 1])
-			return (printf(INVALID_TOKEN, ": pipe"), false);
+			return (print_token_error('|'), false);
 		return (true);
 	}
 	if (*pipe_flag && (input[*i] == '&' || input[*i] == '|'))
-		return (printf(INVALID_TOKEN, ": pipe"), false);
+		return (print_token_error(input[*i]), false);
 	*pipe_flag = false;
 	return (true);
 }

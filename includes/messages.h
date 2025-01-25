@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 07:34:59 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 05:37:10 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 05:45:44 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # define SIGQUIT_INIT_ERROR "Error setting up SIGQUIT handler"
 # define SIGINT_INIT_ERROR "Error setting up SIGINT handler"
 
-# define INVALID_TOKEN "😂 invalid token ! unexpected token%s\n"
+# define INVALID_TOKEN "😂 invalid token ! unexpected token "
+# define INVALID_TOKEN_QUOTE "`"
 
 # define CD "cd: "
 # define TOO_MANY_ARG "too many arguments\n"

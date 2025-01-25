@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 01:26:57 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 01:40:10 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 04:46:25 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ bool	is_valid_redir(char *input)
 			|| ft_strncmp(input + i, "<<", 2) == 0)
 		{
 			if (!is_arg_after_redir(input + i))
-			{
-				return (printf(INVALID_TOKEN, ": redir"), false);
-			}
+				return (print_token_error(input[i]), false);
 		}
 	}
 	return (true);

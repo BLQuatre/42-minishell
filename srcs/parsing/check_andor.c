@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 01:28:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 03:50:24 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 05:40:56 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,23 @@
 // 	return (true);
 // }
 
+static char	get_last_andor(char *input)
+{
+	int len;
+
+	len = ft_strlen(input) - 1;
+	while (input[len] && input[len] != '&' && input[len] != '|')
+		len--;
+	return (input[len]);
+}
+
 bool	check_andor_conditions(char *input, int *i, bool *andor_flag)
 {
 	if ((ft_strncmp(input + *i, "&&", 2) == 0
 			|| ft_strncmp(input + *i, "||", 2) == 0) && !*andor_flag)
 	{
 		if (input[*i + 1] && !input[*i + 2])
-			return (printf(INVALID_TOKEN, ": andor"), false);
+			return (print_token_error(input[*i + 1]), false);
 		*andor_flag = true;
 		(*i)++;
 		return (true);
@@ -62,11 +72,11 @@ bool	check_andor_conditions(char *input, int *i, bool *andor_flag)
 	if (input[*i] == ' ' && *andor_flag)
 	{
 		if (!input[*i + 1])
-			return (printf(INVALID_TOKEN, ": andor"), false);
+			return (print_token_error(get_last_andor(input)), false);
 		return (true);
 	}
 	if (*andor_flag && (input[*i] == '&' || input[*i] == '|'))
-		return (printf(INVALID_TOKEN, ": andor"), false);
+		return (print_token_error(input[*i]), false);
 	*andor_flag = false;
 	return (true);
 }

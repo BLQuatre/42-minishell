@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:12:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 01:33:18 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 04:57:18 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static char	*parse_quotes(char *input)
 void	handle_quotes(t_cmd *cmd)
 {
 	int		i;
-	t_redir	*tmp_redir;
 	char	*tmp;
+	t_redir	*tmp_redir;
 
 	if (cmd->cmd_args)
 	{

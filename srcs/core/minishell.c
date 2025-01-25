@@ -6,13 +6,13 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 04:21:09 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 04:35:36 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	main(int argc, char *argv[])
+int	main(void)
 {
 	char		*msg;
 	t_minishell	*mini;

@@ -6,25 +6,28 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 05:17:23 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 01:28:34 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 04:43:19 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
+void	print_token_error(char token)
+{
+	ft_putstr_fd(INVALID_TOKEN, 2);
+	ft_putstr_fd(INVALID_TOKEN_QUOTE, 2);
+	ft_putchar_fd(token, 2);
+	ft_putendl_fd(INVALID_TOKEN_QUOTE, 2);
+}
+
 bool	is_valid_input(char *input)
 {
-	int	parentheses_result;
-
-	parentheses_result = is_valid_parentheses(input);
-	if (parentheses_result > 0)
-		return (printf(INVALID_TOKEN, " \"(\""), false);
-	else if (parentheses_result < 0)
-		return (printf(INVALID_TOKEN, " \")\""), false);
+	if (!is_valid_parentheses(input))
+		return (false);
 	if (!is_valid_quote(input, S_QUOTE))
-		return (printf(INVALID_TOKEN, " \"'\""), false);
+		return (false);
 	if (!is_valid_quote(input, D_QUOTE))
-		return (printf(INVALID_TOKEN, " '\"'"), false);
+		return (false);
 	if (!is_valid_redir(input))
 		return (false);
 	if (!is_valid_pipe(input))

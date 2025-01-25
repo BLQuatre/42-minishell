@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 01:33:08 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 04:43:11 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	handle_quotes(t_cmd *cmd);
 
 // TODO: Rename and replace
 /*** CHECK */
+void	print_token_error(char token);
 bool	is_valid_input(char *input);
 bool	is_valid_andor(char	*input);
-// TODO switch to bool: see file for todo
-int		is_valid_parentheses(char *input);
+bool	is_valid_parentheses(char *input);
 bool	is_valid_pipe(char *input);
 bool	is_valid_redir(char *input);
 bool	is_valid_quote(char *input, t_quote_type quote_type);
