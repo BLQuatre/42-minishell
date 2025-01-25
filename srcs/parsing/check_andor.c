@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 01:28:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 05:40:56 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 05:50:03 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 
 static char	get_last_andor(char *input)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(input) - 1;
 	while (input[len] && input[len] != '&' && input[len] != '|')
