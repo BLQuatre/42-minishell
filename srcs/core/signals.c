@@ -6,11 +6,13 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 06:11:36 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 23:36:13 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 01:13:57 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "holysignal.h"
+
+volatile sig_atomic_t	g_signal = 0 ;
 
 // Tells wether a cmd is active when calling with negative value passed as arg
 // Modify returned value to arg when calling with positive value passed as arg
@@ -25,7 +27,7 @@ bool	active_command(int whether)
 
 static void sigint_handler(int signal)
 {
-	(void) signal ;
+	g_signal = signal ;
 	write(STDERR_FILENO, "\n", 1);
 	if (!active_command(-1))
 	{

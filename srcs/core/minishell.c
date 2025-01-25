@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 23:21:42 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 01:15:53 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ int	main(int argc, char *argv[])
 	while (true)
 	{
 		msg = readline(SHELL_PROMPT);
+		if (g_signal == SIGINT)
+		{
+			mini->exit_code = 130 ;
+			g_signal = 0 ;
+		}
 		if (msg == NULL)
 		{
 			printf("exit\n");

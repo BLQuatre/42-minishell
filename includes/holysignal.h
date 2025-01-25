@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 23:34:32 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/24 23:38:16 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 01:04:20 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <unistd.h>
 # include <readline/readline.h>
 
-// extern volatile sig_atomic_t	g_signal;
+extern volatile sig_atomic_t	g_signal;
+
 bool	active_command(int whether);
 void	handle_sigaction(void);
 
