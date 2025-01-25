@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 20:23:22 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/23 08:32:15 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 04:55:52 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,21 @@ void	ambiguous_redirect_error(t_cmd *cmd, t_minishell *mini, char *redir)
 	while (ft_strchr(redir, - '*'))
 		*ft_strchr(redir, - '*') = '*' ;
 	ft_putstr_fd(redir, STDERR_FILENO);
-	ft_putstr_fd(": ambiguous redirect\n", STDERR_FILENO);
+	ft_putstr_fd(AMOGUS, STDERR_FILENO);
 	free(redir);
 	return (exit_from_child(cmd, mini, 1));
 }
 
 void	dup_error(t_cmd *cmd, t_minishell *mini)
 {
-	perror("cannot duplicate fd:");
+	perror(DUP_FD);
 	exit_from_child(cmd, mini, EXIT_FAILURE);
 }
 
 void	dup2_error(t_cmd *cmd, t_minishell *mini)
 {
-	perror("redirection error: cannot duplicate fd:");
+	ft_putstr_fd(REDIR_ERROR, STDERR_FILENO);
+	perror(DUP_FD);
 	exit_from_child(cmd, mini, EXIT_FAILURE);
 }
 

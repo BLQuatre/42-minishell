@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 02:08:46 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/23 22:12:11 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 05:06:07 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static bool	globstar_insert_args(t_cmd *cmd, char *str, int index)
 	inserted = false ;
 	dir = opendir(".");
 	if (!dir)
-		return (cmd->exit_code = 1, perror("opendir"), inserted);
+		return (cmd->exit_code = 1, perror(OPENDIR), inserted);
 	errno = 0 ;
 	entry = readdir(dir);
 	while (entry)
@@ -66,7 +66,7 @@ static bool	globstar_insert_args(t_cmd *cmd, char *str, int index)
 	}
 	closedir(dir);
 	if (errno)
-		return (cmd->exit_code = 1, perror("readdir"), inserted);
+		return (cmd->exit_code = 1, perror(READDIR), inserted);
 	return (inserted);
 }
 
@@ -101,7 +101,7 @@ static int	globstar_insert_redirs(t_cmd *cmd, t_redir *redir, char *str)
 	inserted = 0 ;
 	dir = opendir(".");
 	if (!dir)
-		return (cmd->exit_code = 1, perror("opendir"), inserted);
+		return (cmd->exit_code = 1, perror(OPENDIR), inserted);
 	errno = 0 ;
 	entry = readdir(dir);
 	while (entry)
@@ -116,7 +116,7 @@ static int	globstar_insert_redirs(t_cmd *cmd, t_redir *redir, char *str)
 	}
 	closedir(dir);
 	if (errno)
-		return (cmd->exit_code = 1, perror("readdir"), inserted);
+		return (cmd->exit_code = 1, perror(READDIR), inserted);
 	return (inserted);
 }
 

@@ -6,12 +6,14 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 23:34:32 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/25 01:04:20 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 05:04:38 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HOLYSIGNAL_H
 # define HOLYSIGNAL_H
+
+# include "minishell.h"
 
 # include <signal.h>
 # include <stdbool.h>

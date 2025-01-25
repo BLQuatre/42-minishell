@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 06:11:36 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 04:22:40 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 05:37:50 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	handle_sigaction(void)
 	sigquit_sa.sa_flags = 0;
 	if (sigaction(SIGQUIT, &sigquit_sa, NULL) == -1)
 	{
-		perror("Error setting up SIGQUIT handler");
+		perror(SIGQUIT_INIT_ERROR);
 		exit(EXIT_FAILURE);
 	}
 	sigint_sa.sa_handler = sigint_handler;
@@ -55,7 +55,7 @@ void	handle_sigaction(void)
 	sigint_sa.sa_flags = 0;
 	if (sigaction(SIGINT, &sigint_sa, NULL) == -1)
 	{
-		perror("Error setting up SIGINT handler");
+		perror(SIGINT_INIT_ERROR);
 		exit(EXIT_FAILURE);
 	}
 }

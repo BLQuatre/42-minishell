@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 04:17:12 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/23 22:45:03 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 04:48:38 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	pwd(t_cmd *cmd)
 	ft_bzero(buf, BUFFER_SIZE);
 	if (!getcwd(buf, BUFFER_SIZE))
 	{
-		perror("pwd");
+		perror(PWD);
 		cmd->exit_code = 1 ;
 		return ;
 	}

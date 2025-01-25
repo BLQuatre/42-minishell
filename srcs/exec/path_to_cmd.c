@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:03:35 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/23 21:00:07 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/25 04:59:12 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	add_path_to_cmd(t_cmd *cmd, t_minishell *mini)
 		else
 		{
 			ft_putstr_fd(cmd->cmd_args[0], STDERR_FILENO);
-			ft_putstr_fd(": command not found\n", STDERR_FILENO);
+			ft_putstr_fd(CMD_NOT_FOUND, STDERR_FILENO);
 		}
 		(free_str_array(cmd->cmd_args), cmd->cmd_args = NULL);
 		return ;
