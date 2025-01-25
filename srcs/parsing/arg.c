@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:33 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 23:42:54 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 23:27:47 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,27 @@
 // 	return (arg);
 // }
 
-static bool	process_arg(char *input, bool in_quotes[2], int *i)
+// static bool	is_arg_end(char *input, int *i, bool in_quotes[2])
+// {
+// 	if (in_quotes[S_QUOTE] || in_quotes[D_QUOTE])
+// 		return (false);
+// 	if (input[*i] == '>' || input[*i] == '<' || input[*i] == '|'
+// 		|| input[*i] == ' ' || input[*i] == '&')
+// 	{
+// 		if (*i == 0)
+// 			(*i)++;
+// 		return (true);
+// 	}
+// 	return (false);
+// }
+
+static bool	is_arg_end(char *input, int *i, bool in_quotes[2])
 {
 	if (in_quotes[S_QUOTE] || in_quotes[D_QUOTE])
-	{
-		(*i)++;
 		return (false);
-	}
 	if (input[*i] == '>' || input[*i] == '<' || input[*i] == '|'
 		|| input[*i] == ' ' || input[*i] == '&')
 	{
-		if (*i == 0)
-			(*i)++;
 		return (true);
 	}
 	return (false);
@@ -79,7 +88,7 @@ char	*parse_arg(char *input, int *len, bool *subshell)
 	while (input[i])
 	{
 		check_quotes(&in_quotes, input[i]);
-		if (process_arg(input, in_quotes, &i))
+		if (is_arg_end(input, &i, in_quotes))
 			break ;
 		if (input[i] == '(')
 		{
@@ -92,6 +101,5 @@ char	*parse_arg(char *input, int *len, bool *subshell)
 		i++;
 	}
 	(*len) += i;
-	arg = ft_substr(input, 0, i);
-	return (arg);
+	return (ft_substr(input, 0, i));
 }

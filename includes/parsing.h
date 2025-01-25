@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 04:43:11 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 21:43:12 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ t_redir	*parse_redir(char *input, int *len);
 // UTILS
 bool	is_valid_env_char(char c);
 int		get_env_len(char *input);
+int		process_env_len(char **input, t_env *env, bool s_quote);
 int		get_buffer_size_env(char *input, t_minishell *mini);
 // PROCESS
-int		proccess_env_var(char *dest, char *input, t_env *env);
-int		process_env_exit_code(char *dest, int exit_code);
+int		proccess_env_var(char **input, char *res, t_env *env);
+int		process_env_exit_code(char **input, char *res, int exit_code);
 // HANDLER
 void	handle_env(t_cmd *cmd, t_minishell *mini);
 
