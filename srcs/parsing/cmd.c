@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 23:14:33 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 23:52:33 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,20 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 int	handle_cmd(char *input, t_minishell *mini, char andor[3])
 {
 	bool	in_quotes[2];
+	int		par_depth;
 	int		i;
 	t_cmd	*cmd;
 	char	*cmd_str;
 
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	i = 0;
-	while (is_in_quotes(in_quotes) || (input[i]
+	par_depth = 0;
+	while (is_in_quotes(in_quotes) || par_depth > 0 || (input[i]
 			&& ft_strncmp(input + i, "&&", 2) != 0
 			&& ft_strncmp(input + i, "||", 2) != 0))
 	{
 		check_quotes(&in_quotes, input[i]);
+		par_depth = calc_parentheses_depth(par_depth, in_quotes, input[i]);
 		i++;
 	}
 	cmd_str = ft_substr(input, 0, i);

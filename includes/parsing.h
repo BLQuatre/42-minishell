@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 21:43:12 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 23:49:05 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ bool	is_in_quotes(bool in_quotes[2]);
 // HANDLER
 void	handle_quotes(t_cmd *cmd);
 
-// TODO: Rename and replace
 /*** CHECK */
 void	print_token_error(char token);
 bool	is_valid_input(char *input);
@@ -80,6 +79,9 @@ bool	is_valid_parentheses(char *input);
 bool	is_valid_pipe(char *input);
 bool	is_valid_redir(char *input);
 bool	is_valid_quote(char *input, t_quote_type quote_type);
+
+/*** PARENTHESES */
+int		calc_parentheses_depth(int actual_depth, bool in_quotes[2], char c);
 
 /*** DEBUG */
 typedef enum e_color

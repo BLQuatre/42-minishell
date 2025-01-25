@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:07:43 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 23:23:18 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/25 23:47:44 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,6 @@ t_cmd	*handle_pipe(char *input, t_minishell *mini)
 	return (cmd);
 }
 */
-
-static int	calc_parentheses_depth(int actual_depth, bool in_quotes[2], char c)
-{
-	if (!in_quotes[S_QUOTE] && !in_quotes[D_QUOTE] && c == '(')
-		actual_depth++;
-	if (!in_quotes[S_QUOTE] && !in_quotes[D_QUOTE] && c == ')')
-		actual_depth--;
-	return (actual_depth);
-}
 
 static void	add_cmd(char **input, int *index, t_cmd **cmd, t_minishell *mini)
 {
