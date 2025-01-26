@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/26 03:21:33 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 03:53:48 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini, pid_t *pid)
 
 static void	child_exec(t_cmd *cmd, t_minishell *mini, char *input_save)
 {
+	int	error_val ;
+
 	free(input_save);
 	globstar_args(cmd);
 	if (cmd->exit_code != 0)
@@ -74,10 +76,10 @@ static void	child_exec(t_cmd *cmd, t_minishell *mini, char *input_save)
 		free_and_exit(cmd, mini, EXIT_SUCCESS);
 	if (is_builtin(cmd->cmd_args[0]))
 		(builtin_exec(cmd, mini), free_and_exit(cmd, mini, cmd->exit_code));
-	add_path_to_cmd(cmd, mini);
-	if (!cmd->cmd_args)
+	error_val = add_path_to_cmd(cmd, mini);
+	if (error_val)
 	{
-		if (errno == EACCES)
+		if (error_val == EACCES)
 			free_and_exit(cmd, mini, EXIT_NO_PERM);
 		free_and_exit(cmd, mini, EXIT_CMD_NOT_FOUND);
 	}

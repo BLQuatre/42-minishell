@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:03:35 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/26 03:08:05 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 03:52:31 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,16 @@ static char	*get_valid_path_cmd(char *cmd, t_minishell *mini)
 		return (non_local_cmd(cmd, mini));
 }
 
-void	add_path_to_cmd(t_cmd *cmd, t_minishell *mini)
+// Returns the error value (errno) or 0 if everything went well
+int	add_path_to_cmd(t_cmd *cmd, t_minishell *mini)
 {
 	char	*tmp ;
+	int		error_val ;
 
 	tmp = get_valid_path_cmd(cmd->cmd_args[0], mini);
 	if (!tmp)
 	{
+		error_val = errno ;
 		if (!errno)
 			errno = ENOENT ;
 		if (errno == EACCES || !env_lstget_by_key(mini->env, "PATH")
@@ -85,8 +88,9 @@ void	add_path_to_cmd(t_cmd *cmd, t_minishell *mini)
 			ft_putstr_fd(CMD_NOT_FOUND, STDERR_FILENO);
 		}
 		(free_str_array(cmd->cmd_args), cmd->cmd_args = NULL);
-		return ;
+		return (error_val);
 	}
 	free(cmd->cmd_args[0]);
 	cmd->cmd_args[0] = tmp ;
+	return (0);
 }
