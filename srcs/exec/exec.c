@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/26 03:53:48 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 04:24:11 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ static void	child_exec(t_cmd *cmd, t_minishell *mini, char *input_save)
 	error_val = add_path_to_cmd(cmd, mini);
 	if (error_val)
 	{
-		if (error_val == EACCES)
-			free_and_exit(cmd, mini, EXIT_NO_PERM);
+		if (error_val == EACCES || error_val == EISDIR)
+			free_and_exit(cmd, mini, EXIT_NO_PERM_OR_IS_DIR);
 		free_and_exit(cmd, mini, EXIT_CMD_NOT_FOUND);
 	}
 	execve(cmd->cmd_args[0], cmd->cmd_args, env_lst_to_str_array(mini->env));
 	if (errno == ENOEXEC)
-		free_and_exit(cmd, mini, EXIT_NO_PERM);
+		free_and_exit(cmd, mini, EXIT_NO_PERM_OR_IS_DIR);
 	free_and_exit(cmd, mini, EXIT_FAILURE);
 }
 

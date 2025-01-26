@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:16:50 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/26 03:53:04 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 04:23:45 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <dirent.h>
 
 # define BUFFER_SIZE 5000
 
 // Defines explicit exit codes
 
-# define EXIT_NO_PERM		126
+# define EXIT_NO_PERM_OR_IS_DIR		126
 # define EXIT_CMD_NOT_FOUND	127
 
 // EXEC

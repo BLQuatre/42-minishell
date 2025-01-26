@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:03:35 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/26 03:52:31 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 04:23:06 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,17 @@ static char	*non_local_cmd(char *cmd, t_minishell *mini)
 
 static char	*get_valid_path_cmd(char *cmd, t_minishell *mini)
 {
+	struct stat	buf ;
+
 	if (ft_strchr(cmd, '/'))
+	{
+		if (stat(cmd, &buf) == 0 && S_ISDIR(buf.st_mode))
+		{
+			errno = EISDIR ;
+			return (NULL);
+		}
 		return (local_cmd(cmd));
+	}
 	else
 		return (non_local_cmd(cmd, mini));
 }
@@ -79,7 +88,8 @@ int	add_path_to_cmd(t_cmd *cmd, t_minishell *mini)
 		error_val = errno ;
 		if (!errno)
 			errno = ENOENT ;
-		if (errno == EACCES || !env_lstget_by_key(mini->env, "PATH")
+		if (errno == EACCES || errno == EISDIR
+			|| !env_lstget_by_key(mini->env, "PATH")
 			|| ft_strchr(cmd->cmd_args[0], '/'))
 			perror(cmd->cmd_args[0]);
 		else
