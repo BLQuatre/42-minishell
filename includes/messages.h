@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   messages.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 07:34:59 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 05:45:44 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 02:11:43 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MESSAGES_H
 # define MESSAGES_H
 
-# define SHELL_PROMPT "\033[1;35mHolyShell > \033[0m"
+// # define SHELL_PROMPT "\033[1;35mHolyShell > \033[0m"
+# define SHELL_PROMPT "$ "
 
 # define SIGQUIT_INIT_ERROR "Error setting up SIGQUIT handler"
 # define SIGINT_INIT_ERROR "Error setting up SIGINT handler"

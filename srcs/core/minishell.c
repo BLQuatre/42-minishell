@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:56:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 01:34:55 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 02:13:54 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(void)
 	t_minishell	*mini;
 
 	handle_sigaction();
-	rl_outstream = stderr ;
+	// rl_outstream = stderr ;
 	mini = minishell_new();
 	while (true)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arg.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:33 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 23:27:47 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 02:40:26 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@
 
 static bool	is_arg_end(char *input, int *i, bool in_quotes[2])
 {
-	if (in_quotes[S_QUOTE] || in_quotes[D_QUOTE])
+	if (is_in_quotes(in_quotes))
 		return (false);
 	if (input[*i] == '>' || input[*i] == '<' || input[*i] == '|'
 		|| input[*i] == ' ' || input[*i] == '&')
@@ -90,7 +90,7 @@ char	*parse_arg(char *input, int *len, bool *subshell)
 		check_quotes(&in_quotes, input[i]);
 		if (is_arg_end(input, &i, in_quotes))
 			break ;
-		if (input[i] == '(')
+		if (input[i] == '(' && !is_in_quotes(in_quotes))
 		{
 			arg = parse_subshell(input, &i);
 			(*len) += i;
