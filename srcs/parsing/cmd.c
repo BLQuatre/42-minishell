@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 23:52:33 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 01:43:53 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_cmd	*parse_cmd(char *input, t_minishell *mini)
 	return (cmd);
 }
 
-int	handle_cmd(char *input, t_minishell *mini, char andor[3])
+int	handle_cmd(char *input, t_minishell *mini, char andor[3], char *input_save)
 {
 	bool	in_quotes[2];
 	int		par_depth;
@@ -85,9 +85,7 @@ int	handle_cmd(char *input, t_minishell *mini, char andor[3])
 	t_cmd	*cmd;
 	char	*cmd_str;
 
-	ft_bzero(in_quotes, sizeof(bool) * 2);
-	i = 0;
-	par_depth = 0;
+	(ft_bzero(in_quotes, sizeof(bool) * 2), i = 0, par_depth = 0);
 	while (is_in_quotes(in_quotes) || par_depth > 0 || (input[i]
 			&& ft_strncmp(input + i, "&&", 2) != 0
 			&& ft_strncmp(input + i, "||", 2) != 0))
@@ -101,7 +99,9 @@ int	handle_cmd(char *input, t_minishell *mini, char andor[3])
 	free(cmd_str);
 	if (cmd && !((ft_strncmp(andor, "&&", 2) == 0 && mini->exit_code != 0)
 			|| (ft_strncmp(andor, "||", 2) == 0 && mini->exit_code == 0)))
-		exec(mini, cmd);
+		exec(mini, cmd, input_save);
+	else
+		cmd_free_lst_from_start(cmd);
 	return (i);
 }
 

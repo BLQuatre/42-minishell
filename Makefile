@@ -52,20 +52,21 @@ HOLY_LIB_FILES	=	minishell_struct											\
 HOLY_LIB_SRC	=	$(addprefix holylib/, $(HOLY_LIB_FILES))
 HOLY_LIB_OBJ	=	$(addprefix holylib/, $(HOLY_LIB_FILES))
 
-PARSING_FILES	=	input arg cmd											\
-					check check_andor check_parentheses						\
-					check_pipe check_quotes check_redir						\
-					envp env_process env_utils								\
-					pipe redir subshell										\
-					quotes quotes_utils										\
-					wildcard												\
-					parentheses												\
+PARSING_FILES	=	input arg cmd												\
+					check check_andor check_parentheses							\
+					check_pipe check_quotes check_redir							\
+					envp env_process env_utils									\
+					pipe redir subshell											\
+					quotes quotes_utils											\
+					wildcard													\
+					parentheses													\
 \
 
 PARSING_SRC		=	$(addprefix parsing/, $(PARSING_FILES))
 PARSING_OBJ		=	$(addprefix parsing/, $(PARSING_FILES))
 
 EXEC_FILES		=	exec														\
+					exec_subshell												\
 					globstar													\
 					handle_fd handle_redir										\
 					path_to_cmd													\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:58 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 23:28:23 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 01:57:49 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,19 @@ static int	process_input(char *input, char *andor, bool *in_quotes)
 	return (i);
 }
 
+/***
+ * @param input is freed thus should be malloc'd and 
+ * not accessed afterward
+ */
 void	handle_input(char *input, t_minishell *mini)
 {
 	bool	in_quotes[2];
 	char	andor[3];
+	char	*input_save ;
 
+	input_save = input ;
 	if (!is_valid_input(input))
-		return ;
+		return (free(input_save));
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	while (*input)
 	{
@@ -78,6 +84,7 @@ void	handle_input(char *input, t_minishell *mini)
 		if (is_in_quotes(in_quotes))
 			continue ;
 		input += process_input(input, andor, in_quotes);
-		input += handle_cmd(input, mini, andor);
+		input += handle_cmd(input, mini, andor, input_save);
 	}
+	free(input_save);
 }

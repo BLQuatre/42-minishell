@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:16:50 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/24 02:37:29 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:57:34 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@
 
 // EXEC
 
-int		exec(t_minishell *mini, t_cmd *cmd);
+int		exec(t_minishell *mini, t_cmd *cmd, char *input_save);
+void	exec_subshell(t_cmd *cmd, t_minishell *mini);
 void	waitpid_loop(t_cmd *cmd, pid_t *pid, int cmd_nb);
 
 // FD

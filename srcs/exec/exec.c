@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/25 04:24:18 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 01:59:36 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include "parsing.h"
 
 static void	builtin_exec(t_cmd *cmd, t_minishell *mini)
 {
@@ -62,17 +61,15 @@ static void	alone_builtin_exec(t_cmd *cmd, t_minishell *mini, pid_t *pid)
 	close(fd_save[1]);
 }
 
-static void	child_exec(t_cmd *cmd, t_minishell *mini)
+static void	child_exec(t_cmd *cmd, t_minishell *mini, char *input_save)
 {
+	free(input_save);
 	globstar_args(cmd);
 	if (cmd->exit_code != 0)
 		free_and_exit(cmd, mini, EXIT_FAILURE);
 	globstar_redirs(cmd, mini);
 	if (cmd->is_subshell)
-	{
-		handle_input(cmd->cmd_args[0], mini);
-		free_and_exit(cmd, mini, mini->exit_code);
-	}
+		exec_subshell(cmd, mini);
 	if (!cmd->cmd_args[0])
 		free_and_exit(cmd, mini, EXIT_SUCCESS);
 	if (is_builtin(cmd->cmd_args[0]))
@@ -90,7 +87,8 @@ static void	child_exec(t_cmd *cmd, t_minishell *mini)
 	free_and_exit(cmd, mini, EXIT_FAILURE);
 }
 
-static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
+static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid,
+	char *input_save)
 {
 	static int	fd[2];
 	int			fd_in;
@@ -98,7 +96,7 @@ static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
 
 	fd_in = -1 ;
 	if (cmd->prev_cmd)
-		fd_in = recursive_pipex(cmd->prev_cmd, mini, pid);
+		fd_in = recursive_pipex(cmd->prev_cmd, mini, pid, input_save);
 	if (cmd->next_cmd && pipe(fd) == -1)
 		return (pipe_error(fd_in));
 	cmd_index = cmd_lst_get_nb(cmd) - 1 ;
@@ -109,7 +107,8 @@ static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
 	if (pid[cmd_index] < 0)
 		return (fork_error(cmd, fd, fd_in));
 	if (pid[cmd_index] == 0)
-		(free(pid), handle_fd(cmd, mini, fd, fd_in), child_exec(cmd, mini));
+		(free(pid), handle_fd(cmd, mini, fd, fd_in),
+			child_exec(cmd, mini, input_save));
 	if (fd_in != -1)
 		close(fd_in);
 	if (cmd->next_cmd)
@@ -117,7 +116,7 @@ static int	recursive_pipex(t_cmd *cmd, t_minishell *mini, int *pid)
 	return (0);
 }
 
-int	exec(t_minishell *mini, t_cmd *cmd)
+int	exec(t_minishell *mini, t_cmd *cmd, char *input_save)
 {
 	pid_t	*pid ;
 	int		cmd_nb ;
@@ -126,7 +125,7 @@ int	exec(t_minishell *mini, t_cmd *cmd)
 	pid = malloc((cmd_nb) * sizeof(pid_t));
 	ft_memset(pid, -1, (cmd_nb) * sizeof(pid_t));
 	active_command(true);
-	recursive_pipex(cmd_lstlast(cmd), mini, pid);
+	recursive_pipex(cmd_lstlast(cmd), mini, pid, input_save);
 	waitpid_loop(cmd, pid, cmd_nb);
 	active_command(false);
 	free(pid);

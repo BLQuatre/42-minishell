@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 23:49:05 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 01:38:04 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef enum e_quote_type
 void	handle_input(char *input, t_minishell *mini);
 
 /*** CMD */
-int		handle_cmd(char *input, t_minishell *mini, char andor[3]);
+int		handle_cmd(char *input, t_minishell *mini, char andor[3],
+			char *input_save);
 t_cmd	*parse_cmd(char *input, t_minishell *mini);
 
 /*** PIPE */
