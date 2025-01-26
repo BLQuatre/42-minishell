@@ -25,7 +25,6 @@ ARFLAGS			=	rcs
 
 CORE_FILES		=	minishell													\
 					signals														\
-					debug														\
 \
 
 CORE_SRC		=	$(addprefix core/, $(CORE_FILES))
