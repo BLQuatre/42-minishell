@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:07:43 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 03:32:36 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 04:37:06 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,19 @@ static void	shift_up_cmd_args(t_cmd *cmd)
 
 static void	cmd_secure(t_cmd *cmd)
 {
-	if (cmd && cmd->cmd_args == NULL)
+	while (cmd)
 	{
-		cmd->cmd_args = malloc(sizeof(char *));
-		cmd->cmd_args[0] = NULL;
-	}
-	else
-	{
-		while (cmd->cmd_args[0] && ft_strlen(cmd->cmd_args[0]) == 0)
-			shift_up_cmd_args(cmd);
+		if (cmd && cmd->cmd_args == NULL)
+		{
+			cmd->cmd_args = malloc(sizeof(char *));
+			cmd->cmd_args[0] = NULL;
+		}
+		else
+		{
+			while (cmd->cmd_args[0] && ft_strlen(cmd->cmd_args[0]) == 0)
+				shift_up_cmd_args(cmd);
+		}
+		cmd = cmd->next_cmd ;
 	}
 }
 
@@ -124,6 +128,6 @@ t_cmd	*handle_pipe(char *input, t_minishell *mini)
 		else
 			i++;
 	}
-	cmd_secure(cmd);
+	cmd_secure(cmd_lstfirst(cmd));
 	return (cmd);
 }
