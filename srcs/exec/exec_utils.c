@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:25:10 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/26 03:00:41 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 05:48:30 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	waitpid_loop(t_cmd *cmd, pid_t *pid, int cmd_nb)
 	int		i;
 
 	i = -1 ;
-	cur = cmd_lstlast(cmd) ;
+	cur = cmd_lstlast(cmd);
 	while (++i < cmd_nb)
 	{
 		if (pid[i] != -1)

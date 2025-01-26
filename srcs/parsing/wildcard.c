@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 00:51:46 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 01:03:44 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 05:41:17 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-// if (DEBUG) debug("WILDC", BRIGHT_YELLOW, "Parsing wildcard in: `%s`", input);
 static void	parse_wildcard(char *input)
 {
 	int		i;

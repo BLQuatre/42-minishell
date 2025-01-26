@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:16:46 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 18:18:26 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 05:44:11 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include "exec.h"
 
 static int	get_close_par_index(char *input)
 {

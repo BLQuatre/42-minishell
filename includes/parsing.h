@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 05:28:58 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 05:47:48 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,29 +85,5 @@ bool	is_valid_quote(char *input, t_quote_type quote_type);
 
 /*** PARENTHESES */
 int		calc_parentheses_depth(int actual_depth, bool in_quotes[2], char c);
-
-/*** DEBUG */
-typedef enum e_color
-{
-	BLACK,
-	RED,
-	GREEN,
-	YELLOW,
-	BLUE,
-	MAGENTA,
-	CYAN,
-	WHITE,
-	BRIGHT_BLACK,
-	BRIGHT_RED,
-	BRIGHT_GREEN,
-	BRIGHT_YELLOW,
-	BRIGHT_BLUE,
-	BRIGHT_MAGENTA,
-	BRIGHT_CYAN,
-	BRIGHT_WHITE
-}	t_color;
-
-void	debug(const char *tag, t_color color, const char *format, ...);
-void	debug_show_cmd(t_cmd *cmd);
 
 #endif

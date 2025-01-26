@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:37:12 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/24 23:35:38 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 05:47:48 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "holylib.h"
 # include "holysignal.h"
 # include "messages.h"
-
-# define DEBUG 0
 
 typedef struct s_minishell
 {

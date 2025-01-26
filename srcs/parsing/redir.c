@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:10:56 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 01:03:02 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 05:42:59 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static t_redir_type	get_redir_type(char *input, int *len)
 	return (OUT_APP);
 }
 
-// if (DEBUG) debug("REDIR", BRIGHT_CYAN, "Redirection: `%s`", input);
 t_redir	*parse_redir(char *input, int *len)
 {
 	int				redir_len;

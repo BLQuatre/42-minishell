@@ -6,64 +6,11 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:33 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 02:40:26 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 05:43:30 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-// char	*parse_arg(char *input, int *len, bool *subshell)
-// {
-// 	bool	in_quotes[2];
-// 	char	*arg;
-// 	int		i;
-
-// 	if (DEBUG) debug("ARG", RED, "Parsing arg: `%s`", input);
-// 	ft_bzero(&in_quotes, sizeof(bool) * 2);
-// 	i = 0;
-// 	while (input[i])
-// 	{
-// 		check_quotes(&in_quotes, input[i]);
-// 		if (in_quotes[S_QUOTE] || in_quotes[D_QUOTE])
-// 		{
-// 			i++;
-// 			continue ;
-// 		}
-// 		if (input[i] == '(')
-// 		{
-// 			arg = parse_subshell(input, &i);
-// 			(*len) += i;
-// 			if (subshell)
-// 				(*subshell) = true;
-// 			return (arg);
-// 		}
-// 		if (input[i] == '>' || input[i] == '<' || input[i] == '|'
-// 			|| input[i] == ' ' || input[i] == '&')
-// 		{
-// 			if (i == 0)
-// 				i++;
-// 			break ;
-// 		}
-// 		i++;
-// 	}
-// 	(*len) += i;
-// 	arg = ft_substr(input, 0, i);
-// 	return (arg);
-// }
-
-// static bool	is_arg_end(char *input, int *i, bool in_quotes[2])
-// {
-// 	if (in_quotes[S_QUOTE] || in_quotes[D_QUOTE])
-// 		return (false);
-// 	if (input[*i] == '>' || input[*i] == '<' || input[*i] == '|'
-// 		|| input[*i] == ' ' || input[*i] == '&')
-// 	{
-// 		if (*i == 0)
-// 			(*i)++;
-// 		return (true);
-// 	}
-// 	return (false);
-// }
 
 static bool	is_arg_end(char *input, int *i, bool in_quotes[2])
 {
