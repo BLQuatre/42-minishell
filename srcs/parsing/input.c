@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:58 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 01:57:49 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 04:15:22 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	process_input(char *input, char *andor, bool *in_quotes)
 }
 
 /***
- * @param input is freed thus should be malloc'd and 
+ * @param input is freed thus should be malloc'd and
  * not accessed afterward
  */
 void	handle_input(char *input, t_minishell *mini)
@@ -75,7 +75,7 @@ void	handle_input(char *input, t_minishell *mini)
 
 	input_save = input ;
 	if (!is_valid_input(input))
-		return (free(input_save));
+		return (mini->exit_code = 2, free(input_save));
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	while (*input)
 	{
