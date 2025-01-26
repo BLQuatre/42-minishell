@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:03:35 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/25 04:59:12 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 03:08:05 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	add_path_to_cmd(t_cmd *cmd, t_minishell *mini)
 	{
 		if (!errno)
 			errno = ENOENT ;
-		if (errno == EACCES || !env_lstget_by_key(mini->env, "PATH"))
+		if (errno == EACCES || !env_lstget_by_key(mini->env, "PATH")
+			|| ft_strchr(cmd->cmd_args[0], '/'))
 			perror(cmd->cmd_args[0]);
 		else
 		{
