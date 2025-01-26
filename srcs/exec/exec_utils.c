@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:25:10 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/25 04:24:52 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 03:00:41 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	waitpid_loop(t_cmd *cmd, pid_t *pid, int cmd_nb)
 	int		i;
 
 	i = -1 ;
-	cur = cmd ;
+	cur = cmd_lstlast(cmd) ;
 	while (++i < cmd_nb)
 	{
 		if (pid[i] != -1)
@@ -32,7 +32,7 @@ void	waitpid_loop(t_cmd *cmd, pid_t *pid, int cmd_nb)
 		else if (!is_builtin(cmd->cmd_args[0])
 			&& !cmd->prev_cmd && !cmd->next_cmd)
 			cmd->exit_code = 1 ;
-		cur = cur->next_cmd ;
+		cur = cur->prev_cmd ;
 	}
 }
 
