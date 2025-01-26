@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:03:35 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/26 04:23:06 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 05:31:44 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ static char	*get_valid_path_cmd(char *cmd, t_minishell *mini)
 {
 	struct stat	buf ;
 
-	if (ft_strchr(cmd, '/'))
+	if (ft_strlen(cmd) == 0)
+	{
+		errno = ENOENT ;
+		return (NULL);
+	}
+	else if (ft_strchr(cmd, '/'))
 	{
 		if (stat(cmd, &buf) == 0 && S_ISDIR(buf.st_mode))
 		{

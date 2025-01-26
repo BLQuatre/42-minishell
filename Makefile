@@ -55,6 +55,7 @@ HOLY_LIB_OBJ	=	$(addprefix holylib/, $(HOLY_LIB_FILES))
 PARSING_FILES	=	input arg cmd												\
 					check check_andor check_parentheses							\
 					check_pipe check_quotes check_redir							\
+					cmd_secure													\
 					envp env_process env_utils									\
 					pipe redir subshell											\
 					quotes quotes_utils											\

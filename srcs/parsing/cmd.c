@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 01:43:53 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 05:27:29 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	handle_sub(t_cmd *cmd, t_minishell *mini)
 	{
 		handle_env(cmd, mini);
 		handle_wildcard(cmd);
+		cmd_secure(cmd);
 		handle_quotes(cmd);
 		cmd = cmd->next_cmd;
 	}

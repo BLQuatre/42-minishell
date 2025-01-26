@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 01:38:04 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 05:28:58 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	handle_input(char *input, t_minishell *mini);
 int		handle_cmd(char *input, t_minishell *mini, char andor[3],
 			char *input_save);
 t_cmd	*parse_cmd(char *input, t_minishell *mini);
+
+void	cmd_secure(t_cmd *cmd);
 
 /*** PIPE */
 t_cmd	*handle_pipe(char *input, t_minishell *mini);
