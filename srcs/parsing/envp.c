@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:17:07 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 22:46:41 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 00:59:39 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ static int	process_dollar(char **input, char *res, t_minishell *mini,
 		*res = '$';
 		return (1);
 	}
+	if ((**input) == '?')
+		return (process_env_exit_code(input, res, mini->exit_code));
 	if (!in_quotes[D_QUOTE] && ((**input) == '\'' || (**input) == '"'))
 		return (0);
-	if (!is_valid_env_char(**input) || ft_isdigit(**input))
+	if (!is_valid_env_char(**input))
 	{
 		*res = '$';
 		return (1);
 	}
-	if ((**input) == '?')
-		return (process_env_exit_code(input, res, mini->exit_code));
 	return (proccess_env_var(input, res, mini->env));
 }
 

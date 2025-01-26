@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 22:30:18 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 22:32:27 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/01/26 00:49:52 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	proccess_env_var(char **input, char *res, t_env *env)
 	env_key = ft_substr(*input, 0, get_env_len(*input));
 	found_env = env_lstget_by_key(env, env_key);
 	free(env_key);
+	env_value_len = process_env_len(input, env, false);
 	if (!found_env)
 		return (0);
-	env_value_len = process_env_len(input, env, false);
 	ft_memcpy(res, found_env->val, env_value_len);
 	return (env_value_len);
 }
