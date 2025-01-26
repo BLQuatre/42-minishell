@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:05:37 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/26 01:59:36 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 03:21:33 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	child_exec(t_cmd *cmd, t_minishell *mini, char *input_save)
 	globstar_redirs(cmd, mini);
 	if (cmd->is_subshell)
 		exec_subshell(cmd, mini);
-	if (!cmd->cmd_args[0])
+	if (!cmd->cmd_args[0] || ft_strlen(cmd->cmd_args[0]) == 0)
 		free_and_exit(cmd, mini, EXIT_SUCCESS);
 	if (is_builtin(cmd->cmd_args[0]))
 		(builtin_exec(cmd, mini), free_and_exit(cmd, mini, cmd->exit_code));
