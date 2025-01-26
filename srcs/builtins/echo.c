@@ -6,7 +6,7 @@
 /*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:08:55 by anoteris          #+#    #+#             */
-/*   Updated: 2025/01/23 22:44:38 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/01/26 04:46:55 by anoteris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ static bool	is_flag_n(char *flag)
 
 void	echo(t_cmd *cmd)
 {
-	bool	flag_n ;
-	int		i ;
+	int	flag_n ;
+	int	i ;
 
 	flag_n = is_flag_n(cmd->cmd_args[1]);
+	while (cmd->cmd_args[flag_n + 1] && is_flag_n(cmd->cmd_args[flag_n + 1]))
+		flag_n++ ;
 	if (get_argc(cmd->cmd_args) > 1)
 	{
 		i = flag_n ;
