@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:17:07 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 00:59:39 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:38:24 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*parse_env(char *input, t_minishell *mini)
 	i = 0;
 	while (*input)
 	{
-		check_quotes(&in_quotes, *input);
+		check_quotes(in_quotes, *input);
 		if (*input == '$' && !in_quotes[S_QUOTE])
 			i += process_dollar(&input, res + i, mini, in_quotes);
 		else

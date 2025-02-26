@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arg.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:33 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 05:43:30 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:37:47 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*parse_arg(char *input, int *len, bool *subshell)
 	i = 0;
 	while (input[i])
 	{
-		check_quotes(&in_quotes, input[i]);
+		check_quotes(in_quotes, input[i]);
 		if (is_arg_end(input, &i, in_quotes))
 			break ;
 		if (input[i] == '(' && !is_in_quotes(in_quotes))

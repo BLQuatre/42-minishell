@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:26:58 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 05:42:57 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:38:29 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	handle_input(char *input, t_minishell *mini)
 	while (*input)
 	{
 		andor[0] = 0;
-		check_quotes(&in_quotes, *input);
+		check_quotes(in_quotes, *input);
 		if (is_in_quotes(in_quotes))
 			continue ;
 		input += process_input(input, andor, in_quotes);

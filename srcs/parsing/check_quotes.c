@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 01:33:30 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 04:43:46 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/02/23 18:38:01 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	is_valid_quote(char *input, t_quote_type quote_type)
 	i = -1;
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	while (input[++i])
-		check_quotes(&in_quotes, input[i]);
+		check_quotes(in_quotes, input[i]);
 	if (in_quotes[quote_type])
 	{
 		if (quote_type == S_QUOTE)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:07:43 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 05:42:58 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:38:32 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_cmd	*handle_pipe(char *input, t_minishell *mini)
 	parentheses = 0;
 	while (input[i])
 	{
-		check_quotes(&in_quotes, input[i]);
+		check_quotes(in_quotes, input[i]);
 		parentheses = calc_parentheses_depth(parentheses, in_quotes, input[i]);
 		if ((input[i] == '|' || !input[i + 1]) && parentheses == 0
 			&& !is_in_quotes(in_quotes))

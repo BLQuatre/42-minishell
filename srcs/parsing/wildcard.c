@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 00:51:46 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 05:41:17 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:39:15 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	parse_wildcard(char *input)
 	ft_bzero(&in_quotes, sizeof(bool) * 2);
 	while (input[i])
 	{
-		check_quotes(&in_quotes, input[i]);
+		check_quotes(in_quotes, input[i]);
 		if (input[i] == '*' && !in_quotes[S_QUOTE] && !in_quotes[D_QUOTE])
 			input[i] *= -1;
 		i++;

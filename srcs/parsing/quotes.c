@@ -6,7 +6,7 @@
 /*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:12:08 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/25 22:41:27 by cauvray          ###   ########.fr       */
+/*   Updated: 2025/02/23 18:39:10 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	count_useless_quotes(char *input)
 	count = 0;
 	while (*input)
 	{
-		check_quotes(&in_quotes, *input);
+		check_quotes(in_quotes, *input);
 		if ((*input == '"' && !in_quotes[S_QUOTE])
 			|| (*input == '\'' && !in_quotes[D_QUOTE]))
 			count++;
@@ -42,7 +42,7 @@ static char	*parse_quotes(char *input)
 	str_i = 0;
 	while (*input)
 	{
-		check_quotes(&in_quotes, *input);
+		check_quotes(in_quotes, *input);
 		if ((*input == '"' && !in_quotes[S_QUOTE])
 			|| (*input == '\'' && !in_quotes[D_QUOTE]))
 			input++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 00:32:27 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 05:47:48 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:37:42 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	handle_wildcard(t_cmd *cmd);
 
 /*** QUOTES */
 // UTILS
-void	check_quotes(bool (*in_quotes)[2], char curr_chr);
+void	check_quotes(bool in_quotes[2], char curr_chr);
 bool	is_in_quotes(bool in_quotes[2]);
 // HANDLER
 void	handle_quotes(t_cmd *cmd);

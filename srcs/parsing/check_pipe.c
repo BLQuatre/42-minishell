@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 01:26:33 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 05:43:12 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:37:57 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ bool	is_valid_pipe(char *input)
 	memset(in_quotes, 0, sizeof(bool) * 2);
 	while (input[++i])
 	{
-		check_quotes(&in_quotes, input[i]);
+		check_quotes(in_quotes, input[i]);
 		if (in_quotes[S_QUOTE] || in_quotes[D_QUOTE])
 			continue ;
 		if (!check_pipe_conditions(input, &i, &pipe_flag))

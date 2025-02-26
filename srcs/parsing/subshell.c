@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:16:46 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 05:44:11 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:39:13 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	get_close_par_index(char *input)
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	while (input[++i])
 	{
-		check_quotes(&in_quotes, input[i]);
+		check_quotes(in_quotes, input[i]);
 		if (is_in_quotes(in_quotes))
 			continue ;
 		if (input[i] == '(')

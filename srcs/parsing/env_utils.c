@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 19:49:33 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 00:54:28 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:38:21 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	get_buffer_size_env(char *input, t_minishell *mini)
 	ft_bzero(in_quotes, sizeof(bool) * 2);
 	while (*input)
 	{
-		check_quotes(&in_quotes, *input);
+		check_quotes(in_quotes, *input);
 		if (*input == '$' && !in_quotes[S_QUOTE])
 			size += process_dollar_len(&input, mini, in_quotes);
 		else

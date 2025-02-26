@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoteris <noterisarthur42@gmail.com>       +#+  +:+       +#+        */
+/*   By: cauvray <cauvray@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 07:04:32 by cauvray           #+#    #+#             */
-/*   Updated: 2025/01/26 05:42:56 by anoteris         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:38:19 by cauvray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	handle_cmd(char *input, t_minishell *mini, char andor[3], char *input_save)
 			&& ft_strncmp(input + i, "&&", 2) != 0
 			&& ft_strncmp(input + i, "||", 2) != 0))
 	{
-		check_quotes(&in_quotes, input[i]);
+		check_quotes(in_quotes, input[i]);
 		par_depth = calc_parentheses_depth(par_depth, in_quotes, input[i]);
 		i++;
 	}
