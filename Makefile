@@ -89,9 +89,13 @@ BUILT_IN_OBJ	=	$(addprefix builtins/, $(BUILT_IN_FILES))
 FILES			=	$(CORE_SRC) $(HOLY_LIB_SRC) $(PARSING_SRC) $(EXEC_SRC) $(BUILT_IN_SRC)
 
 SRC				=	$(addprefix srcs/, $(addsuffix .c, $(FILES)))
-OBJ				=	$(addprefix srcs/, $(addsuffix .o, $(FILES)))
+OBJ				=	$(addprefix objs/, $(addsuffix .o, $(FILES)))
 
 # RULES
+
+objs/%.o		:	srcs/%.c
+					mkdir -p $(dir $@)
+					$(CC) $(CFLAGS) $^ -c -o $@
 
 all				:	$(NAME)
 
@@ -103,7 +107,7 @@ $(NAME)			:	$(OBJ) | $(LIBFT_PATH)
 					echo -e '$(LIGHT_BEIGE) \tCompiled$(DARK_BEIGE) $@'
 
 clean			:
-					$(RM) $(OBJ)
+					$(RM) -rf objs
 					$(MAKE) -C $(LIBFT_DIR) f$@
 					echo -e '$(LIGHT_BEIGE) \tCleaned$(BEIGE) $(OBJ)'
 
